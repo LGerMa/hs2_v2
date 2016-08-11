@@ -94,11 +94,13 @@ $(document).ready(function(){
 	});
 
 	$("#btnModificarPerfil").click(function(){
-		rmvAttr("#nombre","readonly");
+		rmvAttr("#nombre","disabled");
         addAttr("#btnModificarPerfil","disabled","disabled")
         //$("#btnModificarPerfil").attr("disabled","disabled");
 		//$("#nombre").removeAttr("readonly");
+        removeClassAtrb(".newPass","hidden");
         removeClassAtrb("#btnGuardarPerfil","hidden");
+        removeClassAtrb("#btnCancelarPerfil","hidden");
 	});
 
 	$("#form_perfilUsuario").submit(function(event){

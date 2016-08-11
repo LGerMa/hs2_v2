@@ -44,19 +44,27 @@
 						<form id="form_perfilUsuario">
 							<div class="form-group col-md-6">
 								<label>Correo: </label>
-								<input type="email" id="email" class="form-control" value="<?php echo $usuario->getCorreoUsuario(); ?>" readonly>
+								<input type="email" id="email" class="form-control" value="<?php echo $usuario->getCorreoUsuario(); ?>" disabled>
 							</div>
 							<div class="form-group col-md-6">
 								<label>Password: </label>
-								<input type="password" id="pass" class="form-control" value="<?php echo $usuario->getPassUsuario(); ?>" readonly>
+								<input type="password" id="pass" class="form-control" value="<?php echo $usuario->getPassUsuario(); ?>" disabled>
 							</div>
+                            <div class="form-group col-md-6 newPass hidden">
+                                <label>Nuevo Password:</label>
+                                <input type="password" id="newPass" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6 newPass hidden">
+                                <label>Confirmar nuevo password: </label>
+                                <input type="password" id="confirmarNewPass" class="form-control">
+                            </div>
 							<div class="form-group col-md-6">
 								<label>Nombre: </label>
-								<input type="text" id="nombre" class="form-control" value="<?php echo $usuario->getNombreUsuario(); ?>" readonly required>
+								<input type="text" id="nombre" class="form-control" value="<?php echo $usuario->getNombreUsuario(); ?>" disabled required>
 							</div>
 							<div class="form-group col-md-6">
 								<label>Apellido: </label>
-								<input type="text" id="apellido" class="form-control" value="<?php echo $usuario->getApellidoUsuario(); ?>" readonly required>
+								<input type="text" id="apellido" class="form-control" value="<?php echo $usuario->getApellidoUsuario(); ?>" disabled required>
 							</div>
 							<div class="form-group col-md-6">
 								<label>Tipo Usuario:</label>
@@ -136,7 +144,7 @@
                             <div class="col-md-12">
                             	<a href="#" class="btn btn-info" id="btnModificarPerfil">Modificar</a>
                             	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfil">Guardar</button>
-                            	<a href="#" class="btn btn-info hidden" id="btnModificarPerfil">Cancelar</a>
+                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil">Cancelar</a>
                             </div>    
 						</form>
 					</div>

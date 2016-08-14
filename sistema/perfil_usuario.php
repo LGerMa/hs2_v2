@@ -33,12 +33,16 @@
 								echo "<i class='fa fa-star'></i>";
 								if($flagUser){
 									echo "<i class='fa fa-unlock'></i>";
+									$flagModify = 1;
 								}else{
 									echo "<i class='fa fa-lock'></i>";
+									$flagModify = 0;
 								}
 							}
-							else
+							else{
+								$flagModify = 1;
 								echo "<i class='fa fa-user'></i>";
+							}
 						?>	
 						</h1>
 						<form id="form_perfilUsuario">
@@ -141,6 +145,8 @@
                                     ?>
                                 </select>
                             </div>
+                            <div id="respuestaAlert"></div>
+                            <?php //if($flagModify){ // con esto se oculta el modificar?>
                             <div class="col-md-10">
                             	<a href="#" class="btn btn-info" id="btnModificarPerfil">Modificar</a>
                             	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfil">Guardar</button>
@@ -150,7 +156,8 @@
                             			<input type="checkbox" id="chkCambiarPassPerfil"> Cambiar Contrase&ntilde;a
                             		</label>
                             	</div>
-                            </div>    
+                            </div>
+                            <?php //}?>    
 						</form>
 					</div>
 				</div>

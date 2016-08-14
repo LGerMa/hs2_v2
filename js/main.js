@@ -130,16 +130,63 @@ $(document).ready(function(){
 		var puesto = $("#selectPuesto").val();
 		var zona = $("#selectZona").val();
 		var check1 = document.getElementById("chkCambiarPassPerfil").checked;
+		var flag = true;
 		if(check1){ //habra pass nuevo
-			/*if(newPass==confirmarPass){
-				alert("son iguales");
+			flag = false;
+			if(newPass==confirmarPass){
+				//alert("son iguales");
+				pass = newPass;
+				flag = true;
 			}else{
-				alert("no son iguales");
-			}*/
-		}else{
-			pass = pass;
+				//alert("no son iguales");
+				respAlert("warning","No coinciden las contrase&ntilde;as");
+				flag = false;
+			}
 		}
-		alert("guardar!");
+
+		if (flag) {
+			$.ajax({
+				url:'actualizar.php',
+				type: 'POST',
+				data:{
+					opc: 1,
+					email: email,
+					pass: pass,
+					nombre: nombre,
+					apellido: apellido,
+					tipoUsuario: tipoUsuario,
+					unidad: unidad,
+					puesto: puesto,
+					zona: zona
+				},
+				beforeSend: function(){
+					console.log("email: "+email);
+					respAlert("info","Actualizando informaci&oacute;n...");
+				},
+				success: function(data){
+					console.log(data);
+					//respAlert("info","prueba");
+					switch(data[0]){
+						case "0":
+							respAlert("warning","No se ha podido actualizar la informacion del usuario: "+email);
+						break;
+						case "1":
+							setTimeout(function(){
+								respAlert("success","Correcto...redireccionando al inicio");
+								redireccionar("perfil_usuario.php?email="+email);
+							},1000);
+						break;
+					}
+				},
+				error: function(data){
+					console.log(data);
+					respAlert("danger","Error...");
+				}
+			});			
+			//alert("guardar!");
+		}else{
+			//alert("no guardar");
+		}
 		event.preventDefault();
 	});
 });

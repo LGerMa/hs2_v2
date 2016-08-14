@@ -5,7 +5,7 @@
 
 	$num_total_reg=getSizeUser();
 	echo "Total usuarios bd: ".$num_total_reg;
-	$tam_pagina = 5;
+	$tam_pagina = 10;
 	$url = "usuarios.php";
 	@$pagina=$_GET["pagina"];
 	if(!$pagina){
@@ -41,6 +41,7 @@
                        	<div class="table-responsive">
                        		<table class="table table-striped table-bordered">
                        			<tr>
+                              <th class="text-center">#</th>
                        				<th class="text-center">CORREO</th>
                        				<th class="text-center">NOMBRE</th>
                        				<th class="text-center">APELLIDO</th>
@@ -51,6 +52,7 @@
                        			<?php 
                        				for ($i=0; $i < count($vectUsuarios); $i++) { 
                        					echo "<tr>";
+                                echo "<td class='text-center'>".($i+1)."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getCorreoUsuario()."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getNombreUsuario()."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getApellidoUsuario()."</td>";

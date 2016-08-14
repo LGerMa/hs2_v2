@@ -246,6 +246,17 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Cooperativas<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="./agregar_cooperativa.php">Agregar</a>
+                                </li>
+                                <li>
+                                    <a href="./cooperativas.php">Ver</a>
+                                </li>
+                            </ul>
                         </li> 
                         <?php }?>
                         <li>

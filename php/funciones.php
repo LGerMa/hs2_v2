@@ -206,4 +206,20 @@
 		mysqli_close($cnx);
 		return $estado;
 	}
+	function actualizarUsuario($usuario){
+		$cnx = cnx();
+		$query = sprintf("UPDATE usuario SET passUsuario = '%s', nombreUsuario ='%s', apellidoUsuario = '%s', idTipoUsuario = '%s', idUnidad = '%s', idPuesto = '%s', idZona = '%s', fechaModificadoUsuario = now() WHERE correoUsuario = '%s'",
+			mysqli_real_escape_string($cnx, $usuario->getPassUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getNombreUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getApellidoUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getIdTipoUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getIdUnidad()),
+			mysqli_real_escape_string($cnx, $usuario->getIdPuesto()),
+			mysqli_real_escape_string($cnx, $usuario->getIdZona()),
+			mysqli_real_escape_string($cnx, $usuario->getCorreoUsuario())
+			);
+		$estado = mysqli_query($cnx, $query);
+		mysqli_close($cnx);
+		return $estado;
+	}
 ?>

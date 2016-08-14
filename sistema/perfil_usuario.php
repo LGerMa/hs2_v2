@@ -52,11 +52,11 @@
 							</div>
                             <div class="form-group col-md-6 newPass hidden">
                                 <label>Nuevo Password:</label>
-                                <input type="password" id="newPass" class="form-control">
+                                <input type="password" id="newPass" class="form-control" minlength="5" maxlength="10">
                             </div>
                             <div class="form-group col-md-6 newPass hidden">
                                 <label>Confirmar nuevo password: </label>
-                                <input type="password" id="confirmarNewPass" class="form-control">
+                                <input type="password" id="confirmarPass" class="form-control" minlength="5" maxlength="10">
                             </div>
 							<div class="form-group col-md-6">
 								<label>Nombre: </label>
@@ -68,7 +68,7 @@
 							</div>
 							<div class="form-group col-md-6">
 								<label>Tipo Usuario:</label>
-								<select class="form-control" id="selectUnidad" disabled>
+								<select class="form-control" id="selectTipoUsuario" disabled>
 									<?php 
                                     	$vectTipoUser = getAllTipoUser();
                                     	for ($i=0; $i < count($vectTipoUser); $i++) { 
@@ -126,9 +126,9 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6" hidden>
                                 <label>Estado Usuario: </label>
-                                <select class="form-control" id="selectZona" disabled>
+                                <select class="form-control" id="selectEstadoUsuario" disabled>
                                     <?php 
                                     	$vectEstadoUsuario = getAllEstadoUsuario();
                                     	for ($i=0; $i < count($vectEstadoUsuario); $i++) { 
@@ -141,10 +141,15 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                             	<a href="#" class="btn btn-info" id="btnModificarPerfil">Modificar</a>
                             	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfil">Guardar</button>
-                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil">Cancelar</a>
+                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil" onclick="recargarPagina('perfil_usuario.php?email=<?php echo $email?>')">Cancelar</a>
+                            	<div class="checkbox checkOculto hidden">
+                            		<label>
+                            			<input type="checkbox" id="chkCambiarPassPerfil"> Cambiar Contrase&ntilde;a
+                            		</label>
+                            	</div>
                             </div>    
 						</form>
 					</div>

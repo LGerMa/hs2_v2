@@ -95,16 +95,51 @@ $(document).ready(function(){
 
 	$("#btnModificarPerfil").click(function(){
 		rmvAttr("#nombre","disabled");
+		rmvAttr("#apellido","disabled");
+		rmvAttr("#selectUnidad","disabled");
+		rmvAttr("#selectTipoUsuario","disabled");
+		rmvAttr("#selectZona","disabled");
+		rmvAttr("#selectPuesto","disabled");
+		rmvAttr("#selectEstadoUsuario","disabled");
         addAttr("#btnModificarPerfil","disabled","disabled")
-        //$("#btnModificarPerfil").attr("disabled","disabled");
-		//$("#nombre").removeAttr("readonly");
-        removeClassAtrb(".newPass","hidden");
+        //removeClassAtrb(".newPass","hidden");
         removeClassAtrb("#btnGuardarPerfil","hidden");
         removeClassAtrb("#btnCancelarPerfil","hidden");
+        removeClassAtrb(".checkOculto","hidden");
 	});
-
+	$("#chkCambiarPassPerfil").click(function(){
+		if(document.getElementById("chkCambiarPassPerfil").checked){
+			removeClassAtrb(".newPass","hidden");
+			addAttr("#newPass","required","required");
+			addAttr("#confirmarPass","required","required");
+		}else{
+			addClassAtrb(".newPass","hidden");
+			rmvAttr("#newPass","required");
+			rmvAttr("#confirmarPass","required");
+		}
+	});
 	$("#form_perfilUsuario").submit(function(event){
-		prueba();
+		var email = document.getElementById("email").value;
+		var pass = document.getElementById("pass").value;
+		var newPass = document.getElementById("newPass").value;
+		var confirmarPass = document.getElementById("confirmarPass").value;
+		var nombre = document.getElementById("nombre").value;
+		var apellido = document.getElementById("apellido").value;
+		var tipoUsuario = $("#selectTipoUsuario").val();
+		var unidad = $("#selectUnidad").val();
+		var puesto = $("#selectPuesto").val();
+		var zona = $("#selectZona").val();
+		var check1 = document.getElementById("chkCambiarPassPerfil").checked;
+		if(check1){ //habra pass nuevo
+			/*if(newPass==confirmarPass){
+				alert("son iguales");
+			}else{
+				alert("no son iguales");
+			}*/
+		}else{
+			pass = pass;
+		}
+		alert("guardar!");
 		event.preventDefault();
 	});
 });
@@ -117,6 +152,10 @@ function respAlert(tipoAlert, mensaje){
 }
 function redireccionar(pagina){
 	location.href=pagina;
+}
+
+function recargarPagina(pagina){
+	window.location.reload(pagina);
 }
 
 function rmvAttr(idOb,atributo){

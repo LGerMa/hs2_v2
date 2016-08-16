@@ -18,6 +18,18 @@
 		return $flag;
 	}
 
+	function isCooperExist($cooper){
+		$cnx=cnx();
+		$flag=FALSE;
+		$query=sprintf("SELECT * FROM cooperativa where codCooperativa='%s'",mysqli_real_escape_string($cnx,$cooper));
+		$resul=mysqli_query($cnx,$query);
+		$row=mysqli_fetch_array($resul);
+		if($row[0]!="")
+			$flag=TRUE;
+		mysqli_close($cnx);
+		return $flag;
+	}
+
 	function isLoginOk($user,$pass){
 		$cnx=cnx();
 		$query=sprintf("SELECT passUsuario FROM usuario where correoUsuario='%s'", mysqli_real_escape_string($cnx,$user));
@@ -189,6 +201,26 @@
 		mysqli_close($cnx);
 		return $vectUsuario;
 	}
+	function getCooperativas($inicio,$tamanio){
+		$cnx=cnx();
+		$query="SELECT * FROM cooperativa order by fechaRegistroCooperativa DESC LIMIT ".$inicio.",".$tamanio;
+		$result=mysqli_query($cnx,$query);
+		while ($row=mysqli_fetch_array($result)) {
+			$cooperativa = new cooperativa_class();
+			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
+			$cooperativa->_setPassCooperativa($row["passCooperativa"]);
+			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
+			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
+			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
+			$cooperativa->_setTelefonoCooperativa($row["telefonoCooperativa"]);			
+			$cooperativa->_setFechaRegistroCooperativa($row["fechaRegistroCooperativa"]);
+			$cooperativa->_setFechaModificadoCooperativa($row["fechaModificadoCooperativa"]);
+			$vectCooperativa[]=$cooperativa;
+		}
+		mysqli_close($cnx);
+		return $vectCooperativa;
+	}
 	function insertarUsuario($usuario){
 		$cnx=cnx();
 		$query = sprintf("INSERT INTO usuario(correoUsuario,passUsuario,nombreUsuario,apellidoUsuario,idTipoUsuario,idUnidad,idPuesto,idZona,idEstadoUsuario,fechaRegistroUsuario,fechaModificadoUsuario) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s',now(), null)",
@@ -202,6 +234,22 @@
 			mysqli_real_escape_string($cnx,$usuario->getIdZona()),
 			mysqli_real_escape_string($cnx,$usuario->getIdEstadoUsuario())
 			);
+		$estado = mysqli_query($cnx,$query);
+		mysqli_close($cnx);
+		return $estado;
+	}
+	function insertarCooperativa($cooperativa){
+		$cnx=cnx();
+		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s','%s','%s','%s',now(), null)",
+			mysqli_real_escape_string($cnx,$cooperativa->getCodCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getPassCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getNombreCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getDireccionCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getContactoCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getCorreoContactoCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getTelefonoCooperativa())
+			);
+		//echo("estado: ".$estado);
 		$estado = mysqli_query($cnx,$query);
 		mysqli_close($cnx);
 		return $estado;

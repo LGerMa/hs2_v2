@@ -23,66 +23,45 @@
                 <div class="row">
                     <div class="col-sm-10 col-lg-10">
                         <h1 class="page-header">Agregar nueva cooperativa</h1>
-                        <form id="form_agregarUser">
+                        <?php 
+                        $palabra = "cp".date("y")."_".md5(time());
+                        $palabra2 = substr($palabra,0,-25);
+                        $palabra2 = strtoupper($palabra2);
+                        echo "<br> palabra2: ".$palabra2." size: ".strlen($palabra2);
+                        ?>
+                        <form id="form_agregarCooper">
                         	<div class="form-group col-md-6">
-                                <label>Email</label>
-                        		<input type="email" id="email" name="email" autofocus class="form-control" placeholder="E-mail" required>	
+                                <label>C&oacute;digo Cooperativa</label>
+                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>">	
                         	</div>
-                        	<div class="form-group col-md-6">
-                                <label>Contrase&ntilde;a</label>
-								<input type="password" id="pass" name="password" class="form-control" placeholder="Contrase&ntilde;a" required minlength="5" maxlength="10">
-							</div>
 							<div class="form-group col-md-6">
-                                <label>Confirmar Contrase&ntilde;a</label>
-								<input type="password" id="confirmarPass" name="confirmarPass" class="form-control" placeholder="Confirmar Contrase&ntilde;a" required minlength="5" maxlength="10">
-							</div>
-							<div class="form-group col-md-6">
-                                <label>Nombre</label>
-                        		<input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>	
+                                <label>Nombre Cooperativa</label>
+                        		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required>	
                         	</div>
-                        	<div class="form-group col-md-6">
-                                <label>Apellido</label>
-                        		<input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido" required>	
+                        	<div class="form-group col-md-12">
+                                <label>Direci&oacute;n Cooperativa</label>
+                        		<textarea id="direccionCoop" name="direccionCoop" class="form-control" placeholder="Direci&oacute;n Cooperativa" required></textarea>	
                         	</div>
                             <div class="form-group col-md-6">
-                                <label>Unidad</label>
-                                <select class="form-control" id="selectUnidad">
-									<?php 
-                                    	$vectUnidad = getAllUnidad();
-                                    	for ($i=0; $i < count($vectUnidad); $i++) { 
-                                    		$unidad = strtoupper($vectUnidad[$i]->getUnidad());
-                                    		echo "<option value=".$vectUnidad[$i]->getIdUnidad().">".$unidad."</option>";
-                                    	}
-                                    ?>
-                                </select>
+                                <label>Contacto</label>
+                                <input type="text" id="contactoCoop" name="contactoCoop" class="form-control" placeholder="Contacto" required> 
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Puesto</label>
-                                <select class="form-control" id="selectPuesto">
-                                    <?php 
-                                    	$vectPuesto = getAllPuesto();
-                                    	for ($i=0; $i < count($vectPuesto); $i++) { 
-                                    		$puesto = strtoupper($vectPuesto[$i]->getPuesto());
-                                    		echo "<option value=".$vectPuesto[$i]->getIdPuesto().">".$puesto."</option>";
-                                    	}
-                                    ?>
-                                </select>
+                                <label>Correo Contacto</label>
+                                <input type="email" id="emailContactoCoop" name="emailContactoCoop" class="form-control" placeholder="Correo Contacto"> 
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Zona</label>
-                                <select class="form-control" id="selectZona">
-                                    <?php 
-                                    	$vectZona = getAllZona();
-                                    	for ($i=0; $i < count($vectZona); $i++) { 
-                                    		$zona = strtoupper($vectZona[$i]->getTipoZona());
-                                    		echo "<option value=".$vectZona[$i]->getIdZona().">".$zona."</option>";
-                                    	}
-                                    ?>
-                                </select>
+                                <label>Tel&eacute;fono Cooperativa</label>
+                                <input type="text" id="telefonoCoop" name="telefonoCoop" class="form-control" placeholder="Tel&eacute;fono Cooperativa" maxlength="9" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Fecha Registro</label>
+                                <input type="text" class="form-control" value="<?php echo date('d-m-y'); ?>" disabled>
                             </div>
                             <div id="respuestaAlert"></div>
-                            <button type="submit" class="btn btn-info"> Enviar </button>
-                            <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarUsuario">Registrar</a>
+                            <div class="col-md-10">
+                                <button type="submit" class="btn btn-info"> Enviar </button>
+                            </div>
                         </form>
                     </div>
                     <!-- /.col-lg-12 -->

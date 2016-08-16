@@ -189,6 +189,57 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 	});
+	$("#form_agregarCooper").submit(function(event){
+		var codigoCoop = $("#codigoCoop").val();
+		var nombreCoop = $("#nombreCoop").val();
+		var direccionCoop = $("#direccionCoop").val();
+		var contactoCoop = $("#contactoCoop").val();
+		var emailContactoCoop = $("#emailContactoCoop").val();
+		var telefonoCoop = $("#telefonoCoop").val();
+		if(emailContactoCoop==""){
+			emailContactoCoop = "null";
+		}
+		console.log(emailContactoCoop);
+		$.ajax({
+			url: 'agregar.php',
+			type: "POST",
+			data:{
+				opc:2,
+				codigoCoop:codigoCoop,
+				nombreCoop:nombreCoop,
+				direccionCoop:direccionCoop,
+				contactoCoop:contactoCoop,
+				emailContactoCoop:emailContactoCoop,
+				telefonoCoop:telefonoCoop
+			},
+			beforeSend:function(){
+				console.log("codigoCoop: "+codigoCoop);
+				respAlert("info","Agregando una nueva cooperativa...");
+			}, 
+			success: function(data){
+				console.log(data);
+				switch(data[0]){
+					case "0":
+						respAlert("warning","Ya existe la cooperativa: "+codigoCoop);
+					break;
+					case "1":
+						respAlert("warning","No se ha podido insertar a la BD");
+					break;
+					case "2":
+						setTimeout(function(){
+							respAlert("success","Correcto...redireccionando al inicio");
+							redireccionar("home.php");
+						},1000);
+					break;
+				}
+			},
+			error: function(data){
+				console.log(data);
+				respAlert("danger","Error...");
+			}
+		});
+		event.preventDefault();
+	});
 });
 function prueba() {
 	alert("Click");

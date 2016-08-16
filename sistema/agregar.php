@@ -28,13 +28,26 @@
 					echo "1";
 				}
 			}
-			//echo "correo: ".$usuario->getCorreoUsuario();
-			/*if(insertarUsuario($usuario)){
-				echo "Se ha creado correctamente!";
+			break;
+		case "2":
+			if(isCooperExist($_POST["codigoCoop"])){
+				echo "0";
 			}else{
-				echo "Error";
-			}*/
-			# code...
+				$cooperativa = new cooperativa_class();
+				$cooperativa->_setCodCooperativa($_POST["codigoCoop"]);
+				$cooperativa->_setPassCooperativa($_POST["codigoCoop"]);
+				$cooperativa->_setNombreCooperativa($_POST["nombreCoop"]);
+				$cooperativa->_setDireccionCooperativa($_POST["direccionCoop"]);
+				$cooperativa->_setContactoCooperativa($_POST["contactoCoop"]);
+				$cooperativa->_setCorreoContactoCooperativa($_POST["emailContactoCoop"]);
+				$cooperativa->_setTelefonoCooperativa($_POST["telefonoCoop"]);
+				if(insertarCooperativa($cooperativa)){
+					echo "2";
+				}else{
+					echo "1";
+				}
+			}
+			
 			break;
 		
 		default:

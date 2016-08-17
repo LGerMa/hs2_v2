@@ -2,19 +2,16 @@
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
 	include '../php/verificar_admin.php';
-	$email = $_GET["email"];
-	$usuario = new usuario_class();
-	$usuario = getInfoUser($email);
-	$flagUser = 0;
-	if(strcmp($_SESSION['usuario_sesion']->getCorreoUsuario(), $usuario->getCorreoUsuario()) == 0)
-		$flagUser = 1; //si el perfil de la sesion es igual del usuario que se va a modificar
+	$codCooper = $_GET["codCooper"];
+	$cooper = new cooperativa_class();
+	$cooper = getInfoCooper($codCooper);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Perfil Usuario</title>
+	<title>Perfil Cooperativa</title>
 	<?php include 'addCss.php'; ?>
 </head>
 <body>
@@ -26,33 +23,17 @@
 				<div class="row">
 					<div class="col-sm-10 col-md-10">
 						<br>
-						<a href="usuarios.php" class="btn btn-success">Atr&aacute;s</a>
-						<h1 class="page-header">Perfil: 
-						<?php echo $usuario->getCorreoUsuario()." - "; 
-							if(isAdmin($usuario->getCorreoUsuario())){
-								echo "<i class='fa fa-star'></i>";
-								if($flagUser){
-									echo "<i class='fa fa-unlock'></i>";
-									$flagModify = 1;
-								}else{
-									echo "<i class='fa fa-lock'></i>";
-									$flagModify = 0;
-								}
-							}
-							else{
-								$flagModify = 1;
-								echo "<i class='fa fa-user'></i>";
-							}
-						?>	
+						<a href="cooperativas.php" class="btn btn-success">Atr&aacute;s</a>
+						<h1 class="page-header">Perfil: <?php echo "codCooper->".$cooper->getCodCooperativa(); ?>	
 						</h1>
-						<form id="form_perfilUsuario">
+						<form id="form_perfilCooperativa">
 							<div class="form-group col-md-6">
-								<label>Correo: </label>
-								<input type="email" id="email" class="form-control" value="<?php echo $usuario->getCorreoUsuario(); ?>" disabled>
-							</div>
-							<div class="form-group col-md-6">
+                                <label>C&oacute;digo Cooperativa</label>
+                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>">	
+                        	</div>
+                        	<div class="form-group col-md-6">
 								<label>Password: </label>
-								<input type="password" id="pass" class="form-control" value="<?php echo $usuario->getPassUsuario(); ?>" disabled>
+								<input type="password" id="pass" class="form-control" value="<?php echo $cooper->getPassCooperativa(); ?>" disabled>
 							</div>
                             <div class="form-group col-md-6 newPass hidden">
                                 <label>Nuevo Password:</label>
@@ -63,101 +44,36 @@
                                 <input type="password" id="confirmarPass" class="form-control" minlength="5" maxlength="10">
                             </div>
 							<div class="form-group col-md-6">
-								<label>Nombre: </label>
-								<input type="text" id="nombre" class="form-control" value="<?php echo $usuario->getNombreUsuario(); ?>" disabled required>
-							</div>
-							<div class="form-group col-md-6">
-								<label>Apellido: </label>
-								<input type="text" id="apellido" class="form-control" value="<?php echo $usuario->getApellidoUsuario(); ?>" disabled required>
-							</div>
-							<div class="form-group col-md-6">
-								<label>Tipo Usuario:</label>
-								<select class="form-control" id="selectTipoUsuario" disabled>
-									<?php 
-                                    	$vectTipoUser = getAllTipoUser();
-                                    	for ($i=0; $i < count($vectTipoUser); $i++) { 
-                                    		$tipoUser = strtoupper($vectTipoUser[$i]->getTipoUsuario());
-                                    		if($usuario->getIdTipoUsuario()==($i+1))
-                                    			echo "<option value=".$vectTipoUser[$i]->getIdTipoUsuario()." selected>".$tipoUser."</option>";
-                                    		else
-                                    			echo "<option value=".$vectTipoUser[$i]->getIdTipoUsuario().">".$tipoUser."</option>";
-                                    	}
-                                    ?>
-								</select>
-							</div>
-							<div class="form-group col-md-6">
-								<label>Unidad: </label>
-								<select class="form-control" id="selectUnidad" disabled>
-									<?php 
-                                    	$vectUnidad = getAllUnidad();
-                                    	for ($i=0; $i < count($vectUnidad); $i++) { 
-                                    		$unidad = strtoupper($vectUnidad[$i]->getUnidad());
-                                    		if($usuario->getIdUnidad()==($i+1))
-                                    			echo "<option value=".$vectUnidad[$i]->getIdUnidad()." selected>".$unidad."</option>";
-                                    		else
-                                    			echo "<option value=".$vectUnidad[$i]->getIdUnidad().">".$unidad."</option>";
-                                    	}
-                                    ?>
-								</select>
-							</div>
-							<div class="form-group col-md-6">
-								<label>Puesto:</label>
-                                <select class="form-control" id="selectPuesto" disabled>
-                                    <?php 
-                                    	$vectPuesto = getAllPuesto();
-                                    	for ($i=0; $i < count($vectPuesto); $i++) { 
-                                    		$puesto = strtoupper($vectPuesto[$i]->getPuesto());
-                                    		if($usuario->getIdPuesto()==($i+1))
-                                    			echo "<option value=".$vectPuesto[$i]->getIdPuesto()." selected>".$puesto."</option>";
-                                    		else
-                                    			echo "<option value=".$vectPuesto[$i]->getIdPuesto().">".$puesto."</option>";
-                                    	}
-                                    ?>
-                                </select>
-							</div>
-							<div class="form-group col-md-6">
-                                <label>Zona: </label>
-                                <select class="form-control" id="selectZona" disabled>
-                                    <?php 
-                                    	$vectZona = getAllZona();
-                                    	for ($i=0; $i < count($vectZona); $i++) { 
-                                    		$zona = strtoupper($vectZona[$i]->getTipoZona());
-                                    		if($usuario->getIdZona()==($i+1))
-                                    			echo "<option value=".$vectZona[$i]->getIdZona()." selected>".$zona."</option>";
-                                    		else
-                                    			echo "<option value=".$vectZona[$i]->getIdZona().">".$zona."</option>";
-                                    	}
-                                    ?>
-                                </select>
+                                <label>Nombre Cooperativa</label>
+                        		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required>	
+                        	</div>
+                            <div class="form-group col-md-6">
+                                <label>Contacto</label>
+                                <input type="text" id="contactoCoop" name="contactoCoop" class="form-control" placeholder="Contacto" required> 
                             </div>
-                            <div class="form-group col-md-6" hidden>
-                                <label>Estado Usuario: </label>
-                                <select class="form-control" id="selectEstadoUsuario" disabled>
-                                    <?php 
-                                    	$vectEstadoUsuario = getAllEstadoUsuario();
-                                    	for ($i=0; $i < count($vectEstadoUsuario); $i++) { 
-                                    		$estado = strtoupper($vectEstadoUsuario[$i]->getEstadoUsuario());
-                                    		if($usuario->getIdEstadoUsuario()==($i+1))
-                                    			echo "<option value=".$vectEstadoUsuario[$i]->getIdEstadoUsuario()." selected>".$estado."</option>";
-                                    		else
-                                    			echo "<option value=".$vectEstadoUsuario[$i]->getIdEstadoUsuario().">".$estado."</option>";
-                                    	}
-                                    ?>
-                                </select>
+                            <div class="form-group col-md-6">
+                                <label>Correo Contacto</label>
+                                <input type="email" id="emailContactoCoop" name="emailContactoCoop" class="form-control" placeholder="Correo Contacto"> 
                             </div>
+                            <div class="form-group col-md-6">
+                                <label>Tel&eacute;fono Cooperativa</label>
+                                <input type="text" id="telefonoCoop" name="telefonoCoop" class="form-control" placeholder="Tel&eacute;fono Cooperativa" maxlength="9" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Direci&oacute;n Cooperativa</label>
+                        		<textarea id="direccionCoop" name="direccionCoop" class="form-control" placeholder="Direci&oacute;n Cooperativa" required></textarea>	
+                        	</div>
                             <div id="respuestaAlert"></div>
-                            <?php //if($flagModify){ // con esto se oculta el modificar?>
                             <div class="col-md-10">
                             	<a href="#" class="btn btn-info" id="btnModificarPerfil">Modificar</a>
                             	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfil">Guardar</button>
-                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil" onclick="recargarPagina('perfil_usuario.php?email=<?php echo $email?>')">Cancelar</a>
+                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil" onclick="recargarPagina('perfil_cooperativa.php?codCooper=<?php echo $codCooperl?>')">Cancelar</a>
                             	<div class="checkbox checkOculto hidden">
                             		<label>
                             			<input type="checkbox" id="chkCambiarPassPerfil"> Cambiar Contrase&ntilde;a
                             		</label>
                             	</div>
-                            </div>
-                            <?php //}?>    
+                            </div>  
 						</form>
 					</div>
 				</div>

@@ -79,6 +79,27 @@
 		return $usuario;
 	}
 
+	function getInfoCooper($cooper){
+		$cnx = cnx();
+		$query = sprintf("SELECT * FROM cooperativa WHERE codCooperativa='%s'",
+			mysqli_real_escape_string($cnx,$cooper));
+		$result = mysqli_query($cnx,$query);
+		while ($row=mysqli_fetch_array($result)) {
+			$cooperativa = new cooperativa_class();
+			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
+			$cooperativa->_setPassCooperativa($row["passCooperativa"]);
+			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
+			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
+			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
+			$cooperativa->_setTelefonoCooperativa($row["telefonoCooperativa"]);			
+			$cooperativa->_setFechaRegistroCooperativa($row["fechaRegistroCooperativa"]);
+			$cooperativa->_setFechaModificadoCooperativa($row["fechaModificadoCooperativa"]);
+		}
+		mysqli_close($cnx);
+		return $cooperativa;
+	}
+
 	function getAllTipoUser(){
 		$cnx=cnx();
 		$query="SELECT * FROM tipoUsuario";

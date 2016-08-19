@@ -118,6 +118,79 @@ $(document).ready(function(){
 			rmvAttr("#confirmarPass","required");
 		}
 	});
+	$("#btnModificarPerfilCooper").click(function(){
+		rmvAttr("#nombreCoop","disabled");
+		rmvAttr("#contactoCoop","disabled");
+		rmvAttr("#emailContactoCoop","disabled");
+		rmvAttr("#telefonoCoop","disabled");
+		rmvAttr("#direccionCoop","disabled");
+		removeClassAtrb("#btnGuardarPerfilCooper","hidden");
+        removeClassAtrb("#btnCancelarPerfilCooper","hidden");
+        removeClassAtrb(".checkOculto","hidden");
+	});
+	$("#form_perfilCooperativa").submit(function(event){
+		var codigoCoop = $("#codigoCoop").val();
+		var pass = $("#pass").val();
+		var newPass = $("#newPass").val();
+		var confirmarPass = $("#confirmarPass").val();
+		var nombreCoop = $("#nombreCoop").val();
+		var contactoCoop = $("#contactoCoop").val();
+		var emailContactoCoop = $("#emailContactoCoop").val();
+		var telefonoCoop = $("#telefonoCoop").val();
+		var direccionCoop = $("#direccionCoop").val();
+		var check1 = $("#chkCambiarPassPerfil").prop("checked");
+		var flag = true;
+		if(check1){
+			flag = false;
+			if(newPass==confirmarPass){
+				pass = newPass;
+				flag = true;
+			}else{
+				respAlert("warning","No coinciden las contrase&ntilde;as");
+				flag = false;
+			}
+		}
+		if(flag){
+			$.ajax({
+				url: 'actualizar.php',
+				type: 'POST',
+				data:{
+					opc:2,
+					codigoCoop:codigoCoop,
+					pass:pass,
+					nombreCoop:nombreCoop,
+					contactoCoop:contactoCoop,
+					emailContactoCoop:emailContactoCoop,
+					telefonoCoop:telefonoCoop,
+					direccionCoop:direccionCoop
+				},
+				beforeSend:function(){
+					console.log("codigoCoop: "+codigoCoop);
+					respAlert("info","Actualizando informaci&oacute;n...");
+				},
+				success:function(data){
+					console.log(data);
+					//respAlert("info","prueba");
+					switch(data[0]){
+						case "0":
+							respAlert("warning","No se ha podido actualizar la informacion de la cooperativa: "+codigoCoop);
+						break;
+						case "1":
+							setTimeout(function(){
+								respAlert("success","Correcto...redireccionando al inicio");
+								redireccionar("perfil_cooperativa.php?codCooper="+codigoCoop);
+							},1000);
+						break;
+					}
+				},
+				error:function(data){
+					console.log(data);
+					respAlert("danger","Error...");
+				}
+			});
+		}
+		event.preventDefault();
+	});
 	$("#form_perfilUsuario").submit(function(event){
 		var email = document.getElementById("email").value;
 		var pass = document.getElementById("pass").value;

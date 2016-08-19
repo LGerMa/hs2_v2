@@ -37,7 +37,7 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-10 col-lg-10">
+                    <div class="col-sm-11">
                         <h1 class="page-header">Cooperativas</h1><br>
                        	<div class="table-responsive">
                        		<table class="table table-striped table-bordered">
@@ -47,17 +47,22 @@
                        				<th class="text-center">NOMBRE COOPERATIVA</th>
                        				<th class="text-center">CONTACTO COOPERATIVA</th>
                        				<th class="text-center">TELEFONO COOPERATIVA</th>
-                       				<th class="text-center">EDITAR</th>
+                              <th class="text-center">FECHA REGISTRO</th>
+                       				<th class="text-center">VER PERFIL</th>
                        			</tr>
                        			<?php 
                        				for ($i=0; $i < count($vectCooper); $i++) { 
+                                $fecha = $vectCooper[$i]->getFechaRegistroCooperativa();
+                                $fecha = strtotime($fecha);
+                                $nuevoFomato = date("d/m/y g:i A",$fecha);
                        					echo "<tr>";
                                 echo "<td class='text-center'>".($i+1)."</td>";
                        					echo "<td class='text-center'>".$vectCooper[$i]->getCodCooperativa()."</td>";
                        					echo "<td class='text-center'>".$vectCooper[$i]->getNombreCooperativa()."</td>";
                        					echo "<td class='text-center'>".$vectCooper[$i]->getContactoCooperativa()."</td>";
                        					echo "<td class='text-center'>".$vectCooper[$i]->getTelefonoCooperativa()."</td>";
-                       					echo "<td class='text-center'><a href='perfil_cooperativa.php?codCooper=".$vectCooper[$i]->getCodCooperativa()."'><i class='fa fa-pencil'></i></a></td>";
+                                echo "<td class='text-center'>".$nuevoFomato."</td>";
+                       					echo "<td class='text-center'><a href='perfil_cooperativa.php?codCooper=".$vectCooper[$i]->getCodCooperativa()."'><i class='fa fa-eye'></i></a></td>";
                        					echo "</tr>";
                        				}
                        			?>

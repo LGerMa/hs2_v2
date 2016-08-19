@@ -36,7 +36,7 @@
 		$result=mysqli_query($cnx,$query);
 		$flag=FALSE;
 		while($row=mysqli_fetch_array($result)){
-			if($row["passUsuario"]==$pass){
+			if($row["passUsuario"]==md5($pass)){
 				$flag=TRUE;
 			}
 		}
@@ -64,7 +64,7 @@
 		while ($row=mysqli_fetch_array($result)) {
 			$usuario = new usuario_class();
 			$usuario->_setCorreoUsuario($row["correoUsuario"]);
-			$usuario->_setPassUsuario($row["passUsuario"]);
+			$usuario->_setPassUsuario(md5($row["passUsuario"]));
 			$usuario->_setNombreUsuario($row["nombreUsuario"]);
 			$usuario->_setApellidoUsuario($row["apellidoUsuario"]);
 			$usuario->_setIdTipoUsuario($row["idTipoUsuario"]);
@@ -87,7 +87,7 @@
 		while ($row=mysqli_fetch_array($result)) {
 			$cooperativa = new cooperativa_class();
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
-			$cooperativa->_setPassCooperativa($row["passCooperativa"]);
+			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
@@ -207,7 +207,7 @@
 		while ($row=mysqli_fetch_array($result)) {
 			$usuario = new usuario_class();
 			$usuario->_setCorreoUsuario($row["correoUsuario"]);
-			$usuario->_setPassUsuario($row["passUsuario"]);
+			$usuario->_setPassUsuario(md5($row["passUsuario"]));
 			$usuario->_setNombreUsuario($row["nombreUsuario"]);
 			$usuario->_setApellidoUsuario($row["apellidoUsuario"]);
 			$usuario->_setIdTipoUsuario($row["idTipoUsuario"]);
@@ -229,7 +229,7 @@
 		while ($row=mysqli_fetch_array($result)) {
 			$cooperativa = new cooperativa_class();
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
-			$cooperativa->_setPassCooperativa($row["passCooperativa"]);
+			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
@@ -246,7 +246,7 @@
 		$cnx=cnx();
 		$query = sprintf("INSERT INTO usuario(correoUsuario,passUsuario,nombreUsuario,apellidoUsuario,idTipoUsuario,idUnidad,idPuesto,idZona,idEstadoUsuario,fechaRegistroUsuario,fechaModificadoUsuario) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s',now(), null)",
 			mysqli_real_escape_string($cnx,$usuario->getCorreoUsuario()),
-			mysqli_real_escape_string($cnx,$usuario->getPassUsuario()),
+			mysqli_real_escape_string($cnx,md5($usuario->getPassUsuario())),
 			mysqli_real_escape_string($cnx,$usuario->getNombreUsuario()),
 			mysqli_real_escape_string($cnx,$usuario->getApellidoUsuario()),
 			mysqli_real_escape_string($cnx,$usuario->getIdTipoUsuario()),
@@ -263,7 +263,7 @@
 		$cnx=cnx();
 		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s','%s','%s','%s',now(), null)",
 			mysqli_real_escape_string($cnx,$cooperativa->getCodCooperativa()),
-			mysqli_real_escape_string($cnx,$cooperativa->getPassCooperativa()),
+			mysqli_real_escape_string($cnx,md5($cooperativa->getPassCooperativa())),
 			mysqli_real_escape_string($cnx,$cooperativa->getNombreCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getDireccionCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getContactoCooperativa()),
@@ -278,7 +278,7 @@
 	function actualizarUsuario($usuario){
 		$cnx = cnx();
 		$query = sprintf("UPDATE usuario SET passUsuario = '%s', nombreUsuario ='%s', apellidoUsuario = '%s', idTipoUsuario = '%s', idUnidad = '%s', idPuesto = '%s', idZona = '%s', fechaModificadoUsuario = now() WHERE correoUsuario = '%s'",
-			mysqli_real_escape_string($cnx, $usuario->getPassUsuario()),
+			mysqli_real_escape_string($cnx, md5($usuario->getPassUsuario())),
 			mysqli_real_escape_string($cnx, $usuario->getNombreUsuario()),
 			mysqli_real_escape_string($cnx, $usuario->getApellidoUsuario()),
 			mysqli_real_escape_string($cnx, $usuario->getIdTipoUsuario()),
@@ -286,6 +286,21 @@
 			mysqli_real_escape_string($cnx, $usuario->getIdPuesto()),
 			mysqli_real_escape_string($cnx, $usuario->getIdZona()),
 			mysqli_real_escape_string($cnx, $usuario->getCorreoUsuario())
+			);
+		$estado = mysqli_query($cnx, $query);
+		mysqli_close($cnx);
+		return $estado;
+	}
+	function actualizarCooperativa($cooper){
+		$cnx = cnx();
+		$query = sprintf("UPDATE cooperativa SET passCooperativa = '%s', nombreCooperativa ='%s', direccionCooperativa = '%s', contactoCooperativa = '%s', correoContactoCooperativa = '%s', telefonoCooperativa = '%s',fechaModificadoCooperativa = now() WHERE codCooperativa = '%s'",
+			mysqli_real_escape_string($cnx, md5($cooper->getPassCooperativa())),
+			mysqli_real_escape_string($cnx, $cooper->getNombreCooperativa()),
+			mysqli_real_escape_string($cnx, $cooper->getDireccionCooperativa()),
+			mysqli_real_escape_string($cnx, $cooper->getContactoCooperativa()),
+			mysqli_real_escape_string($cnx, $cooper->getCorreoContactoCooperativa()),
+			mysqli_real_escape_string($cnx, $cooper->getTelefonoCooperativa()),
+			mysqli_real_escape_string($cnx, $cooper->getCodCooperativa())
 			);
 		$estado = mysqli_query($cnx, $query);
 		mysqli_close($cnx);

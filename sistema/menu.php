@@ -260,6 +260,17 @@
                         </li> 
                         <?php }?>
                         <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proyectado <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="./agregar_proyectado.php">Agregar</a>
+                                </li>
+                                <li>
+                                    <a href="./proyectado.php">Ver</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>

@@ -15,7 +15,7 @@
 		$inicio = ($pagina-1)*$tam_pagina;
 	}
 	$total_paginas=ceil($num_total_reg/$tam_pagina);
-	echo "numero de paginas: ".$total_paginas;
+	echo "numero de paginas: ".$total_paginas." - inicio: ".$inicio;
 	$vectUsuarios = getUsers($inicio,$tam_pagina);
  ?>
  <!DOCTYPE html>
@@ -36,7 +36,7 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-10 col-lg-10">
+                    <div class="col-sm-11 col-lg-11">
                         <h1 class="page-header">Usuarios</h1><br>
                        	<div class="table-responsive">
                        		<table class="table table-striped table-bordered">
@@ -47,18 +47,23 @@
                        				<th class="text-center">APELLIDO</th>
                        				<th class="text-center">UNIDAD</th>
                        				<th class="text-center">TIPO USUARIO</th>
-                       				<th class="text-center">EDITAR</th>
+                              <th class="text-center">FECHA REGISTRO</th>
+                       				<th class="text-center">VER PERFIL</th>
                        			</tr>
                        			<?php 
                        				for ($i=0; $i < count($vectUsuarios); $i++) { 
+                                $fecha = $vectUsuarios[$i]->getFechaRegistroUsuario();
+                                $fecha = strtotime($fecha);
+                                $nuevoFomato = date("d/m/y g:i A",$fecha);
                        					echo "<tr>";
-                                echo "<td class='text-center'>".($i+1)."</td>";
+                                echo "<td class='text-center'>".($inicio+$i+1)."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getCorreoUsuario()."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getNombreUsuario()."</td>";
                        					echo "<td class='text-center'>".$vectUsuarios[$i]->getApellidoUsuario()."</td>";
                        					echo "<td class='text-center'>".getUnidad($vectUsuarios[$i]->getIdUnidad())."</td>";
                        					echo "<td class='text-center'>".strtoupper(getTipoUser($vectUsuarios[$i]->getIdTipoUsuario()))."</td>";
-                       					echo "<td class='text-center'><a href='perfil_usuario.php?email=".$vectUsuarios[$i]->getCorreoUsuario()."'><i class='fa fa-pencil'></i></a></td>";
+                                echo "<td class='text-center'>".$nuevoFomato."</td>";
+                       					echo "<td class='text-center'><a href='perfil_usuario.php?email=".$vectUsuarios[$i]->getCorreoUsuario()."'><i class='fa fa-eye'></i></a></td>";
                        					echo "</tr>";
                        				}
                        			?>

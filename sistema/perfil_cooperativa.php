@@ -5,6 +5,11 @@
 	$codCooper = $_GET["codCooper"];
 	$cooper = new cooperativa_class();
 	$cooper = getInfoCooper($codCooper);
+	if($cooper->getCorreoContactoCooperativa()=="null"){
+		$correoCooper = "";
+	}else{
+		$correoCooper = $cooper->getCorreoContactoCooperativa();
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +34,7 @@
 						<form id="form_perfilCooperativa">
 							<div class="form-group col-md-6">
                                 <label>C&oacute;digo Cooperativa</label>
-                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>">	
+                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" disabled value="<?php echo $cooper->getCodCooperativa(); ?>">	
                         	</div>
                         	<div class="form-group col-md-6">
 								<label>Password: </label>
@@ -45,29 +50,29 @@
                             </div>
 							<div class="form-group col-md-6">
                                 <label>Nombre Cooperativa</label>
-                        		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required>	
+                        		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required disabled value="<?php echo $cooper->getNombreCooperativa(); ?>">	
                         	</div>
                             <div class="form-group col-md-6">
                                 <label>Contacto</label>
-                                <input type="text" id="contactoCoop" name="contactoCoop" class="form-control" placeholder="Contacto" required> 
+                                <input type="text" id="contactoCoop" name="contactoCoop" class="form-control" placeholder="Contacto" required disabled value="<?php echo $cooper->getContactoCooperativa(); ?>"> 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Correo Contacto</label>
-                                <input type="email" id="emailContactoCoop" name="emailContactoCoop" class="form-control" placeholder="Correo Contacto"> 
+                                <input type="email" id="emailContactoCoop" name="emailContactoCoop" class="form-control" placeholder="Correo Contacto" disabled value="<?php echo $correoCooper; ?>"> 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Tel&eacute;fono Cooperativa</label>
-                                <input type="text" id="telefonoCoop" name="telefonoCoop" class="form-control" placeholder="Tel&eacute;fono Cooperativa" maxlength="9" required>
+                                <input type="text" id="telefonoCoop" name="telefonoCoop" class="form-control" placeholder="Tel&eacute;fono Cooperativa" maxlength="9" required disabled value="<?php echo $cooper->getTelefonoCooperativa(); ?>">
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Direci&oacute;n Cooperativa</label>
-                        		<textarea id="direccionCoop" name="direccionCoop" class="form-control" placeholder="Direci&oacute;n Cooperativa" required></textarea>	
+                        		<textarea id="direccionCoop" name="direccionCoop" class="form-control" placeholder="Direci&oacute;n Cooperativa" required disabled><?php echo $cooper->getDireccionCooperativa(); ?></textarea>	
                         	</div>
                             <div id="respuestaAlert"></div>
                             <div class="col-md-10">
-                            	<a href="#" class="btn btn-info" id="btnModificarPerfil">Modificar</a>
-                            	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfil">Guardar</button>
-                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfil" onclick="recargarPagina('perfil_cooperativa.php?codCooper=<?php echo $codCooperl?>')">Cancelar</a>
+                            	<a href="#" class="btn btn-info" id="btnModificarPerfilCooper">Modificar</a>
+                            	<button type="submit" class="btn btn-success hidden" id="btnGuardarPerfilCooper">Guardar</button>
+                            	<a href="#" class="btn btn-info hidden" id="btnCancelarPerfilCooper" onclick="recargarPagina('perfil_cooperativa.php?codCooper=<?php echo $codCooper?>')">Cancelar</a>
                             	<div class="checkbox checkOculto hidden">
                             		<label>
                             			<input type="checkbox" id="chkCambiarPassPerfil"> Cambiar Contrase&ntilde;a

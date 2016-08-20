@@ -1,18 +1,18 @@
 <?php
 function cnx(){
-    $host="localhost";
-    $dbUser="root";
-    $dbPass="root";
-    $myDB="insafocoop";
+    $host="mysql.hostinger.es";
+    $dbUser="u412462617_root";
+    $dbPass="insafocoop";
+    $myDB="u412462617_insaf";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     return $cnx;
 }
 
 function pruebaCnx(){
-    $host="localhost";
-    $dbUser="root";
-    $dbPass="root";
-    $myDB="insafocoop";
+    $host="mysql.hostinger.es";
+    $dbUser="u412462617_root";
+    $dbPass="insafocoop";
+    $myDB="u412462617_insaf";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     $flag=0;
     /* comprobar la conexión */

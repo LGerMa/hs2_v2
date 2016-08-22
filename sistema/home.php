@@ -27,6 +27,9 @@
                         		echo "Eres de tipo admin";
                         	else
                         		echo "Eres de tipo user";
+
+                            echo "</br>dia de semana: ".(date("W")+1);
+                            echo "</br>dia de semana: ".date("N");
                          ?>
                     </div>
                     <!-- /.col-lg-12 -->

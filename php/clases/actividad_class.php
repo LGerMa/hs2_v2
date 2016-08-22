@@ -5,12 +5,12 @@
 class actividad_class
 {
 	private $idActividad;
-	private $correoUsuario;
 	private $actividadProgramada;
 	private $codCooperativa;
 	private $idEstadoActividad;
 	private $fechaRegistroActividad;
 	private $fechaModificadoActividad;
+    private $codSemanal;
 
     /**
      * Gets the value of idActividad.
@@ -32,30 +32,6 @@ class actividad_class
     public function _setIdActividad($idActividad)
     {
         $this->idActividad = $idActividad;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of correoUsuario.
-     *
-     * @return mixed
-     */
-    public function getCorreoUsuario()
-    {
-        return $this->correoUsuario;
-    }
-
-    /**
-     * Sets the value of correoUsuario.
-     *
-     * @param mixed $correoUsuario the correo usuario
-     *
-     * @return self
-     */
-    public function _setCorreoUsuario($correoUsuario)
-    {
-        $this->correoUsuario = $correoUsuario;
 
         return $this;
     }
@@ -176,6 +152,30 @@ class actividad_class
     public function _setFechaModificadoActividad($fechaModificadoActividad)
     {
         $this->fechaModificadoActividad = $fechaModificadoActividad;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of codSemanal.
+     *
+     * @return mixed
+     */
+    public function getCodSemanal()
+    {
+        return $this->codSemanal;
+    }
+
+    /**
+     * Sets the value of codSemanal.
+     *
+     * @param mixed $codSemanal the cod semanal
+     *
+     * @return self
+     */
+    public function _setCodSemanal($codSemanal)
+    {
+        $this->codSemanal = $codSemanal;
 
         return $this;
     }

@@ -306,4 +306,17 @@
 		mysqli_close($cnx);
 		return $estado;
 	}
+
+	function rtnSemanal($userCod){
+		$cnx=cnx();
+		$flag=FALSE;
+		$query=sprintf("SELECT * FROM semanal where codSemanal= '$userCod'");
+		$resul=mysqli_query($cnx,$query);
+		$row=mysqli_fetch_array($resul);
+		if($row[0]!="")
+			$flag=TRUE;
+		mysqli_close($cnx);
+		return $flag;
+	}
+	
 ?>

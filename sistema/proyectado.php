@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
  ?>
@@ -26,10 +26,21 @@
                         	if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
                         		echo "Eres de tipo admin";
                         	else
-                        		echo "Eres de tipo user";
-
+                        	echo "CodSemanal:  ";
+                            $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
+                            $SemanalCod = explode("@",$userCod);
+                            $userCod=$SemanalCod[0];
+                            $userCod.="-".(date("W")+1);
+                            $userCod.="-".date("Y");
+                            echo $userCod;
                             echo "</br>dia de semana: ".(date("W")+1);
-                            echo "</br>dia de semana: ".date("N");
+
+                            echo "</br>";
+                            $flag=rtnSemanal($userCod);
+                            if($flag)
+                                    echo '<span class="label label-success"> Encontro </span>';
+                                else
+                                    echo '<span class="label label-danger"> Agregar </span>';
                          ?>
                     </div>
                     <!-- /.col-lg-12 -->

@@ -2,15 +2,15 @@
 /* Database connection start */
 include '../php/funciones.php';
 //include '../hs2_v2/php/funciones.php';
-$servername = "localhost";
+/*$servername = "localhost";
 $username = "root";
 $password = "root";
 $dbname = "insafocoop";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
-
+*/
 /* Database connection end */
-//$conn = cnx();
+$conn = cnx();
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;

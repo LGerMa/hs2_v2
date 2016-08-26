@@ -259,6 +259,17 @@
 		mysqli_close($cnx);
 		return $estado;
 	}
+	function insertarSemanal($semanal){
+		$cnx = cnx();
+		$query = sprintf("INSERT INTO semanal(codSemanal,semana,registroSemanal,correoUsuario) VALUES ('%s','%s',now(),'%s')",
+			mysqli_real_escape_string($cnx,$semanal->getCodSemanal()),
+			mysqli_real_escape_string($cnx,$semanal->getSemana()),
+			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario())
+			);
+		$estado = mysqli_query($cnx,$query);
+		$mysqli_close($cnx);
+		return $estado;
+	}
 	function insertarCooperativa($cooperativa){
 		$cnx=cnx();
 		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s','%s','%s','%s',now(), null)",

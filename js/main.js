@@ -313,9 +313,16 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+
+	/*$("#btnAgregarProyectado").click(function(){
+		prueba();
+	});*/
 });
 function prueba() {
 	alert("Click");
+}
+function insertarSemanal(codSemanal,semana,correo){
+	alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo);
 }
 function respAlert(tipoAlert, mensaje){
 	var resp=document.getElementById("respuestaAlert");

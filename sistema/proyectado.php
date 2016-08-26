@@ -38,10 +38,19 @@
 
                             echo "</br>";
                             $flag=rtnSemanal($userCod);
-                            if($flag)
-                                    echo "<span class='label label-success'> Encontro </span>";
-                                else
-                                    echo "<a class='btn btn-info btn-lg' id='btnAgregarProyectado'> Agregar </a>";
+                            if($flag){
+                                ?>
+
+                                <table>
+                                    
+                                </table>
+
+                                <?php
+                            }else{
+                                ?>
+                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>')">Agregar</a>
+                                <?php
+                            }
                          ?>
                         <div id="respuestaAlert"></div>
                     </div>

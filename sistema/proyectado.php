@@ -48,7 +48,7 @@
                                 <?php
                             }else{
                                 ?>
-                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>')">Agregar</a>
+                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
                                 <?php
                             }
                          ?>

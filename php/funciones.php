@@ -267,7 +267,7 @@
 			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario())
 			);
 		$estado = mysqli_query($cnx,$query);
-		$mysqli_close($cnx);
+		mysqli_close($cnx);
 		return $estado;
 	}
 	function insertarCooperativa($cooperativa){

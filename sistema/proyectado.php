@@ -25,7 +25,7 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-11">
                         <h1 class="page-header">Proyectado: <?php echo $userCod; ?></h1><br>
                         <?php 
                         	if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")

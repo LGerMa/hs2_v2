@@ -51,10 +51,10 @@
 			break;
 		case "3":
 				$semanal = new semanal_class();
-				$semanal->_setCodSemanal($_POST["CodSemanal"]);
-				$semanal->_setCorreoUsuario($_POST["CorreoUsuario"]);
-				$semanal->_setRegistroSemanal($_POST["RegistroSemanal"]);
-				$semanal->_setSemana($_POST["Semana"]);
+				$semanal->_setCodSemanal($_POST["codSemanal"]);
+				$semanal->_setCorreoUsuario($_POST["correoUsuario"]);
+				$semanal->_setFechaRegistro($_POST["registroSemanal"]);
+				$semanal->_setSemana($_POST["semana"]);
 				if(insertarSemanal($semanal)){
 					echo "2";
 				}else{

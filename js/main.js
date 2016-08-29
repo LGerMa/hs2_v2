@@ -322,19 +322,19 @@ function prueba() {
 	alert("Click");
 }
 function insertarSemanal(codSemanal,semana,correo,registroSemanal){
-	alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo+" - registroSemanal: "+registroSemanal);
+	//alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo+" - registroSemanal: "+registroSemanal);
 	$.ajax({
 			url: 'agregar.php',
 			type: "POST",
 			data:{
 				opc:3,
 				codSemanal:codSemanal,
-				correoUsuario:correoUsuario,
+				correoUsuario:correo,
 				registroSemanal:registroSemanal,
 				semana:semana
 			},
 			beforeSend:function(){
-				console.log("codigoCoop: "+codigoCoop);
+				console.log("codSemanal: "+codSemanal);
 				respAlert("info","Agregando proyectado...");
 			}, 
 			success: function(data){

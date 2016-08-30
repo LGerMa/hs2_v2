@@ -261,10 +261,11 @@
 	}
 	function insertarSemanal($semanal){
 		$cnx = cnx();
-		$query = sprintf("INSERT INTO semanal(codSemanal,semana,registroSemanal,correoUsuario) VALUES ('%s','%s',now(),'%s')",
+		$query = sprintf("INSERT INTO semanal(codSemanal,semana,registroSemanal,correoUsuario,idEstadoSemanal) VALUES ('%s','%s',now(),'%s','%s')",
 			mysqli_real_escape_string($cnx,$semanal->getCodSemanal()),
 			mysqli_real_escape_string($cnx,$semanal->getSemana()),
-			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario())
+			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario()),
+			mysqli_real_escape_string($cnx,$semanal->getIdEstadoSemanal())
 			);
 		$estado = mysqli_query($cnx,$query);
 		mysqli_close($cnx);

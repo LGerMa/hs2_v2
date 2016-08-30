@@ -10,4 +10,5 @@
 	include_once 'clases/usuario_class.php';
 	include_once 'clases/zona_class.php';
 	include_once 'clases/semanal_class.php';
+	include_once 'clases/estadoSemanal_class.php';
  ?>

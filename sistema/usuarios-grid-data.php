@@ -58,7 +58,16 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData[] = $row["nombreUsuario"];
 	$nestedData[] = $row["apellidoUsuario"];
 	$nestedData[] = getUnidad($row["idUnidad"]);
-	$nestedData[] = strtoupper(getTipoUser($row["idTipoUsuario"]));
+	if(isAdmin($correo)){
+		$nestedData[] = "<i class='fa fa-star' title='Administrador'></i>";
+	}else{
+		if($row["idPuesto"]=="1"){
+			$nestedData[] = "<i class='fa fa-star-o' title='Jefe'></i>";
+		}else{
+			$nestedData[] = "<i class='fa fa-user' title='Usuario'></i>";
+		}
+	}
+	//$nestedData[] = strtoupper(getTipoUser($row["idTipoUsuario"]));
 	$nestedData[] = $nuevoFomato;
 	
 	$data[] = $nestedData;

@@ -45,6 +45,9 @@
                             </div>
                             <!-- /input-group -->
                         </li>
+                        <li>
+                            <a href="home.php"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                        </li>
                         <?php if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1"){ ?>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Usuarios<span class="fa arrow"></span></a>
@@ -74,11 +77,15 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proyectado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="./agregar_proyectado.php">Agregar</a>
-                                </li>
-                                <li>
                                     <a href="./proyectado.php">Ver</a>
                                 </li>
+                            <?php 
+                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                    echo "<li>
+                                        <a href='./seguimientos.php'>Seguimiento</a>
+                                    </li>";
+                                }
+                            ?>
                             </ul>
                         </li>
                         

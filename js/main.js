@@ -313,9 +313,52 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+
+	/*$("#btnAgregarProyectado").click(function(){
+		prueba();
+	});*/
 });
 function prueba() {
 	alert("Click");
+}
+function insertarSemanal(codSemanal,semana,correo,registroSemanal){
+	//alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo+" - registroSemanal: "+registroSemanal);
+	$.ajax({
+			url: 'agregar.php',
+			type: "POST",
+			data:{
+				opc:3,
+				codSemanal:codSemanal,
+				correoUsuario:correo,
+				registroSemanal:registroSemanal,
+				semana:semana
+			},
+			beforeSend:function(){
+				console.log("codSemanal: "+codSemanal);
+				respAlert("info","Agregando proyectado...");
+			}, 
+			success: function(data){
+				console.log(data);
+				switch(data[0]){
+					case "0":
+						respAlert("warning","Ya existe el proyectado: "+codSemanal);
+					break;
+					case "1":
+						respAlert("warning","No se ha podido insertar a la BD");
+					break;
+					case "2":
+						setTimeout(function(){
+							respAlert("success","Correcto...redireccionando");
+							redireccionar("proyectado.php");
+						},1000);
+					break;
+				}
+			},
+			error: function(data){
+				console.log(data);
+				respAlert("danger","Error...");
+			}
+		});
 }
 function respAlert(tipoAlert, mensaje){
 	var resp=document.getElementById("respuestaAlert");

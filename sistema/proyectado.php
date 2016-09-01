@@ -25,7 +25,7 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-11">
                         <h1 class="page-header">Proyectado: <?php echo $userCod; ?></h1><br>
                         <?php 
                         	if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
@@ -38,10 +38,19 @@
 
                             echo "</br>";
                             $flag=rtnSemanal($userCod);
-                            if($flag)
-                                    echo "<span class='label label-success'> Encontro </span>";
-                                else
-                                    echo "<a class='btn btn-info btn-lg' id='btnAgregarProyectado'> Agregar </a>";
+                            if($flag){
+                                ?>
+
+                                <table>
+                                    
+                                </table>
+
+                                <?php
+                            }else{
+                                ?>
+                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
+                                <?php
+                            }
                          ?>
                         <div id="respuestaAlert"></div>
                     </div>

@@ -8,6 +8,7 @@
 		private $semana;
 		private $fechaRegistro;
 		private $correoUsuario;
+        private $idEstadoSemanal;
 	
     /**
      * Gets the value of codSemanal.
@@ -101,6 +102,30 @@
     public function _setCorreoUsuario($correoUsuario)
     {
         $this->correoUsuario = $correoUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of idEstadoSemanal.
+     *
+     * @return mixed
+     */
+    public function getIdEstadoSemanal()
+    {
+        return $this->idEstadoSemanal;
+    }
+
+    /**
+     * Sets the value of idEstadoSemanal.
+     *
+     * @param mixed $idEstadoSemanal the id estado semanal
+     *
+     * @return self
+     */
+    public function _setIdEstadoSemanal($idEstadoSemanal)
+    {
+        $this->idEstadoSemanal = $idEstadoSemanal;
 
         return $this;
     }

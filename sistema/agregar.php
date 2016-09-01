@@ -49,6 +49,19 @@
 			}
 			
 			break;
+		case "3":
+				$semanal = new semanal_class();
+				$semanal->_setCodSemanal($_POST["codSemanal"]);
+				$semanal->_setCorreoUsuario($_POST["correoUsuario"]);
+				$semanal->_setFechaRegistro($_POST["registroSemanal"]);
+				$semanal->_setSemana($_POST["semana"]);
+				$semanal->_setIdEstadoSemanal("1");
+				if(insertarSemanal($semanal)){
+					echo "2";
+				}else{
+					echo "1";
+				}
+			break;
 		
 		default:
 			# code...

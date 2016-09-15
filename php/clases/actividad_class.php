@@ -8,9 +8,10 @@ class actividad_class
 	private $actividadProgramada;
 	private $codCooperativa;
 	private $idEstadoActividad;
-	private $fechaRegistroActividad;
-	private $fechaModificadoActividad;
     private $codSemanal;
+    private $diaSemana;
+    private $HoraIni;
+    private $HoraFin;
 
     /**
      * Gets the value of idActividad.
@@ -109,54 +110,6 @@ class actividad_class
     }
 
     /**
-     * Gets the value of fechaRegistroActividad.
-     *
-     * @return mixed
-     */
-    public function getFechaRegistroActividad()
-    {
-        return $this->fechaRegistroActividad;
-    }
-
-    /**
-     * Sets the value of fechaRegistroActividad.
-     *
-     * @param mixed $fechaRegistroActividad the fecha registro actividad
-     *
-     * @return self
-     */
-    public function _setFechaRegistroActividad($fechaRegistroActividad)
-    {
-        $this->fechaRegistroActividad = $fechaRegistroActividad;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of fechaModificadoActividad.
-     *
-     * @return mixed
-     */
-    public function getFechaModificadoActividad()
-    {
-        return $this->fechaModificadoActividad;
-    }
-
-    /**
-     * Sets the value of fechaModificadoActividad.
-     *
-     * @param mixed $fechaModificadoActividad the fecha modificado actividad
-     *
-     * @return self
-     */
-    public function _setFechaModificadoActividad($fechaModificadoActividad)
-    {
-        $this->fechaModificadoActividad = $fechaModificadoActividad;
-
-        return $this;
-    }
-
-    /**
      * Gets the value of codSemanal.
      *
      * @return mixed
@@ -169,13 +122,86 @@ class actividad_class
     /**
      * Sets the value of codSemanal.
      *
-     * @param mixed $codSemanal the cod semanal
+     * @param mixed $codSemanal the fecha registro actividad
      *
      * @return self
      */
     public function _setCodSemanal($codSemanal)
     {
         $this->codSemanal = $codSemanal;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of fechaModificadoActividad.
+     *
+     * @return mixed
+     */
+    public function getDiaSemana()
+    {
+        return $this->diaSemana;
+    }
+
+    /**
+     * Sets the value of diaSemana.
+     *
+     * @param mixed $diaSemana the fecha modificado actividad
+     *
+     * @return self
+     */
+    public function _setDiaSemana($diaSemana)
+    {
+        $this->diaSemana = $diaSemana;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of codSemanal.
+     *
+     * @return mixed
+     */
+    public function getHoraIni()
+    {
+        return $this->HoraIni;
+    }
+
+    /**
+     * Sets the value of HoraIni.
+     *
+     * @param mixed $horaIni the cod semanal
+     *
+     * @return self
+     */
+    public function _setHoraIni($HoraIni)
+    {
+        $this->HoraIni = $HoraIni;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets the value of HoraFin.
+     *
+     * @return mixed
+     */
+    public function getHoraFin()
+    {
+        return $this->HoraFin;
+    }
+
+    /**
+     * Sets the value of horaFin.
+     *
+     * @param mixed $horaFin the cod semanal
+     *
+     * @return self
+     */
+    public function _setHoraFin($HoraFin)
+    {
+        $this->HoraFin = $HoraFin;
 
         return $this;
     }

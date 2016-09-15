@@ -79,6 +79,13 @@
                                 <li>
                                     <a href="./proyectado.php">Ver</a>
                                 </li>
+                            <?php 
+                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                    echo "<li>
+                                        <a href='./seguimientos.php'>Seguimiento</a>
+                                    </li>";
+                                }
+                            ?>
                             </ul>
                         </li>
                         

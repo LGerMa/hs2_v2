@@ -31,8 +31,8 @@
                                 <th>NOMBRE</th>
                                 <th>APELLIDO</th>
                                 <th>UNIDAD</th>
-                                <th>TIPO USUARIO</th>
-                                <th>FECHA REGISTRO</th>
+                                <th>TIPO</th>
+                                <th>FECHA REG</th>
                               </tr>
                             </thead>
 

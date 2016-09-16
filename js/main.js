@@ -262,6 +262,115 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 	});
+
+
+
+
+
+
+$('#selectCoop').on('change', function() {
+  alert( this.value ); // or $(this).val()
+});
+
+
+
+
+
+
+
+
+
+
+	$("#btnRegistrarActividad").click(function(){
+		var codSemanal = $("#CodigoSemanal").val();
+		var actividadProgramada = document.getElementById("actProgramada").value;
+		alert(actividadProgramada);
+		var codCooperativa = $("#selectCoop").val();
+		var idEstadoActividad= 1;
+		var codSemanal = document.getElementById("CodigoSemanal").value;
+		var diaSemana = $("#diaSemana").val();
+		var HoraIni = document.getElementById("HoraIni").value;
+		var HoraFin = document.getElementById("HoraFin").value;
+		var flag = true;
+		if (flag) {
+			$.ajax({
+				url:'agregar.php',
+				type: 'POST',
+				data:{
+					opc:4,
+					actividadProgramada: actividadProgramada,
+					codCooperativa: codCooperativa,
+					idEstadoActividad: idEstadoActividad,
+					codSemanal: codSemanal,
+					diaSemana: diaSemana,
+					HoraIni: HoraIni,
+					HoraFin: HoraFin
+				},
+			success: function(data){
+				console.log(data);
+				switch(data[0]){
+					case "0":
+						respAlert("warning","Ya existe la actividad");
+					break;
+					case "1":
+						respAlert("warning","No se ha podido insertar a la BD");
+					break;
+					case "2":
+						setTimeout(function(){
+							respAlert("success","Correcto...redireccionando");
+							redireccionar("proyectado.php");
+						},1000);
+					break;
+				}
+			},
+			error: function(data){
+				console.log(data);
+				respAlert("danger","Error...");
+			}
+			});			
+			//alert("guardar!");
+		}else{
+			//alert("no guardar");
+		}
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	$("#form_agregarCooper").submit(function(event){
 		var codigoCoop = $("#codigoCoop").val();
 		var nombreCoop = $("#nombreCoop").val();
@@ -344,7 +453,7 @@ function insertarSemanal(codSemanal,semana,correo,registroSemanal){
 						respAlert("warning","Ya existe el proyectado: "+codSemanal);
 					break;
 					case "1":
-						respAlert("warning","No se ha podido insertar a la BD");
+						respAlert("warning","No se ha podia la BD");
 					break;
 					case "2":
 						setTimeout(function(){

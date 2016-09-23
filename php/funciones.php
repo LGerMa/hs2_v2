@@ -18,6 +18,18 @@
 		return $flag;
 	}
 
+	function eliminarActividad($idActividad){
+		$cnx=cnx();
+		$flag=FALSE;
+		$query=sprintf("DELETE FROM actividad WHERE idActividad ='%s'",mysqli_real_escape_string($cnx,$idActividad));
+		$resul=mysqli_query($cnx,$query);
+		$row=mysqli_fetch_array($resul);
+		if($row[0]!="")
+			$flag=TRUE;
+		mysqli_close($cnx);
+		return $flag;
+	}
+
 	function isCooperExist($cooper){
 		$cnx=cnx();
 		$flag=FALSE;
@@ -100,6 +112,29 @@
 		return $cooperativa;
 	}
 
+	function getInfoActividad($actividad)
+	{
+		$cnx=cnx();
+		$query = sprintf("SELECT * FROM actividad WHERE idActividad='%s'",
+			mysqli_real_escape_string($cnx,$actividad));
+		$result = mysqli_query($cnx,$query);
+		while ($row=mysqli_fetch_array($result)) {
+			$actividad = new actividad_class();
+			$actividad->_setIdActividad($row["idActividad"]);
+			$actividad->_setActividadProgramada($row["actividadProgramada"]);
+			$actividad->_setIdEstadoActividad($row["idEstadoActividad"]);
+			$actividad->_setCodSemanal($row["codSemanal"]);
+			$actividad->_setDiaSemana($row["diaSemana"]);
+			$actividad->_setHoraIni($row["HoraIni"]);
+			$actividad->_setHoraFin($row["HoraFin"]);
+			
+		}
+		mysqli_close($cnx);
+		return $actividad;
+		
+	}
+
+
 	function getAllTipoUser(){
 		$cnx=cnx();
 		$query="SELECT * FROM tipoUsuario";
@@ -161,6 +196,26 @@
 		}
 		mysqli_close($cnx);
 		return $vectUnidad;
+	}
+	function getCoopWhere($idCop){
+		$cnx = cnx();
+		$query=sprintf("SELECT * FROM cooperativa where codCooperativa = '%s' ",mysqli_real_escape_string($cnx,$idCop));
+		$result=mysqli_query($cnx,$query);
+		while ($row=mysqli_fetch_array($result)) {
+			$cooperativa = new cooperativa_class();
+			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
+			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
+			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
+			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
+			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
+			$cooperativa->_setTelefonoCooperativa($row["telefonoCooperativa"]);			
+			$cooperativa->_setFechaRegistroCooperativa($row["fechaRegistroCooperativa"]);
+			$cooperativa->_setFechaModificadoCooperativa($row["fechaModificadoCooperativa"]);
+			$vectCooperativa[]=$cooperativa;
+		}
+		mysqli_close($cnx);
+		return $vectCooperativa;
 	}
 	function getAllCoop(){
 		$cnx=cnx();
@@ -373,6 +428,6 @@
 			$flag=TRUE;
 		mysqli_close($cnx);
 		return $flag;
-	}
+	}	
 	
 ?>

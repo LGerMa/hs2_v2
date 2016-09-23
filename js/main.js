@@ -281,7 +281,7 @@ $(document).ready(function(){
 	$("#btnRegistrarActividad").click(function(){
 		var codSemanal = $("#CodigoSemanal").val();
 		var actividadProgramada = document.getElementById("actProgramada").value;
-		alert(actividadProgramada);
+		//alert(actividadProgramada);
 		var codCooperativa = $("#selectCoop").val();
 		var idEstadoActividad= 1;
 		var codSemanal = document.getElementById("CodigoSemanal").value;
@@ -289,6 +289,7 @@ $(document).ready(function(){
 		var HoraIni = document.getElementById("HoraIni").value;
 		var HoraFin = document.getElementById("HoraFin").value;
 		var flag = true;
+		
 		if (flag) {
 			$.ajax({
 				url:'agregar.php',

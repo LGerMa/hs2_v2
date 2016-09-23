@@ -33,7 +33,7 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                         <h1 class="page-header">Proyectado: <?php echo $userCod; ?></h1><br>
                         <?php 
                             if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Nombre de la asociaci&oacute;n cooperativa</label>
-                                        <select class="form-control" id="selectCoop" onchange="myFunction()">
+                                        <select class="form-control" id="selectCoop">
                                             <?php 
                                             $vectUnidad = getAllCoop();
                                             for ($i=0; $i < count($vectUnidad); $i++) { 
@@ -144,7 +144,7 @@
                                 </form>
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm-11 col-lg-11">
+                                            <div class="col-sm-10">
                                                 <div class="table-responsive">
                                                     <table id="proyectado-grid" class="table table-striped table-bordered">
                                                         <thead>
@@ -161,12 +161,11 @@
                                                 </div>
                                                 <br>
                                             </div>
-                                            <!-- /.col-lg-12 -->
+                                            <!-- /.col-lg-12 -->    
                                         </div>
                                         <!-- /.row -->
                                     </div>
                                     <!-- /.container-fluid -->
-                                        <?php include 'addJs.php'; ?>
                                         <script type="text/javascript" language="javascript" >
                                           $(document).ready(function() {
                                             var dataTable = $('#proyectado-grid').DataTable( {
@@ -175,6 +174,7 @@
                                               "ajax":{
                                                 url :"proyectado-grid-data.php", // json datasource
                                                 type: "post",  // method  , by default get
+                                                data: { userCod: "<?php Print($userCod); ?>" },
                                                 error: function(){  // error handling
                                                   $(".employee-grid-error").html("");
                                                   $("#proyectado-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
@@ -192,6 +192,7 @@
                                 <?php
                             }
                          ?>
+                         <div id="respuestaAlert"></div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>

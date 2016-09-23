@@ -16,7 +16,7 @@ $conn = cnx();
 $requestData= $_REQUEST;
 
 
-$userCod = "user1-38-2016";
+$userCod = $_POST['userCod'];
 $opc = $userCod;
 //$opc = $_GET["opc"];
 
@@ -55,15 +55,26 @@ $query=mysqli_query($conn, $sql) or die("proyectado-grid-data.php: get employees
 
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {  // preparing an array
-	$nestedData=array(); 
-	$codSemanal = $row["codSemanal"];
+	//Buscando el nombre de la cooperativa y todo eso
+	$cop= $row["codCooperativa"];
+	$sql2 = "SELECT * ";
+	$sql2.=" FROM cooperativa where codCooperativa='".$cop."'";
+	$result = $conn->query($sql2);
+	$row2 = $result->fetch_assoc();
 
-	$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
+	//Fin de la busqueda
+	$nestedData=array(); 
+	$idActividad = $row["idActividad"];
+	$direcTele= "Direccion:".$row2["direccionCooperativa"]. str_repeat('&nbsp;', 8)."Telefono:".$row2["telefonoCooperativa"];
+	$hora=$row["HoraIni"]." hasta ".$row["HoraFin"];
+	$secs=strtotime($row["HoraFin"])-strtotime($row["HoraIni"]);
+	$tiempoTotal= gmdate("H:i:s", $secs);
+	$nestedData[] = "<a href='perfil_semanal.php?actvidad=".$idActividad."'>".$hora."</a>";
+	$nestedData[] = $row2["nombreCooperativa"];
+	$nestedData[] = $direcTele;
+	$nestedData[] = $row2["contactoCooperativa"];
+	$nestedData[] = $tiempoTotal;
 	$nestedData[] = $row["actividadProgramada"];
-	$nestedData[] = $row["codCooperativa"];
-	$nestedData[] = $row["idEstadoActividad"];
-	$nestedData[] = $row["HoraIni"];
-	$nestedData[] = $row["HoraFin"];
 	
 	$data[] = $nestedData;
 }

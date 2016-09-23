@@ -268,9 +268,6 @@ $(document).ready(function(){
 
 
 
-$('#selectCoop').on('change', function() {
-  alert( this.value ); // or $(this).val()
-});
 
 
 

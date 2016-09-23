@@ -162,26 +162,6 @@
 		mysqli_close($cnx);
 		return $vectUnidad;
 	}
-	function getCoopWhere($idCop){
-		$cnx = cnx();
-		$query=sprintf("SELECT * FROM cooperativa where codCooperativa = '%s' ",mysqli_real_escape_string($cnx,$idCop));
-		$result=mysqli_query($cnx,$query);
-		while ($row=mysqli_fetch_array($result)) {
-			$cooperativa = new cooperativa_class();
-			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
-			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
-			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
-			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
-			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
-			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
-			$cooperativa->_setTelefonoCooperativa($row["telefonoCooperativa"]);			
-			$cooperativa->_setFechaRegistroCooperativa($row["fechaRegistroCooperativa"]);
-			$cooperativa->_setFechaModificadoCooperativa($row["fechaModificadoCooperativa"]);
-			$vectCooperativa[]=$cooperativa;
-		}
-		mysqli_close($cnx);
-		return $vectCooperativa;
-	}
 	function getAllCoop(){
 		$cnx=cnx();
 		$query="SELECT * FROM cooperativa";
@@ -393,6 +373,6 @@
 			$flag=TRUE;
 		mysqli_close($cnx);
 		return $flag;
-	}	
+	}
 	
 ?>

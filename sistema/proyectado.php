@@ -149,7 +149,7 @@
                                                     <table id="proyectado-grid" class="table table-striped table-bordered">
                                                         <thead>
                                                           <tr>
-                                                            <th>HORA</th>
+                                                            <th>FECHA</th>
                                                             <th>NOMBRE DE LA ASOCIACION COOPERATIVA</th>
                                                             <th>DIRECCION-TELEFONO</th>
                                                             <th>CONTACTO</th>

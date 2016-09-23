@@ -69,7 +69,7 @@
 				$actividad->_setCodCooperativa($_POST["codCooperativa"]);
 				$actividad->_setIdEstadoActividad($_POST["idEstadoActividad"]);
 				$actividad->_setCodSemanal($_POST["codSemanal"]);
-				$actividad->_setDiaSemana("diaSemana");
+				$actividad->_setDiaSemana($_POST["diaSemana"]);
 				$actividad->_setHoraIni($_POST["HoraIni"]);
 				$actividad->_setHoraFin($_POST["HoraFin"]);
 				if(insertarActividad($actividad)){

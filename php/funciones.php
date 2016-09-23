@@ -18,17 +18,7 @@
 		return $flag;
 	}
 
-	function eliminarActividad($idActividad){
-		$cnx=cnx();
-		$flag=FALSE;
-		$query=sprintf("DELETE FROM actividad WHERE idActividad ='%s'",mysqli_real_escape_string($cnx,$idActividad));
-		$resul=mysqli_query($cnx,$query);
-		$row=mysqli_fetch_array($resul);
-		if($row[0]!="")
-			$flag=TRUE;
-		mysqli_close($cnx);
-		return $flag;
-	}
+
 
 	function isCooperExist($cooper){
 		$cnx=cnx();

@@ -23,7 +23,22 @@
                     <div class="col-sm-10 col-md-10">
                         <br>
                         <a href="proyectado.php" class="btn btn-success">Atr&aacute;s</a>
-                        <a href="proyectado.php" class="btn btn-danger" onclick="eliminarActividad('<?php echo $idActividad ?>')">Eliminar</a>
+
+                        <form action="" method="post">
+                            <?php 
+                                echo '<td>
+                                    <input type="submit" href="proyectado.php" class="btn btn-danger" name="deleteItem" value="'.$idActividad.'"/>  
+                                    </td>';
+                                if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])){
+                                    $cnx=cnx();
+                                    $query=sprintf("DELETE FROM actividad WHERE idActividad ='%s'",mysqli_real_escape_string($cnx,$idActividad));
+                                    $resul=mysqli_query($cnx,$query);
+                                    mysqli_close($cnx);
+                                    echo"<script language='javascript'>window.location='proyectado.php'</script>;";
+                                }
+                            ?>
+                        </form>
+
                         <h1 class="page-header">Perfil: <?php echo "idActividad:".$actividad->getIdActividad(); ?> 
                         </h1>
                     </div>

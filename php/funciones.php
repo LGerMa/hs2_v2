@@ -102,11 +102,10 @@
 		return $cooperativa;
 	}
 
-	function getInfoActividad($actividad)
-	{
-		$cnx=cnx();
+	function getInfoActividad($act){
+		$cnx = cnx();
 		$query = sprintf("SELECT * FROM actividad WHERE idActividad='%s'",
-			mysqli_real_escape_string($cnx,$actividad));
+			mysqli_real_escape_string($cnx,$act));
 		$result = mysqli_query($cnx,$query);
 		while ($row=mysqli_fetch_array($result)) {
 			$actividad = new actividad_class();

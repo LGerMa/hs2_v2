@@ -111,6 +111,7 @@
 			$actividad = new actividad_class();
 			$actividad->_setIdActividad($row["idActividad"]);
 			$actividad->_setActividadProgramada($row["actividadProgramada"]);
+			$actividad->_setCodCooperativa($row["codCooperativa"]);
 			$actividad->_setIdEstadoActividad($row["idEstadoActividad"]);
 			$actividad->_setCodSemanal($row["codSemanal"]);
 			$actividad->_setDiaSemana($row["diaSemana"]);

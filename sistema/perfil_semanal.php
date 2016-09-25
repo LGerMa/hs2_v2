@@ -15,6 +15,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Perfil Cooperativa</title>
     <?php include 'addCss.php'; ?>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+     <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+    <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    
 </head>
 <body>
     <div id="wrapper">
@@ -37,7 +44,7 @@
                                         <div class="form-group col-md-6">
                                             <label>Inicio:</label>
                                             <div class='input-group date' id='datetimepicker3'>
-                                                <input type='text' class="form-control" id="HoraIni"/>
+                                                <input type='text' class="form-control" id="HoraIni"  value="<?php echo $actividad->getHoraIni();?>" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-time"></span>
                                                 </span>
@@ -53,7 +60,7 @@
                                         <div class="form-group col-md-6">
                                             <label>Fin:</label><br>
                                             <div class='input-group date' id='datetimepicker4'>
-                                                <input type='text' class="form-control" id="HoraFin"/>
+                                                <input type='text' class="form-control" id="HoraFin" value="<?php echo $actividad->getHoraFin();?>"/>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-time"></span>
                                                 </span>
@@ -94,13 +101,18 @@
                                             $NYear=date("Y");
                                             $week_array = getStartAndEndDate($NWeek,$NYear);
                                             foreach($week_array as $key => $value){
-                                                echo '<option value='.$value.'>'.$key.' '.$value.'</option>'; //close your tags!!
+                                                if($actividad->getDiaSemana()==$value){
+                                                    echo '<option value='.$value.' disabled selected>'.$key.' '.$value.'</option>';
+                                                }else{
+                                                    echo '<option value='.$value.'>'.$key.' '.$value.'</option>';
+                                                }
                                             }
                                             ?>
                                         </select>
                                         <br>
                                         <label>Actividad Programada</label>
-                                        <textarea rows="2" cols="50" id="actProgramada" name="actProgramada" placeholder="Escriba actividad..." class="form-control" ></textarea> 
+                                        <textarea rows="2" cols="50" id="actProgramada" name="actProgramada" class="form-control" ><?php echo $actividad->getActividadProgramada(); ?>
+                                        </textarea> 
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Nombre de la asociaci&oacute;n cooperativa</label>

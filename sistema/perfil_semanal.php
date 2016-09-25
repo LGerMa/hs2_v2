@@ -22,7 +22,7 @@
     <?php include 'menu.php'; ?>
         <div id="page-wrapper">
             <div class="container">
-                 <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad(); ?> 
+                 <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa(); ?> 
                  </h1>
                 <div class="row">
                     
@@ -108,14 +108,14 @@
                                             <?php 
                                             $vectUnidad = getAllCoop();
                                             for ($i=0; $i < count($vectUnidad); $i++) {
-                                                if($actividad->getCodCooperativa()==$i){
+                                                $codCooperativa = $actividad->getCodCooperativa();
+                                                if($actividad->getCodCooperativa()==$vectUnidad[$i]->getCodCooperativa()){
                                                     $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
-                                                    echo "<option value='<?php echo $actividad->getCodCooperativa(); ?>' disabled selected>".$unidad."</option>";
+                                                    echo "<option value='".$actividad->getCodCooperativa()."' disabled selected>".$unidad."</option>";
+                                                }else{
+                                                    $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
+                                                    echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";  
                                                 } 
-                                            }
-                                            for ($i=0; $i < count($vectUnidad); $i++) { 
-                                                $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
-                                                echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";
                                             }
                                         ?>
                                         </select>

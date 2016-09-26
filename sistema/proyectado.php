@@ -168,6 +168,26 @@
                                     <!-- /.container-fluid -->
                                         <script type="text/javascript" language="javascript" >
                                           $(document).ready(function() {
+                                            cargarCooper();
+                                            function cargarCooper(){
+                                                var selectValue = $("#selectCoop").val();
+                                                $.ajax({
+                                                    url: 'getInfoCooper.php',
+                                                    type: 'GET',
+                                                    data:{
+                                                        valor:selectValue
+                                                    },
+                                                    dataType: "json",
+                                                    success: function(data){
+                                                        console.log(data);
+                                                        $("#direccion").val(data.direccion+" - "+data.telefono);
+                                                        $("#contacto").val(data.contacto);
+                                                    }
+                                                });
+                                            }
+                                            $("#selectCoop").change(function(){
+                                               cargarCooper(); 
+                                            });
                                             var dataTable = $('#proyectado-grid').DataTable( {
                                               "processing": true,
                                               "serverSide": true,

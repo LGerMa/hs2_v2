@@ -116,19 +116,23 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Nombre de la asociaci&oacute;n cooperativa</label>
-                                        <select class="form-control" id="selectCoop" value="<?php echo $actividad->getCodCooperativa(); ?>">
+                                        <select class="form-control" id="selectCoop">
                                             <?php 
                                             $vectUnidad = getAllCoop();
                                             for ($i=0; $i < count($vectUnidad); $i++) {
-                                                $codCooperativa = $actividad->getCodCooperativa();
+                                                //$codCooperativa = $actividad->getCodCooperativa();
                                                 if($actividad->getCodCooperativa()==$vectUnidad[$i]->getCodCooperativa()){
                                                     $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
-                                                    echo "<option value='".$actividad->getCodCooperativa()."' disabled selected>".$unidad."</option>";
+                                                    echo "<option value='".$vectUnidad[$i]->getCodCooperativa()."' selected>".$unidad."</option>";
                                                 }else{
                                                     $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
                                                     echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";  
                                                 } 
                                             }
+                                            /*for ($i=0; $i < count($vectUnidad); $i++) { 
+                                                $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
+                                                echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";
+                                            }*/
                                         ?>
                                         </select>
                                     </div>
@@ -174,7 +178,34 @@
                             </form>
                     </div>
 
-
+                    <script type="text/javascript" language="javascript" >
+                        $(document).ready(function() {
+                            
+                            function cargarCooper(){
+                                var selectValue = $("#selectCoop").val();
+                                $.ajax({
+                                    url: 'getInfoCooper.php',
+                                    type: 'GET',
+                                    data:{
+                                        valor:selectValue
+                                    },
+                                    dataType: "json",
+                                    success: function(data){
+                                        console.log(data);
+                                        $("#direccion").val(data.direccion+" - "+data.telefono);
+                                        $("#contacto").val(data.contacto);
+                                    },
+                                    error:function(){
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                            cargarCooper();
+                            $("#selectCoop").change(function(){
+                                cargarCooper(); 
+                            });
+                        } );
+                    </script>
 
 
 

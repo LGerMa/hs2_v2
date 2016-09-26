@@ -428,6 +428,12 @@ $(document).ready(function(){
 function prueba() {
 	alert("Click");
 }
+
+
+
+
+
+
 function insertarSemanal(codSemanal,semana,correo,registroSemanal){
 	//alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo+" - registroSemanal: "+registroSemanal);
 	$.ajax({

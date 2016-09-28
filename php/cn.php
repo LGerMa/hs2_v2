@@ -1,18 +1,20 @@
 <?php
 function cnx(){
-    $host="mysql.hostinger.es";
-    $dbUser="u412462617_root";
-    $dbPass="insafocoop";
-    $myDB="u412462617_insaf";
+    $url = parse_url(getenv("mysql://b8f8f6119ca584:d8a28425@us-cdbr-iron-east-04.cleardb.net/heroku_6ac98248592533a?reconnect=true"));
+    $host="us-cdbr-iron-east-04.cleardb.net";
+    $dbUser="b8f8f6119ca584";
+    $dbPass="d8a28425";
+    $myDB="heroku_6ac98248592533a";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     return $cnx;
 }
 
 function pruebaCnx(){
-    $host="mysql.hostinger.es";
-    $dbUser="u412462617_root";
-    $dbPass="insafocoop";
-    $myDB="u412462617_insaf";
+    $url = parse_url(getenv("mysql://b8f8f6119ca584:d8a28425@us-cdbr-iron-east-04.cleardb.net/heroku_6ac98248592533a?reconnect=true"));
+    $host="us-cdbr-iron-east-04.cleardb.net";
+    $dbUser="b8f8f6119ca584";
+    $dbPass="d8a28425";
+    $myDB="heroku_6ac98248592533a";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     $flag=0;
     /* comprobar la conexión */

@@ -1,7 +1,7 @@
 <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
-	include '../php/verificar_admin.php';
+	//include '../php/verificar_admin.php';
 	$email = $_GET["email"];
 	$usuario = new usuario_class();
 	$usuario = getInfoUser($email);

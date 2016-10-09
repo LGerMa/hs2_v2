@@ -127,7 +127,7 @@
 
 	function getAllTipoUser(){
 		$cnx=cnx();
-		$query="SELECT * FROM tipoUsuario";
+		$query="SELECT * FROM tipousuario";
 		$result=mysqli_query($cnx,$query);
 		while ($row=mysqli_fetch_array($result)) {
 			$tipoUsuario = new tipoUsuario_class();

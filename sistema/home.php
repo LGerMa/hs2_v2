@@ -1,6 +1,7 @@
 <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
+    $flagUser = 0; //si es 0 es porque es usuario, si es 1 es admin
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -23,11 +24,15 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">HOME: <?php echo $_SESSION['usuario_sesion']->getCorreoUsuario(); ?></h1><br>
                         <?php 
-                        	if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
+                        	if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1"){
                         		echo "Eres de tipo admin";
-                        	else
+                                $flagUser = 1;
+                            }
+                        	else{
                         		echo "Eres de tipo user";
-
+                                $flagUser = 0;
+                            }
+                            
                             echo "</br>dia de semana: ".(date("W")+1);
                             echo "</br>dia de semana: ".date("N");
                          ?>

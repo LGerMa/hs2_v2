@@ -145,6 +145,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-10">
+                                            <a href="#" class="btn btn-info btn-lg">Enviar para aprobaci&oacute;n</a><br><br>
                                                 <div class="table-responsive">
                                                     <table id="proyectado-grid" class="table table-striped table-bordered">
                                                         <thead>

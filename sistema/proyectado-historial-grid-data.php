@@ -15,13 +15,15 @@ $conn = cnx();
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
 
+$correoUsuario = $_REQUEST["correoUser"];
 $opc = $_REQUEST["opc"];
 //$opc = $_GET["opc"];
+//echo "correoUsuario: ".$correoUsuario;
 
 $columns = array( 
 // datatable column index  => database column name
 	0 =>'codSemanal', 
-	1 => 'correoUsuario',
+	1 => 'semana',
 	2 => 'registroSemanal'
 );
 
@@ -29,17 +31,17 @@ $columns = array(
 switch ($opc) {
 	case '1':
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal where idEstadoSemanal='".$opc."' AND correoUsuario = '".$correoUsuario."'";
 		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 		$totalData = mysqli_num_rows($query);
 		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."' AND correoUsuario = '".$correoUsuario."'";
 		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
+			$sql.=" OR semana LIKE '".$requestData['search']['value']."%' ";
 
 			$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 		}
@@ -51,17 +53,17 @@ switch ($opc) {
 		break;
 	case '2':
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal where idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 		$totalData = mysqli_num_rows($query);
 		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
+			$sql.=" OR semana LIKE '".$requestData['search']['value']."%' ";
 
 			$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 		}
@@ -72,17 +74,17 @@ switch ($opc) {
 		break;
 	case '3':
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal where idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 		$totalData = mysqli_num_rows($query);
 		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
+			$sql.=" OR semana LIKE '".$requestData['search']['value']."%' ";
 
 			$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 		}
@@ -94,17 +96,17 @@ switch ($opc) {
 		break;
 	case '4':
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal where idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 		$totalData = mysqli_num_rows($query);
 		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
+			$sql.=" OR semana LIKE '".$requestData['search']['value']."%' ";
 
 			$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 		}
@@ -115,17 +117,17 @@ switch ($opc) {
 		break;
 	case '5':
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal where idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 		$totalData = mysqli_num_rows($query);
 		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
 		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."' AND correoUsuario='".$correoUsuario."'";
 		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
+			$sql.=" OR semana LIKE '".$requestData['search']['value']."%' ";
 
 			$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 		}
@@ -150,7 +152,7 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$codSemanal = $row["codSemanal"];
 	$nestedData[] = $codSemanal;
 	//$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
-	$nestedData[] = $row["correoUsuario"];
+	$nestedData[] = $row["semana"];
 	$nestedData[] = $nuevoFomato;
 	$data[] = $nestedData;
 }

@@ -408,6 +408,23 @@
 		return $estado;
 	}
 
+		function actualizarActividad($actividad){
+		$cnx = cnx();
+		$query = sprintf("UPDATE actividad SET actividadProgramada = '%s', codCooperativa ='%s', idEstadoActividad = '%s', codSemanal = '%s', diaSemana = '%s', HoraIni = '%s',HoraFin = '%s' WHERE idActividad = '%s'",
+			mysqli_real_escape_string($cnx, $actividad->getIdActividad()),
+			mysqli_real_escape_string($cnx, $actividad->getActividadProgramada()),
+			mysqli_real_escape_string($cnx, $actividad->getCodCooperativa()),
+			mysqli_real_escape_string($cnx, $actividad->getIdEstadoActividad()),
+			mysqli_real_escape_string($cnx, $actividad->getCodSemanal()),
+			mysqli_real_escape_string($cnx, $actividad->getDiaSemana()),
+			mysqli_real_escape_string($cnx, $actividad->getHoraIni()),
+			mysqli_real_escape_string($cnx, $actividad->getHoraFin())
+			);
+		$estado = mysqli_query($cnx, $query);
+		mysqli_close($cnx);
+		return $estado;
+	}
+
 	function rtnSemanal($userCod){
 		$cnx=cnx();
 		$flag=FALSE;

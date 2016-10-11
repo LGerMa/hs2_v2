@@ -40,7 +40,7 @@
 
                              <div class="col-sm-10 col-md-10">
 
-                                <form id="form_agregarActividad">
+                                <form id="form_actualizarActividad">
                                     <div class="form-group col-md-6">
                                         <?php echo "<input type='text' id='idSemanal' class='hidden' value='".$idActividad."'>";?>
                                         <label>Hora de permanencia</label><br>
@@ -105,7 +105,7 @@
                                             $week_array = getStartAndEndDate($NWeek,$NYear);
                                             foreach($week_array as $key => $value){
                                                 if($actividad->getDiaSemana()==$value){
-                                                    echo '<option value='.$value.' disabled selected>'.$key.' '.$value.'</option>';
+                                                    echo '<option value='.$value.' selected>'.$key.' '.$value.'</option>';
                                                 }else{
                                                     echo '<option value='.$value.'>'.$key.' '.$value.'</option>';
                                                 }
@@ -148,11 +148,10 @@
                                         <input type="text" id="contacto" name="contacto" class="form-control" placeholder="Seleccione Cooperativa" disabled>    
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Modificar</a>
+                                        <a href="#" type="submit" class="btn btn-primary btn-lg" id="btnModificarActividad">Modificar</a>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>
-
                             </div>
 
 

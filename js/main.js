@@ -107,6 +107,7 @@ $(document).ready(function(){
         removeClassAtrb("#btnCancelarPerfil","hidden");
         removeClassAtrb(".checkOculto","hidden");
 	});
+
 	$("#chkCambiarPassPerfil").click(function(){
 		if(document.getElementById("chkCambiarPassPerfil").checked){
 			removeClassAtrb(".newPass","hidden");
@@ -262,6 +263,83 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 	});
+
+
+
+
+//Modificar Actividad
+
+
+
+$("#form_actualizarActividad").submit(function(event){
+		var actividadProgramada = document.getElementById("actProgramada").value;
+		var codCooperativa = $("#selectCoop").val();
+		var idEstadoActividad= 1;
+		var codSemanal = document.getElementById("CodigoSemanal").value;
+		var diaSemana = $("#diaSemana").val();
+		var HoraIni = document.getElementById("HoraIni").value;
+		var HoraFin = document.getElementById("HoraFin").value;
+		var idActividad =document.getElementById("idSemanal").value;
+		var flag = true;
+		if(HoraIni<HoraFin){
+			var flag = true;
+		}else{
+				//alert("no son iguales");
+				respAlert("warning","La Hora Inicial es Mayor");
+				flag = false;
+		}
+
+		if (flag) {
+			$.ajax({
+				url:'actualizar.php',
+				type: 'POST',
+				data:{
+					opc: 1,
+					actividadProgramada: actividadProgramada,
+					codCooperativa: codCooperativa,
+					idEstadoActividad: idEstadoActividad,
+					codSemanal: codSemanal,
+					diaSemana: diaSemana,
+					HoraIni: HoraIni,
+					HoraFin: HoraFin,
+					idActividad: idActividad
+				},
+				beforeSend: function(){
+					respAlert("info","Actualizando informaci&oacute;n...");
+				},
+				success: function(data){
+					console.log(data);
+					//respAlert("info","prueba");
+					switch(data[0]){
+						case "0":
+							respAlert("warning","No se ha podido actualizar la informacion de la actividad: ");
+						break;
+						case "1":
+							setTimeout(function(){
+								respAlert("success","Correcto...redireccionando al inicio");
+								redireccionar("perfil_semanal.php?actividad="+idActividad);
+							},1000);
+						break;
+					}
+				},
+				error: function(data){
+					console.log(data);
+					respAlert("danger","Error...");
+				}
+			});			
+			//alert("guardar!");
+		}else{
+			//alert("no guardar");
+		}
+		event.preventDefault();
+	});
+
+
+
+
+
+
+
 
 
 

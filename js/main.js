@@ -288,7 +288,6 @@ $("#form_actualizarActividad").submit(function(event){
 				respAlert("warning","La Hora Inicial es Mayor");
 				flag = false;
 		}
-
 		if (flag) {
 			$.ajax({
 				url:'actualizar.php',
@@ -331,6 +330,7 @@ $("#form_actualizarActividad").submit(function(event){
 		}else{
 			//alert("no guardar");
 		}
+
 		event.preventDefault();
 	});
 

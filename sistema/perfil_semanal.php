@@ -148,7 +148,7 @@
                                         <input type="text" id="contacto" name="contacto" class="form-control" placeholder="Seleccione Cooperativa" disabled>    
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <a href="#" type="submit" class="btn btn-primary btn-lg" id="btnModificarActividad">Modificar</a>
+                                        <button type="submit" href="#" class="btn btn-primary btn-lg" id="btnModificarActividad">Modificar</button>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>

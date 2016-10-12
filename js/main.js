@@ -294,7 +294,7 @@ $("#form_actualizarActividad").submit(function(event){
 				url:'actualizar.php',
 				type: 'POST',
 				data:{
-					opc: 1,
+					opc: 3,
 					actividadProgramada: actividadProgramada,
 					codCooperativa: codCooperativa,
 					idEstadoActividad: idEstadoActividad,

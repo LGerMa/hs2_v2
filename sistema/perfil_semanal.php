@@ -43,7 +43,7 @@
                                 <form id="form_actualizarActividad">
                                     <div class="form-group col-md-6">
                                         <?php echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$actividad->getCodSemanal()."'>";?>
-                                        <?php echo "<input type='text' id='idSemanal' class='hidden' value='".$idActividad."'>";?>
+                                        <?php echo "<input type='text' id='idAct' class='hidden' value='".$actividad->getIdActividad()."'>";?>
                                         <label>Hora de permanencia</label><br>
                                         <div class="form-group col-md-6">
                                             <label>Inicio:</label>

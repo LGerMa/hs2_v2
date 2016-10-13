@@ -279,8 +279,9 @@ $("#form_actualizarActividad").submit(function(event){
 		var diaSemana = $("#diaSemana").val();
 		var HoraIni = document.getElementById("HoraIni").value;
 		var HoraFin = document.getElementById("HoraFin").value;
-		var idActividad =document.getElementById("idSemanal").value;
+		var idActividad =document.getElementById("idAct").value;	
 		var flag = true;
+
 		if(HoraIni<HoraFin){
 			var flag = true;
 		}else{
@@ -294,14 +295,14 @@ $("#form_actualizarActividad").submit(function(event){
 				type: 'POST',
 				data:{
 					opc: 3,
+					idActividad: idActividad,
 					actividadProgramada: actividadProgramada,
 					codCooperativa: codCooperativa,
 					idEstadoActividad: idEstadoActividad,
 					codSemanal: codSemanal,
 					diaSemana: diaSemana,
 					HoraIni: HoraIni,
-					HoraFin: HoraFin,
-					idActividad: idActividad
+					HoraFin: HoraFin
 				},
 				beforeSend: function(){
 					respAlert("info","Actualizando informaci&oacute;n...");
@@ -367,7 +368,14 @@ $("#form_actualizarActividad").submit(function(event){
 		var HoraIni = document.getElementById("HoraIni").value;
 		var HoraFin = document.getElementById("HoraFin").value;
 		var flag = true;
-		
+
+		if(HoraIni<HoraFin){
+			var flag = true;
+		}else{
+				//alert("no son iguales");
+				respAlert("warning","La Hora Inicial es Mayor");
+				flag = false;
+		}
 		if (flag) {
 			$.ajax({
 				url:'agregar.php',

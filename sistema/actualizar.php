@@ -39,6 +39,22 @@
 				echo "0";
 			}
 			break;
+		case "3":
+			$actividad = new actividad_class();
+			$actividad->_setIdActividad($_POST["idActividad"]);
+			$actividad->_setActividadProgramada($_POST["actividadProgramada"]);
+			$actividad->_setCodCooperativa($_POST["codCooperativa"]);
+			$actividad->_setIdEstadoActividad($_POST["idEstadoActividad"]);
+			$actividad->_setCodSemanal($_POST["codSemanal"]);
+			$actividad->_setDiaSemana($_POST["diaSemana"]);
+			$actividad->_setHoraIni($_POST["HoraIni"]);
+			$actividad->_setHoraFin($_POST["HoraFin"]);
+			if(actualizarActividad($actividad)){
+				echo "1";
+			}else{
+				echo "0";
+			}
+			break;
 		default:
 			# code...
 			break;

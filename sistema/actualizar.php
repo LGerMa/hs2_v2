@@ -29,6 +29,7 @@
 			$cooperativa->_setCodCooperativa($_POST["codigoCoop"]);
 			$cooperativa->_setPassCooperativa($_POST["pass"]);
 			$cooperativa->_setNombreCooperativa($_POST["nombreCoop"]);
+			$cooperativa->_setAbreviaturaCooperativa($_POST["abreviaturaCoop"]);
 			$cooperativa->_setDireccionCooperativa($_POST["direccionCoop"]);
 			$cooperativa->_setContactoCooperativa($_POST["contactoCoop"]);
 			$cooperativa->_setCorreoContactoCooperativa($_POST["emailContactoCoop"]);

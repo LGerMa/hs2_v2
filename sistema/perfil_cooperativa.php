@@ -48,6 +48,10 @@
                                 <label>Confirmar nuevo password: </label>
                                 <input type="password" id="confirmarPass" class="form-control" minlength="5" maxlength="10">
                             </div>
+                            <div class="form-group col-md-6">
+                                <label>Abreviatura Cooperativa</label>
+                                <input type="text" id="abreviaturaCoop" name="abreviaturaCoop" class="form-control" placeholder="Abreviatura Cooperativa" required disabled value="<?php echo $cooper->getAbreviaturaCooperativa(); ?>">    
+                            </div>
 							<div class="form-group col-md-6">
                                 <label>Nombre Cooperativa</label>
                         		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required disabled value="<?php echo $cooper->getNombreCooperativa(); ?>">	

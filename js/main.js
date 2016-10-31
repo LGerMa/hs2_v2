@@ -124,6 +124,7 @@ $(document).ready(function(){
 		rmvAttr("#emailContactoCoop","disabled");
 		rmvAttr("#telefonoCoop","disabled");
 		rmvAttr("#direccionCoop","disabled");
+		rmvAttr("#abreviaturaCoop","disabled");
 		removeClassAtrb("#btnGuardarPerfilCooper","hidden");
         removeClassAtrb("#btnCancelarPerfilCooper","hidden");
         removeClassAtrb(".checkOculto","hidden");
@@ -134,6 +135,7 @@ $(document).ready(function(){
 		var newPass = $("#newPass").val();
 		var confirmarPass = $("#confirmarPass").val();
 		var nombreCoop = $("#nombreCoop").val();
+		var abreviaturaCoop = $("#abreviaturaCoop").val();
 		var contactoCoop = $("#contactoCoop").val();
 		var emailContactoCoop = $("#emailContactoCoop").val();
 		var telefonoCoop = $("#telefonoCoop").val();
@@ -159,6 +161,7 @@ $(document).ready(function(){
 					codigoCoop:codigoCoop,
 					pass:pass,
 					nombreCoop:nombreCoop,
+					abreviaturaCoop:abreviaturaCoop,
 					contactoCoop:contactoCoop,
 					emailContactoCoop:emailContactoCoop,
 					telefonoCoop:telefonoCoop,
@@ -372,6 +375,7 @@ $(document).ready(function(){
 	$("#form_agregarCooper").submit(function(event){
 		var codigoCoop = $("#codigoCoop").val();
 		var nombreCoop = $("#nombreCoop").val();
+		var abreviaturaCoop = $("#abreviaturaCoop").val();
 		var direccionCoop = $("#direccionCoop").val();
 		var contactoCoop = $("#contactoCoop").val();
 		var emailContactoCoop = $("#emailContactoCoop").val();
@@ -387,6 +391,7 @@ $(document).ready(function(){
 				opc:2,
 				codigoCoop:codigoCoop,
 				nombreCoop:nombreCoop,
+				abreviaturaCoop:abreviaturaCoop,
 				direccionCoop:direccionCoop,
 				contactoCoop:contactoCoop,
 				emailContactoCoop:emailContactoCoop,

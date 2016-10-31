@@ -91,6 +91,7 @@
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
 			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setAbreviaturaCooperativa($row["abreviaturaCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
 			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
@@ -196,6 +197,7 @@
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
 			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setAbreviaturaCooperativa($row["abreviaturaCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
 			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
@@ -216,6 +218,7 @@
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
 			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setAbreviaturaCooperativa($row["abreviaturaCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
 			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
@@ -305,6 +308,7 @@
 			$cooperativa->_setCodCooperativa($row["codCooperativa"]);
 			$cooperativa->_setPassCooperativa(md5($row["passCooperativa"]));
 			$cooperativa->_setNombreCooperativa($row["nombreCooperativa"]);
+			$cooperativa->_setAbreviaturaCooperativa($row["abreviaturaCooperativa"]);
 			$cooperativa->_setDireccionCooperativa($row["direccionCooperativa"]);
 			$cooperativa->_setContactoCooperativa($row["contactoCooperativa"]);
 			$cooperativa->_setCorreoContactoCooperativa($row["correoContactoCooperativa"]);
@@ -362,17 +366,18 @@
 	}
 	function insertarCooperativa($cooperativa){
 		$cnx=cnx();
-		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s','%s','%s','%s',now(), null)",
+		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,abreviaturaCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s',%s','%s','%s','%s',now(), null)",
 			mysqli_real_escape_string($cnx,$cooperativa->getCodCooperativa()),
 			mysqli_real_escape_string($cnx,md5($cooperativa->getPassCooperativa())),
 			mysqli_real_escape_string($cnx,$cooperativa->getNombreCooperativa()),
+			mysqli_real_escape_string($cnx,$cooperativa->getAbreviaturaCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getDireccionCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getContactoCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getCorreoContactoCooperativa()),
 			mysqli_real_escape_string($cnx,$cooperativa->getTelefonoCooperativa())
 			);
-		//echo("estado: ".$estado);
 		$estado = mysqli_query($cnx,$query);
+		//echo("estado: ".$estado);
 		mysqli_close($cnx);
 		return $estado;
 	}
@@ -394,9 +399,10 @@
 	}
 	function actualizarCooperativa($cooper){
 		$cnx = cnx();
-		$query = sprintf("UPDATE cooperativa SET passCooperativa = '%s', nombreCooperativa ='%s', direccionCooperativa = '%s', contactoCooperativa = '%s', correoContactoCooperativa = '%s', telefonoCooperativa = '%s',fechaModificadoCooperativa = now() WHERE codCooperativa = '%s'",
+		$query = sprintf("UPDATE cooperativa SET passCooperativa = '%s', nombreCooperativa ='%s', abreviaturaCooperativa='%s', direccionCooperativa = '%s', contactoCooperativa = '%s', correoContactoCooperativa = '%s', telefonoCooperativa = '%s',fechaModificadoCooperativa = now() WHERE codCooperativa = '%s'",
 			mysqli_real_escape_string($cnx, md5($cooper->getPassCooperativa())),
 			mysqli_real_escape_string($cnx, $cooper->getNombreCooperativa()),
+			mysqli_real_escape_string($cnx,$cooper->getAbreviaturaCooperativa()),
 			mysqli_real_escape_string($cnx, $cooper->getDireccionCooperativa()),
 			mysqli_real_escape_string($cnx, $cooper->getContactoCooperativa()),
 			mysqli_real_escape_string($cnx, $cooper->getCorreoContactoCooperativa()),

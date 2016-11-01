@@ -231,7 +231,7 @@
                                 <?php
                             }else{
                                  ?>
-                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo ($_POST['semana']);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
+                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W"));?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
                                 <?php
                             }
                          ?>

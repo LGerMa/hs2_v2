@@ -4,7 +4,7 @@
     $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
     $SemanalCod = explode("@",$userCod);
     $userCod=$SemanalCod[0];
-    $userCod.="-".(date("W")+1);
+    $userCod.="-".(date("W"));
     $userCod.="-".date("Y");
  ?>
  <!DOCTYPE html>
@@ -23,7 +23,19 @@
       <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
+    <!--Codigo para los Dias de la semana-->
+    <script language="javascript">
+    $(document).ready(function(){
+        $("#semana").change(function () {
+           $("#semana option:selected").each(function () {
+                elegido=$(this).val();
+                $.post("dias.php", { elegido: elegido }, function(data){
+                    $("#diaSemana").html(data);
+                });            
+            });
+        })
+    });
+</script>
 
  </head>
  <body>
@@ -87,7 +99,7 @@
                                         <br>
                                         <label>Dia de la semana</label>
                                             <?php
-                                            function getStartAndEndDate($week, $year) {
+                                            function getSemana($week, $year) {
                                               $dto = new DateTime();
                                               $dto->setISODate($year, $week);
                                               $ret['Lunes'] = $dto->format('Y-m-d');
@@ -106,14 +118,22 @@
                                               return $ret;
                                             }
                                             ?>
-                                        <select class="form-control" id="diaSemana">
+                                         <!-- Numero Semana -->   
+                                        <select class="form-control" id="semana" name="semana">
+                                            <?php for ($i = 1; $i <= 52; $i++) { ?> 
+                                                <option value="<?php echo $i; ?>" <?php if ($i == date('W')) { echo 'selected="selected"';} ?>><?php echo $i; ?></option> 
+                                            <?php } ?>
+                                        </select>
+                                        <br>   
+                                        <!-- Dias Semana --> 
+                                        <select class="form-control" id="diaSemana" name="diaSemana">
                                             <?php
-                                            $NWeek=(date("W"));
-                                            $NYear=date("Y");
-                                            $week_array = getStartAndEndDate($NWeek,$NYear);
-                                            foreach($week_array as $key => $value){
-                                                echo '<option value='.$value.'>'.$key.' '.$value.'</option>'; //close your tags!!
-                                            }
+                                                $NWeek=(date("W"));
+                                                $NYear=date("Y");
+                                                $week_array = getSemana($NWeek,$NYear);
+                                                foreach($week_array as $key => $value){
+                                                    echo '<option value='.$value.'>'.$key.' '.$value.'</option>'; //dia de la semana
+                                                }
                                             ?>
                                         </select>
                                         <br>
@@ -211,7 +231,7 @@
                                 <?php
                             }else{
                                  ?>
-                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
+                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo ($_POST['semana']);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
                                 <?php
                             }
                          ?>

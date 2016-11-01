@@ -21,6 +21,9 @@
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+          <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     
 </head>
 <body>
@@ -29,7 +32,7 @@
     <?php include 'menu.php'; ?>
         <div id="page-wrapper">
             <div class="container">
-                 <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa(); ?> 
+                 <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa()." - ".$actividad->getCodSemanal(); ?> 
                  </h1>
                 <div class="row">
                     
@@ -37,9 +40,10 @@
 
                              <div class="col-sm-10 col-md-10">
 
-                                <form id="form_agregarActividad">
+                                <form id="form_actualizarActividad">
                                     <div class="form-group col-md-6">
-                                        <?php echo "<input type='text' id='idSemanal' class='hidden' value='".$idActividad."'>";?>
+                                        <?php echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$actividad->getCodSemanal()."'>";?>
+                                        <?php echo "<input type='text' id='idAct' class='hidden' value='".$actividad->getIdActividad()."'>";?>
                                         <label>Hora de permanencia</label><br>
                                         <div class="form-group col-md-6">
                                             <label>Inicio:</label>
@@ -102,7 +106,7 @@
                                             $week_array = getStartAndEndDate($NWeek,$NYear);
                                             foreach($week_array as $key => $value){
                                                 if($actividad->getDiaSemana()==$value){
-                                                    echo '<option value='.$value.' disabled selected>'.$key.' '.$value.'</option>';
+                                                    echo '<option value='.$value.' selected>'.$key.' '.$value.'</option>';
                                                 }else{
                                                     echo '<option value='.$value.'>'.$key.' '.$value.'</option>';
                                                 }
@@ -129,10 +133,6 @@
                                                     echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";  
                                                 } 
                                             }
-                                            /*for ($i=0; $i < count($vectUnidad); $i++) { 
-                                                $unidad = strtoupper($vectUnidad[$i]->getNombreCooperativa());
-                                                echo "<option value=".$vectUnidad[$i]->getCodCooperativa().">".$unidad."</option>";
-                                            }*/
                                         ?>
                                         </select>
                                     </div>
@@ -145,11 +145,10 @@
                                         <input type="text" id="contacto" name="contacto" class="form-control" placeholder="Seleccione Cooperativa" disabled>    
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Modificar</a>
+                                        <button type="submit" href="#" class="btn btn-primary btn-lg" id="btnModificarActividad">Modificar</button>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>
-
                             </div>
 
 
@@ -161,9 +160,9 @@
                         </div>
                         <div class="form-group col-md-6">
                             <br>
-                            <form action="" method="post">
+                            <form method="post">
                                 <?php 
-                                    echo '<td>
+                                    /*echo '<td>
                                         <input type="submit" href="proyectado.php" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
                                         </td>';
                                     if(isset($_POST['deleteItem'])){
@@ -173,41 +172,10 @@
                                         $resul=mysqli_query($cnx,$query);
                                         mysqli_close($cnx);
                                         echo"<script language='javascript'>window.location='proyectado.php'</script>;";
-                                    }
+                                    }*/
                                 ?>
                             </form>
-                    </div>
-
-                    <script type="text/javascript" language="javascript" >
-                        $(document).ready(function() {
-                            
-                            function cargarCooper(){
-                                var selectValue = $("#selectCoop").val();
-                                $.ajax({
-                                    url: 'getInfoCooper.php',
-                                    type: 'GET',
-                                    data:{
-                                        valor:selectValue
-                                    },
-                                    dataType: "json",
-                                    success: function(data){
-                                        console.log(data);
-                                        $("#direccion").val(data.direccion+" - "+data.telefono);
-                                        $("#contacto").val(data.contacto);
-                                    },
-                                    error:function(){
-                                        console.log("error");
-                                    }
-                                });
-                            }
-                            cargarCooper();
-                            $("#selectCoop").change(function(){
-                                cargarCooper(); 
-                            });
-                        } );
-                    </script>
-
-
+                        </div>
 
                     </div>
                 </div>
@@ -215,5 +183,33 @@
         </div>
     </div>
     <?php include 'addJs.php'; ?>
+    <script type="text/javascript" language="javascript" >
+        $(document).ready(function() {
+            
+            function cargarCooper(){
+                var selectValue = $("#selectCoop").val();
+                $.ajax({
+                    url: 'getInfoCooper.php',
+                    type: 'GET',
+                    data:{
+                        valor:selectValue
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        $("#direccion").val(data.direccion+" - "+data.telefono);
+                        $("#contacto").val(data.contacto);
+                    },
+                    error:function(data){
+                        console.log(data);
+                    }
+                });
+            }
+            cargarCooper();
+            $("#selectCoop").change(function(){
+                cargarCooper(); 
+            });
+        } );
+    </script>
 </body>
 </html>

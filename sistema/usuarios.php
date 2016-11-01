@@ -60,7 +60,8 @@
           "ajax":{
             url :"usuarios-grid-data.php", // json datasource
             type: "post",  // method  , by default get
-            error: function(){  // error handling
+            error: function(data){  // error handling
+              console.log(data);
               $(".employee-grid-error").html("");
               $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
               $("#employee-grid_processing").css("display","none");

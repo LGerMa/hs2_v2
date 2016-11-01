@@ -1,4 +1,4 @@
-<?php 
+w<?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
 	//include '../php/verificar_admin.php';

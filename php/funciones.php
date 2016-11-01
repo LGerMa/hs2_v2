@@ -366,7 +366,7 @@
 	}
 	function insertarCooperativa($cooperativa){
 		$cnx=cnx();
-		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,abreviaturaCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s',%s','%s','%s','%s',now(), null)",
+		$query = sprintf("INSERT INTO cooperativa(codCooperativa,passCooperativa,nombreCooperativa,abreviaturaCooperativa,direccionCooperativa,contactoCooperativa,correoContactoCooperativa,telefonoCooperativa,fechaRegistroCooperativa,fechaModificadoCooperativa) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s',now(), null)",
 			mysqli_real_escape_string($cnx,$cooperativa->getCodCooperativa()),
 			mysqli_real_escape_string($cnx,md5($cooperativa->getPassCooperativa())),
 			mysqli_real_escape_string($cnx,$cooperativa->getNombreCooperativa()),
@@ -377,7 +377,9 @@
 			mysqli_real_escape_string($cnx,$cooperativa->getTelefonoCooperativa())
 			);
 		$estado = mysqli_query($cnx,$query);
-		//echo("estado: ".$estado);
+		/*if($estado==1)
+			echo mysqli_error();
+		echo("estadoooooooo: ".$estado."-".mysqli_error($cnx));*/
 		mysqli_close($cnx);
 		return $estado;
 	}

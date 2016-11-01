@@ -34,6 +34,7 @@
 			$cooperativa->_setContactoCooperativa($_POST["contactoCoop"]);
 			$cooperativa->_setCorreoContactoCooperativa($_POST["emailContactoCoop"]);
 			$cooperativa->_setTelefonoCooperativa($_POST["telefonoCoop"]);
+			//echo json_encode($cooperativa);
 			if(actualizarCooperativa($cooperativa)){
 				echo "1";
 			}else{

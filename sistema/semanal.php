@@ -4,7 +4,8 @@
     $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
     $SemanalCod = explode("@",$userCod);
     $userCod=$SemanalCod[0];
-    $userCod.="-".(date("W"));
+    $semanaSelect = $_GET["semanalN"];
+    $userCod.="-".$semanaSelect;
     $userCod.="-".date("Y");
  ?>
  <!DOCTYPE html>
@@ -49,7 +50,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-10">
-                        <h1 class="page-header">Proyectado: <?php echo $userCod; ?></h1><br>
+                        <h1 class="page-header">Semanal: <?php echo $userCod; ?></h1><br>
                         <?php 
                             if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
                                 echo "Eres de tipo admin";

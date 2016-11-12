@@ -356,7 +356,19 @@
 			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario()),
 			mysqli_real_escape_string($cnx,$semanal->getIdEstadoSemanal())
 			);
-		$estado = mysqli_query($cnx,$query);
+		$flag=rtnSemanal($semanal->getCodSemanal());
+		if($flag){
+			echo "<script>
+			alert('Ya existe');
+			window.location.href='proyectado.php';
+			</script>";
+		}else{
+			echo "<script>
+			alert('No existe');
+			window.location.href='proyectado.php';
+			</script>";
+			$estado = mysqli_query($cnx,$query);
+		}
 		mysqli_close($cnx);
 		return $estado;
 	}

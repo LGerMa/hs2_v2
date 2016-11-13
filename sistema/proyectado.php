@@ -56,15 +56,20 @@
                                     <div class="col-md-6">
                                         <label>Agregar un nuevo semanal</label>
                                             <select class="form-control" id="semanalN" name="semanalN">
-                                                <?php for ($i = 1; $i <= 52; $i++) { ?> 
-                                                    <option value="<?php echo $i; ?>" <?php if ($i == date('W')) { echo 'selected="selected"';} ?>><?php echo 'Semana '.$i."\n";echo 'Lunes '.date("Y-m-d", strtotime(date('Y').'W'.$i.'-'.'1'));echo ' Domingo '.date("Y-m-d", strtotime(date('Y').'W'.$i.'-'.'7')); ?></option> 
+                                                <?php for ($i = 1; $i <= 52; $i++) { 
+                                                    $j=$i;
+                                                    if($i<10){
+                                                        $j='0'.$i;
+                                                    };
+                                                ?> 
+                                                    <option value="<?php echo $i; ?>" <?php if ($i == date('W')) { echo 'selected="selected"';} ?>><?php echo 'Semana '.$i."\n";echo 'Lunes '.date("Y-m-d", strtotime(date('Y').'W'.$j.'-'.'1'));echo ' Domingo '.date("Y-m-d", strtotime(date('Y').'W'.$j.'-'.'7')); ?></option> 
                                                 <?php } ?>
                                             </select>
                                     </div>
                                     <br>
                                     <div class="col-md-4">
                                         <button  type="submit" class="btn btn-info" id="btnIS">
-                                        <a onclick="insertarSemanal('<?php echo $userCod ?>','<?php echo 34?>','<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Ir</a>    
+                                        Ir  
                                         </button>
                                     </div>
                                 </form>

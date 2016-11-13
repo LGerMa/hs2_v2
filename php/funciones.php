@@ -127,7 +127,7 @@
 
 	function getAllTipoUser(){
 		$cnx=cnx();
-		$query="SELECT * FROM tipoUsuario";
+		$query="SELECT * FROM tipousuario";
 		$result=mysqli_query($cnx,$query);
 		while ($row=mysqli_fetch_array($result)) {
 			$tipoUsuario = new tipoUsuario_class();
@@ -356,19 +356,7 @@
 			mysqli_real_escape_string($cnx,$semanal->getCorreoUsuario()),
 			mysqli_real_escape_string($cnx,$semanal->getIdEstadoSemanal())
 			);
-		$flag=rtnSemanal($semanal->getCodSemanal());
-		if($flag){
-			echo "<script>
-			alert('Ya existe');
-			window.location.href='proyectado.php';
-			</script>";
-		}else{
-			echo "<script>
-			alert('No existe');
-			window.location.href='proyectado.php';
-			</script>";
-			$estado = mysqli_query($cnx,$query);
-		}
+		$estado = mysqli_query($cnx,$query);
 		mysqli_close($cnx);
 		return $estado;
 	}

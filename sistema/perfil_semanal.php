@@ -35,9 +35,6 @@
                  <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa()." - ".$actividad->getCodSemanal(); ?> 
                  </h1>
                 <div class="row">
-                    
-                       
-
                              <div class="col-sm-10 col-md-10">
 
                                 <form id="form_actualizarActividad">
@@ -162,7 +159,20 @@
                     <div class="col-sm-10 col-md-10">
                         <div class="form-group col-md-6">
                             <br>
-                            <a href="proyectado.php" class="btn btn-success">Atr&aacute;s</a>
+                                <?php 
+                                     $semana=explode("-",$actividad->getCodSemanal());
+                                     $semana=$semana[1];
+                                     $semana=45;
+                                ?>
+                            <form id="form_Proyectado" method="get" name="perfil_semanal.php" action="semanal.php">
+                                <?php echo $semana;?>
+                                <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php $semana ?>'>
+                                <button  type="submit" class="btn btn-success" id="btnIS">
+                                    Atr&aacute;s
+                                </button>         
+                            </form>
+
+                                
                         </div>
                         <div class="form-group col-md-6">
                             <br>

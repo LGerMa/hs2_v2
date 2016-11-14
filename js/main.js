@@ -553,7 +553,7 @@ function insertarSemanal(codSemanal,semana,correo,registroSemanal){
 					case "2":
 						setTimeout(function(){
 							respAlert("success","Correcto...redireccionando");
-							redireccionar("proyectado.php");
+							redireccionar("semanal.php");
 						},1000);
 					break;
 				}

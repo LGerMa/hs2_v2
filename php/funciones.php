@@ -139,6 +139,20 @@
 		mysqli_close($cnx);
 		return $vectTipoUsuario;
 	}
+
+	function getAllEstadoSemanal(){
+		$cnx = cnx();
+		$query = "SELECT * FROM estadosemanal";
+		$result = mysqli_query($cnx,$query);
+		while($row=mysqli_fetch_array($result)){
+			$estadoSemanal = new estadoSemanal_class();
+			$estadoSemanal->_setIdEstadoSemanal($row["idEstadoSemanal"]);
+			$estadoSemanal->_setEstadoSemanal($row["estadoSemanal"]);
+			$vectEstadoSemanal[] = $estadoSemanal;
+		}
+		mysqli_close($cnx);
+		return $vectEstadoSemanal;
+	}
 	function getTipoUser($tipo){
 		$cnx = cnx();
 		$query=sprintf("SELECT tipoUsuario FROM tipoUsuario where idTipoUsuario = '%s' ",mysqli_real_escape_string($cnx,$tipo));

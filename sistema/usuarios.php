@@ -21,25 +21,55 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-11 col-lg-11">
-                        <h1 class="page-header">Usuarios</h1><br>
-                       	<div class="table-responsive">
-                       		<table id="employee-grid" class="table table-striped table-bordered">
-                       			<thead>
+                    <div class="col-sm-10 col-lg-10">
+                      <h2 class="page-header" id="page-header">Usuarios</h2><br>
+                        <div class="form-group col-md-4">
+                          <label>Unidad</label>
+                              <select class="form-control" id="selectUnidad">
+                                <?php 
+                                  $vectUnidad = getAllUnidad();
+                                  for ($i=0; $i < count($vectUnidad); $i++) { 
+                                    $unidad = strtoupper($vectUnidad[$i]->getUnidad());
+                                    echo "<option value=".$vectUnidad[$i]->getIdUnidad().">".$unidad."</option>";
+                                  }
+                                ?>
+                              </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Zona</label>
+                            <select class="form-control" id="selectZona">
+                                <?php 
+                                  $vectZona = getAllZona();
+                                  for ($i=0; $i < count($vectZona); $i++) { 
+                                    $zona = strtoupper($vectZona[$i]->getTipoZona());
+                                    echo "<option value=".$vectZona[$i]->getIdZona().">".$zona."</option>";
+                                  }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label>Filtrar</label>
+                          <a href="#" id="btnBuscarUsuario" class="form-control btn btn-info">Buscar</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-sm-10 col-lg-10">
+                        <div class="table-responsive">
+                          <table id="employee-grid" class="table table-striped table-bordered">
+                            <thead>
                               <tr>
-                                <th>CORREO</th>
-                                <th>NOMBRE</th>
-                                <th>APELLIDO</th>
-                                <th>UNIDAD</th>
-                                <th>TIPO</th>
-                                <th>FECHA REG</th>
+                                  <th>CORREO</th>
+                                  <th>NOMBRE</th>
+                                  <th>TIPO</th>
+                                  <th>FECHA REGISTRO</th>
                               </tr>
+                                </thead>
                             </thead>
 
-                       		</table>
-                       	</div>
-                       	<div id="respuestaAlert"></div>
-                       	<br>
+                          </table>
+                        </div>
+                        <div id="respuestaAlert"></div>
+                        <br>         
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -54,20 +84,37 @@
     <?php include 'addJs.php'; ?>
     <script type="text/javascript" language="javascript" >
       $(document).ready(function() {
-        var dataTable = $('#employee-grid').DataTable( {
+        var selectUnidad = "";
+        var selectZona = "";
+        var dataTable = "";
+        //var dataTable = $('#employee-grid').DataTable({});
+        $("#btnBuscarUsuario").click(function(){
+         // dataTable.destroy();
+          selectUnidad = $("#selectUnidad").val();
+         selectZona = $("#selectZona").val();
+          //alert($("#selectUnidad option:selected").text());
+         $(".page-header").text("Usuarios: ["+$("#selectUnidad option:selected").text()+"] - ["+$("#selectZona option:selected").text()+"]");
+          dataTable = $('#employee-grid').DataTable( {
           "processing": true,
           "serverSide": true,
+          "destroy" : true,
           "ajax":{
             url :"usuarios-grid-data.php", // json datasource
             type: "post",  // method  , by default get
-            error: function(){  // error handling
+            data:{
+              unidad: selectUnidad,
+              zona : selectZona
+            },
+            error: function(data){  // error handling
+              console.log(data);
               $(".employee-grid-error").html("");
               $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
-              $("#employee-grid_processing").css("display","none");
-              
+              $("#employee-grid_processing").css("display","none");  
             }
-          }
-        } );
+            }
+          });
+          //dataTable.destroy();
+        });
       } );
     </script>
  </body>

@@ -81,8 +81,7 @@
                                 </select>
                             </div>
                             <div id="respuestaAlert"></div>
-                            <button type="submit" class="btn btn-info"> Enviar </button>
-                            <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarUsuario">Registrar</a>
+                            <button type="submit" class="btn btn-info btn-lg"> Registrar Nuevo Usuario </button>
                         </form>
                     </div>
                     <!-- /.col-lg-12 -->

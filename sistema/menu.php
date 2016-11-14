@@ -17,8 +17,11 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['usuario_sesion']->getNombreUsuario(); ?></a>
-                        </li>
+                        <?php 
+                            echo "<li>
+                                <a href='perfil_usuario.php?email=".$_SESSION['usuario_sesion']->getCorreoUsuario()."'><i class='fa fa-user fa-fw'></i>".$_SESSION['usuario_sesion']->getNombreUsuario()."</a>
+                            </li>";
+                        ?>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
@@ -78,6 +81,9 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="./proyectado.php">Ver</a>
+                                </li>
+                                <li>
+                                    <a href="./proyectado_historial.php">Historial</a>
                                 </li>
                             <?php 
                                 if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){

@@ -14,39 +14,38 @@ $conn = cnx();
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
+$unidad = $_REQUEST["unidad"];
+$zona = $_REQUEST["zona"];
 
 $columns = array( 
 // datatable column index  => database column name
 	0 =>'correoUsuario', 
 	1 => 'nombreUsuario',
-	2=> 'apellidoUsuario',
-	3=> 'idUnidad',
-	4=> 'idTipoUsuario',
-	5=> 'fechaRegistroUsuario'
+	2=> 'idTipoUsuario',
+	3=> 'fechaRegistroUsuario'
 );
 
-// getting total number records without any search
 $sql = "SELECT * ";
-$sql.=" FROM usuario";
+$sql.= " FROM usuario where idUnidad ='".$unidad."' && idZona = '".$zona."'";
 $query=mysqli_query($conn, $sql) or die("usuarios-grid-data.php: get employees");
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-
 $sql = "SELECT * ";
-$sql.=" FROM usuario WHERE 1=1";
+$sql.=" FROM usuario WHERE 1=1 && idUnidad='".$unidad."' && idZona = '".$zona."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	$sql.=" AND ( correoUsuario LIKE '".$requestData['search']['value']."%' ";    
 	$sql.=" OR nombreUsuario LIKE '".$requestData['search']['value']."%' ";
-
-	$sql.=" OR apellidoUsuario LIKE '".$requestData['search']['value']."%' )";
+	$sql.=" OR idPuesto LIKE '".$requestData['search']['value']."%' ";
+	$sql.=" OR fechaRegistroUsuario LIKE '".$requestData['search']['value']."%' )";
 }
 $query=mysqli_query($conn, $sql) or die("usuarios-grid-data.php: get employees");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
 $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
+
 $query=mysqli_query($conn, $sql) or die("usuarios-grid-data.php: get employees");
 
+//echo "prueba!!!";
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData=array(); 
@@ -55,9 +54,8 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$correo = $row["correoUsuario"];
 	$nuevoFomato = date("d/m/y g:i A",$fecha);
 	$nestedData[] = "<a href='perfil_usuario.php?email=".$correo."'>".$correo."</a>";
-	$nestedData[] = $row["nombreUsuario"];
-	$nestedData[] = $row["apellidoUsuario"];
-	$nestedData[] = getUnidad($row["idUnidad"]);
+	$nestedData[] = $row["nombreUsuario"]." ".$row["apellidoUsuario"];
+	//$nestedData[] = $row["apellidoUsuario"];
 	if(isAdmin($correo)){
 		$nestedData[] = "<i class='fa fa-star' title='Administrador'></i>";
 	}else{

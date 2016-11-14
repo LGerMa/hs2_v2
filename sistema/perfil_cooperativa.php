@@ -48,19 +48,23 @@
                                 <label>Confirmar nuevo password: </label>
                                 <input type="password" id="confirmarPass" class="form-control" minlength="5" maxlength="10">
                             </div>
+                            <div class="form-group col-md-6">
+                                <label>Abreviatura Cooperativa</label>
+                                <input type="text" id="abreviaturaCoop" name="abreviaturaCoop" class="form-control" placeholder="Abreviatura Cooperativa" required disabled value="<?php echo $cooper->getAbreviaturaCooperativa(); ?>">    
+                            </div>
 							<div class="form-group col-md-6">
                                 <label>Nombre Cooperativa</label>
                         		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required disabled value="<?php echo $cooper->getNombreCooperativa(); ?>">	
                         	</div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label>Contacto</label>
                                 <input type="text" id="contactoCoop" name="contactoCoop" class="form-control" placeholder="Contacto" required disabled value="<?php echo $cooper->getContactoCooperativa(); ?>"> 
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label>Correo Contacto</label>
                                 <input type="email" id="emailContactoCoop" name="emailContactoCoop" class="form-control" placeholder="Correo Contacto" disabled value="<?php echo $correoCooper; ?>"> 
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label>Tel&eacute;fono Cooperativa</label>
                                 <input type="text" id="telefonoCoop" name="telefonoCoop" class="form-control" placeholder="Tel&eacute;fono Cooperativa" maxlength="9" required disabled value="<?php echo $cooper->getTelefonoCooperativa(); ?>">
                             </div>

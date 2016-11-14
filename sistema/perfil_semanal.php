@@ -35,9 +35,6 @@
                  <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa()." - ".$actividad->getCodSemanal(); ?> 
                  </h1>
                 <div class="row">
-                    
-                       
-
                              <div class="col-sm-10 col-md-10">
 
                                 <form id="form_actualizarActividad">
@@ -101,7 +98,13 @@
                                             ?>
                                         <select class="form-control" id="diaSemana">
                                             <?php
-                                            $NWeek=(date("W"));
+                                            //Funcion  que retorna la semana del dia seleccionado
+                                            function weekOfMonth($date) {
+                                                $firstOfMonth = date("Y-m-01", $date);
+                                                return intval(date("W", strtotime($date))) - intval(date("W", strtotime($firstOfMonth)));
+                                            }
+                                            $datee = $actividad->getDiaSemana();
+                                            $NWeek= weekOfMonth($datee)+1;
                                             $NYear=date("Y");
                                             $week_array = getStartAndEndDate($NWeek,$NYear);
                                             foreach($week_array as $key => $value){
@@ -156,13 +159,26 @@
                     <div class="col-sm-10 col-md-10">
                         <div class="form-group col-md-6">
                             <br>
-                            <a href="proyectado.php" class="btn btn-success">Atr&aacute;s</a>
+                                <?php 
+                                     $semana=explode("-",$actividad->getCodSemanal());
+                                     $semana=$semana[1];
+                                     $semana=45;
+                                ?>
+                            <form id="form_Proyectado" method="get" name="perfil_semanal.php" action="semanal.php">
+                                <?php echo $semana;?>
+                                <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php $semana ?>'>
+                                <button  type="submit" class="btn btn-success" id="btnIS">
+                                    Atr&aacute;s
+                                </button>         
+                            </form>
+
+                                
                         </div>
                         <div class="form-group col-md-6">
                             <br>
                             <form method="post">
                                 <?php 
-                                    /*echo '<td>
+                                    echo '<td>
                                         <input type="submit" href="proyectado.php" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
                                         </td>';
                                     if(isset($_POST['deleteItem'])){
@@ -172,7 +188,7 @@
                                         $resul=mysqli_query($cnx,$query);
                                         mysqli_close($cnx);
                                         echo"<script language='javascript'>window.location='proyectado.php'</script>;";
-                                    }*/
+                                    }
                                 ?>
                             </form>
                         </div>

@@ -2,7 +2,7 @@
 function cnx(){
     $host="localhost";
     $dbUser="root";
-    $dbPass="";
+    $dbPass="root";
     $myDB="insafocoop";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     return $cnx;
@@ -11,7 +11,7 @@ function cnx(){
 function pruebaCnx(){
     $host="localhost";
     $dbUser="root";
-    $dbPass="";
+    $dbPass="root";
     $myDB="insafocoop";
     $cnx=mysqli_connect($host,$dbUser,$dbPass,$myDB);
     $flag=0;

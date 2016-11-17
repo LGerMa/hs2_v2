@@ -14,6 +14,7 @@ $conn = cnx();
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
+$flag = $_REQUEST["flag"];
 $unidad = $_REQUEST["unidad"];
 $zona = $_REQUEST["zona"];
 
@@ -26,13 +27,19 @@ $columns = array(
 );
 
 $sql = "SELECT * ";
-$sql.= " FROM usuario where idUnidad ='".$unidad."' && idZona = '".$zona."'";
+if($flag)
+	$sql.= " FROM usuario where idUnidad = idUnidad && idZona = idZona";
+else
+	$sql.= " FROM usuario where idUnidad ='".$unidad."' && idZona = '".$zona."'";
 $query=mysqli_query($conn, $sql) or die("usuarios-grid-data.php: get employees");
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 $sql = "SELECT * ";
-$sql.=" FROM usuario WHERE 1=1 && idUnidad='".$unidad."' && idZona = '".$zona."'";
+if($flag)
+	$sql.=" FROM usuario WHERE 1=1 && idUnidad= idUnidad && idZona = idZona";
+else
+	$sql.=" FROM usuario WHERE 1=1 && idUnidad='".$unidad."' && idZona = '".$zona."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	$sql.=" AND ( correoUsuario LIKE '".$requestData['search']['value']."%' ";    
 	$sql.=" OR nombreUsuario LIKE '".$requestData['search']['value']."%' ";

@@ -49,7 +49,31 @@
                             if($flag){
                                 ?>
                                 <?php 
-                                    echo "<div class='alert alert-info'>ESTADO SEMANAL: [".strtoupper(getEstadoSemanal_Semanal($userCod))."]-[".$semanaSelect."]</div>";
+                                    $estadoSemanal = getEstadoSemanal($userCod);
+                                    $tipoAlert = "";
+                                    switch ($estadoSemanal) {
+                                        case '1':
+                                            //creado
+                                            $tipoAlert = "alert-info";
+                                            break;
+                                        case '2':
+                                            //en espera
+                                            $tipoAlert = "alert-warning";
+                                            break;
+                                        case '3':
+                                            //aprobado
+                                            $tipoAlert = "alert-info";
+                                            break;
+                                        case '4':
+                                            //rechazado
+                                            $tipoAlert = "alert-danger";
+                                            break;
+                                        case '5':
+                                            //realizado
+                                            $tipoAlert = "alert-success";
+                                            break;
+                                    }
+                                    echo "<div class='alert ".$tipoAlert."'>ESTADO SEMANAL: [".strtoupper(getEstadoSemanal_Semanal($userCod))."]-[".$semanaSelect."]-{".$estadoSemanal."}</div>";
                                 ?>
                                 <form id="form_agregarActividad">
                                     <div class="form-group col-md-6">
@@ -151,9 +175,20 @@
                                         <input type="text" id="contacto" name="contacto" class="form-control" placeholder="Seleccione Cooperativa" disabled>    
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Agregar</a>
+                                        <?php 
+                                            if($estadoSemanal==1 || $estadoSemanal == 3){
+                                                echo "<a href='#' class='btn btn-primary btn-lg' id='btnRegistrarActividad'>Agregar</a>";
+                                            }     
+                                        ?>
                                         <input type='text' id='semanalN' name='semanalN' class='hidden' value="<?php echo $semanaSelect; ?>">
-                                        <a href="#" class="btn btn-info btn-lg" id="btnEnviarAprobacion">Enviar a aprobación</a>
+                                        <?php 
+                                            if($estadoSemanal == 1 || $estadoSemanal == 4){
+                                                echo "<a href='#' class='btn btn-info btn-lg' id='btnEnviarAprobacion'>Enviar a aprobación</a>";
+                                            }
+                                            if($estadoSemanal == 3){
+                                                echo "<a href='#' class='btn btn-warning btn-lg' id='btnEnviarRealizado'>Enviar a realizado</a>"; 
+                                            }
+                                        ?>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>

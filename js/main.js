@@ -523,7 +523,44 @@ function prueba() {
 	alert("Click");
 }
 
-
+$("#btnEnviarRealizado").click(function(){
+	var reply = confirm("Al aceptar este mensaje, no podrá modificar, esta semana y se dará por [REALIZADO]...¿Desea confirmar dicha acción?");
+	if(reply){
+		    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 5
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal.php?semanalN="+$("#semanaSelect").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+	}else{
+		alert("NO SE GUARDA!!");
+	}
+});
 
 $("#btnEnviarAprobacion").click(function(){
 	//alert("click en boton enviar a aprobacion");

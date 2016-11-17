@@ -189,6 +189,15 @@
 		mysqli_close($cnx);
 		return $puesto;
 	}
+	function getEstadoSemanal($codSemanal){
+		$cnx = cnx();
+		$query = sprintf("SELECT idEstadoSemanal from semanal where codSemanal='%s'",mysqli_real_escape_string($cnx,$codSemanal));
+		$result = mysqli_query($cnx,$query);
+		$row = mysqli_fetch_array($result);
+		$estado = $row["idEstadoSemanal"];
+		mysqli_close($cnx);
+		return $estado;
+	}
 	function getEstadoSemanal_Semanal($codSemanal){
 		$cnx = cnx();
 		$query = sprintf("SELECT es.estadoSemanal from semanal s inner join estadosemanal es on s.idEstadoSemanal=es.idEstadoSemanal where codSemanal='%s'",mysqli_real_escape_string($cnx,$codSemanal));

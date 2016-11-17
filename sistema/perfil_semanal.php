@@ -166,11 +166,11 @@
                                 <?php 
                                      $semana=explode("-",$actividad->getCodSemanal());
                                      $semana=$semana[1];
-                                     $semana=45;
                                 ?>
-                            <form id="form_Proyectado" method="get" name="perfil_semanal.php" action="semanal.php">
-                                <?php echo $semana;?>
-                                <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php $semana ?>'>
+
+
+                            <form id="form_Proyectado" method="get" name="perfil_semanal.php" action="semanal.php"> 
+                                <input type='text' id='semanalN' name='semanalN' class='hidden' value="<?php echo $semana; ?>">
                                 <button  type="submit" class="btn btn-success" id="btnIS">
                                     Atr&aacute;s
                                 </button>         
@@ -183,7 +183,7 @@
                             <form method="post">
                                 <?php 
                                     echo '<td>
-                                        <input type="submit" href="proyectado.php" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
+                                        <input type="submit" href="semanal.php?semanalN=$semana" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
                                         </td>';
                                     if(isset($_POST['deleteItem'])){
                                         $cnx=cnx();
@@ -191,7 +191,7 @@
                                         $query=sprintf("DELETE FROM actividad WHERE idActividad ='%s'",mysqli_real_escape_string($cnx,$idActividad));
                                         $resul=mysqli_query($cnx,$query);
                                         mysqli_close($cnx);
-                                        echo"<script language='javascript'>window.location='proyectado.php'</script>;";
+                                        echo"<script language='javascript'>window.location='semanal.php?semanalN=".$semana."'</script>;";
                                     }
                                 ?>
                             </form>

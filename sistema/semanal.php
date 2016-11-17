@@ -149,6 +149,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Agregar</a>
+                                        <input type='text' id='semanalN' name='semanalN' class='hidden' value="<?php echo $semanaSelect; ?>">
                                         <a href="#" class="btn btn-info btn-lg">Enviar a aprobación</a>
                                     </div>
                                   <div id="respuestaAlert"></div>

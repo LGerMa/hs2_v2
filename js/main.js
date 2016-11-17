@@ -370,6 +370,9 @@ $("#form_actualizarActividad").submit(function(event){
 		var diaSemana = $("#diaSemana").val();
 		var HoraIni = document.getElementById("HoraIni").value;
 		var HoraFin = document.getElementById("HoraFin").value;
+		//numero de semana Ini
+		var diaProyectado = document.getElementById("semanalN").value;
+		//fin
 		var flag = true;
 
 		if(HoraIni<HoraFin){
@@ -405,7 +408,7 @@ $("#form_actualizarActividad").submit(function(event){
 					case "2":
 						setTimeout(function(){
 							respAlert("success","Correcto...redireccionando");
-							redireccionar("proyectado.php");
+							redireccionar("semanal.php?semanalN="+diaProyectado);
 						},1000);
 					break;
 				}

@@ -79,12 +79,18 @@
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proyectado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="./proyectado.php">Ver</a>
-                                </li>
-                                <li>
-                                    <a href="./proyectado_historial.php">Historial</a>
-                                </li>
+                            <?php 
+                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2"){
+                                    echo "
+                                       <li>
+                                            <a href='./proyectado.php'>Ver</a>
+                                        </li>
+                                        <li>
+                                            <a href='./proyectado_historial.php'>Historial</a>
+                                        </li> 
+                                    "   ;
+                                }
+                            ?>
                             <?php 
                                 if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
                                     echo "<li>

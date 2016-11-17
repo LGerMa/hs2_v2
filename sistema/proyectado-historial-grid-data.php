@@ -53,13 +53,16 @@ $query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employe
 $data = array();
 while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData=array(); 
+
 	$fecha = $row["registroSemanal"];
 	$fecha = strtotime($fecha);
 	$nuevoFomato = date("d/m/y g:i A",$fecha);
 	$codSemanal = $row["codSemanal"];
-	$nestedData[] = $codSemanal;
-	//$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
-	$nestedData[] = $row["semana"];
+	$semana = $row["semana"];
+	//$nestedData[] = $codSemanal;
+	$nestedData[] = "<a href='semanal.php?semanalN=".$semana."'>".$codSemanal."</a>";
+	//$nestedData[] = $row["semana"];
+	$nestedData[] = $semana;
 	$nestedData[] = $nuevoFomato;
 	$data[] = $nestedData;
 }

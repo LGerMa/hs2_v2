@@ -14,6 +14,7 @@
 		$info = array(
 			"codCooper" => $infoCooper->getCodCooperativa(),
 			"nombre" => $infoCooper->getNombreCooperativa(),
+			"abreviatura" => $infoCooper->getAbreviaturaCooperativa(),
 			"direccion" => $infoCooper->getDireccionCooperativa(),
 			"telefono" => $infoCooper->getTelefonoCooperativa(),
 			"contacto" => $infoCooper->getContactoCooperativa()

@@ -49,6 +49,9 @@
                         </div>
                         <div class="form-group col-md-2">
                           <label>Filtrar</label>
+                           <label class="checkbox-inline">
+                             <input type="checkbox" id="chkBusqueda">Todos
+                          </label>
                           <a href="#" id="btnBuscarUsuario" class="form-control btn btn-info">Buscar</a>
                         </div>
                     </div>
@@ -87,13 +90,20 @@
         var selectUnidad = "";
         var selectZona = "";
         var dataTable = "";
+        var flag=0;
         //var dataTable = $('#employee-grid').DataTable({});
         $("#btnBuscarUsuario").click(function(){
          // dataTable.destroy();
           selectUnidad = $("#selectUnidad").val();
          selectZona = $("#selectZona").val();
+         if($("#chkBusqueda").prop('checked')){
+          flag = 1;
+          $(".page-header").text("Usuarios: [TODOS]");
+         }else{
+          flag = 0;
+          $(".page-header").text("Usuarios: ["+$("#selectUnidad option:selected").text()+"] - ["+$("#selectZona option:selected").text()+"]");
+        }
           //alert($("#selectUnidad option:selected").text());
-         $(".page-header").text("Usuarios: ["+$("#selectUnidad option:selected").text()+"] - ["+$("#selectZona option:selected").text()+"]");
           dataTable = $('#employee-grid').DataTable( {
           "processing": true,
           "serverSide": true,
@@ -102,6 +112,7 @@
             url :"usuarios-grid-data.php", // json datasource
             type: "post",  // method  , by default get
             data:{
+              flag: flag,
               unidad: selectUnidad,
               zona : selectZona
             },

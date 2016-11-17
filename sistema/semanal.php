@@ -48,7 +48,9 @@
 
                             if($flag){
                                 ?>
-
+                                <?php 
+                                    echo "<div class='alert alert-info'>ESTADO SEMANAL: [".strtoupper(getEstadoSemanal_Semanal($userCod))."]</div>";
+                                ?>
                                 <form id="form_agregarActividad">
                                     <div class="form-group col-md-6">
                                         <?php echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$userCod."'>";?>
@@ -134,6 +136,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label>Abreviatura</label>
+                                        <input type="text" id="abreviaturaCooper" name = "abreviaturaCooper" class="form-control" placeholder="Abreviatura Cooperativa" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label>Direccion y telefono</label>
                                         <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Seleccione Cooperativa" disabled>
                                     </div>
@@ -143,6 +149,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Agregar</a>
+                                        <a href="#" class="btn btn-info btn-lg">Enviar a aprobación</a>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>
@@ -184,6 +191,7 @@
                                                     dataType: "json",
                                                     success: function(data){
                                                         console.log(data);
+                                                        $("#abreviaturaCooper").val(data.abreviatura);
                                                         $("#direccion").val(data.direccion+" - "+data.telefono);
                                                         $("#contacto").val(data.contacto);
                                                     }

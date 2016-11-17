@@ -525,7 +525,41 @@ function prueba() {
 
 
 
-
+$("#btnEnviarAprobacion").click(function(){
+	//alert("click en boton enviar a aprobacion");
+   // alert($("#CodigoSemanal").val()+" - "+$("#semanaSelect").val());
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 2
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal.php?semanalN="+$("#semanaSelect").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
 
 
 function insertarSemanal(codSemanal,semana,correo,registroSemanal){

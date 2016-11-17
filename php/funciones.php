@@ -456,6 +456,17 @@
 		return $estado;
 	}
 
+	function actualizarEstadoSemanal($codSemanal, $nuevoEstado){
+		$cnx = cnx();
+		$query = sprintf("UPDATE semanal SET idEstadoSemanal = '%s' WHERE codSemanal = '%s' ", 
+			mysqli_real_escape_string($cnx,$nuevoEstado),
+			mysqli_real_escape_string($cnx,$codSemanal)
+			);
+		$estado = mysqli_query($cnx,$query);
+		mysqli_close($cnx);
+		return $estado;
+	}
+
 	function rtnSemanal($userCod){
 		$cnx=cnx();
 		$flag=FALSE;

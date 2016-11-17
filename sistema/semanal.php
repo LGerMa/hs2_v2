@@ -49,11 +49,14 @@
                             if($flag){
                                 ?>
                                 <?php 
-                                    echo "<div class='alert alert-info'>ESTADO SEMANAL: [".strtoupper(getEstadoSemanal_Semanal($userCod))."]</div>";
+                                    echo "<div class='alert alert-info'>ESTADO SEMANAL: [".strtoupper(getEstadoSemanal_Semanal($userCod))."]-[".$semanaSelect."]</div>";
                                 ?>
                                 <form id="form_agregarActividad">
                                     <div class="form-group col-md-6">
-                                        <?php echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$userCod."'>";?>
+                                        <?php 
+                                            echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$userCod."'>";
+                                            echo "<input type='text' id='semanaSelect' class='hidden' value='".$semanaSelect."'>";
+                                        ?>
                                         <label>Hora de permanencia</label><br>
                                         <div class="form-group col-md-6">
                                             <label>Inicio:</label>

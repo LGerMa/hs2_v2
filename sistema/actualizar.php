@@ -57,6 +57,13 @@
 				echo "0";
 			}
 			break;
+		case "4":
+			if(actualizarEstadoSemanal($_POST["codSemanal"],$_POST["nuevoEstado"])){
+				echo "1";
+			}else{
+				echo "0";
+			}
+			break;
 		default:
 			# code...
 			break;

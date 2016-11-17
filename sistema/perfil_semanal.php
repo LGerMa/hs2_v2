@@ -140,6 +140,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label>Abreviatura</label>
+                                        <input type="text" id="abreviaturaCooper" name = "abreviaturaCooper" class="form-control" placeholder="Abreviatura Cooperativa" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label>Direccion y telefono</label>
                                         <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Seleccione Cooperativa" disabled>
                                     </div>
@@ -213,6 +217,7 @@
                     dataType: "json",
                     success: function(data){
                         console.log(data);
+                        $("#abreviaturaCooper").val(data.abreviatura);
                         $("#direccion").val(data.direccion+" - "+data.telefono);
                         $("#contacto").val(data.contacto);
                     },

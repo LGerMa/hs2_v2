@@ -188,12 +188,13 @@
                                             if($estadoSemanal == 3){
                                                 echo "<a href='#' class='btn btn-warning btn-lg' id='btnEnviarRealizado'>Enviar a realizado</a>"; 
                                             }
-                                            if($estadoSemanal ==2){
-                                                echo "<a href='pdf.php' class='btn btn-primary btn-md' id='btnHacerPDF'>PDF</a>";
-                                            }
                                         ?>
                                     </div>
                                   <div id="respuestaAlert"></div>
+                                </form>
+                                <form id='form_PDF' method='get' action='pdf.php'>
+                                        <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php echo $userCod ?>'>
+                                        <button  type='submit' class='btn btn-primary btn-md' id='btnHacerPDF'>PDF</button>
                                 </form>
                                     <div class="container">
                                         <div class="row">

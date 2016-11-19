@@ -66,7 +66,7 @@
 		$col2='Semana del '.'Lunes '.$lunes.' Domingo '.$domingo.'.';
 		$pdf->MultiCell(120, 5, $col2);
 		//Tabla
-			$pdf->SetFont('Arial','B',10);
+			$pdf->SetFont('Arial','B',8);
 			//encabezado
 				//Fecha
 				$pdf->SetXY($x + 1, $y+48);
@@ -103,10 +103,41 @@
 			$countTotF=1;
 			$countPag=1;
 			while( $row=mysqli_fetch_array($query) ) {  // preparing an array
-				if($countTotF==(13*$countPag)){
+				if($countTotF==(9*$countPag)){		
+					//numero de pagina
+					$pdf->SetXY($x + 280, 185);
+					$col2="Pagina ".$countPag;
+					$pdf->MultiCell(20, 5, $col2);
+					//
 					$countPag=$countPag+1;
 					$y=30;
 					$pdf->AddPage();
+					//encabezado
+					//Fecha
+					$pdf->SetXY($x + 1, $y);
+					$col2="FECHA";
+					$pdf->MultiCell(20, 5, $col2,1);
+					//Nombre Asociacion
+					$pdf->SetXY($x + 21, $y);
+					$col2="COOPERATIVA";
+					$pdf->MultiCell(50, 5, $col2,1);
+					//Direccion
+					$pdf->SetXY($x + 71, $y);
+					$col2="DIRECCION-TELEFONO";
+					$pdf->MultiCell(60, 5, $col2,1);
+					//CONTACTO
+					$pdf->SetXY($x + 131, $y);
+					$col2="CONTACTO";
+					$pdf->MultiCell(40, 5, $col2,1);
+					//TIEMPO
+					$pdf->SetXY($x + 171, $y);
+					$col2="TIEMPO";
+					$pdf->MultiCell(30, 5, $col2,1);
+					//ACTIVIDAD
+					$pdf->SetXY($x + 201, $y);
+					$col2="ACTIVIDAD";
+					$pdf->MultiCell(100, 5, $col2,1);
+					$y=30;
 				};
 				//Buscando el nombre de la cooperativa y todo eso
 				$cop= $row["codCooperativa"];
@@ -126,21 +157,21 @@
 					//Fecha**********************************************************
 					$pdf->SetXY($x + 1, $y+5);
 					$col2 = " ";
-					$pdf->MultiCell(20, 10, $col2,1);
+					$pdf->MultiCell(20, 15, $col2,1);
 					$col2 = $diaSemanaG;
 					$pdf->SetXY($x + 1, $y+2+2);
-					$pdf->CellFitScale(50, 5, $col2);
+					$pdf->CellFitScale(20, 5, $col2);
 					//Nombre Coop*****************************************************
 					$pdf->SetXY($x + 21, $y+5);
 					$col2=$row2["abreviaturaCooperativa"];
 					$nombreCo=explode(" ", $col2);
 					$col2=" ";
-					$pdf->MultiCell(50, 10, $col2,1);
+					$pdf->MultiCell(50, 15, $col2,1);
 					$col=1;
 					for ($i=0; $i<sizeof($nombreCo); $i++) {
 						if ($i==6*$col){
-							$pdf->SetXY($x + 21, $y+($col*2)+2);
-							$pdf->CellFitScale(50, 5, $col2);
+							$pdf->SetXY($x + 21, $y+4+($col-1)*3);
+							$pdf->CellFitScale(50, 6, $col2);
 							$col2=$nombreCo[$i]." ";
 							$col=$col+1;
 						}else{
@@ -149,18 +180,18 @@
 						
 					};
 					$col=$col+1;
-					$pdf->SetXY($x + 21, $y+($col*2));
+					$pdf->SetXY($x + 21, $y+1+($col-1)*3);
 					$pdf->CellFitScale(50, 5, $col2);
 					//Direccion******************************************************
 					$pdf->SetXY($x + 71, $y+5);
 					$direcTele=explode(" ",$direcTele);
 					$col2=" ";
-					$pdf->MultiCell(60, 10, $col2,1, 'L', FALSE);
+					$pdf->MultiCell(60, 15, $col2,1, 'L', FALSE);
 					$col=1;
 					for ($i=0; $i<sizeof($direcTele); $i++) {
 						if ($i==6*$col){
-							$pdf->SetXY($x + 71, $y+($col*2)+2);
-							$pdf->CellFitScale(60, 5, $col2);
+							$pdf->SetXY($x + 71, $y+4+($col-1)*3);
+							$pdf->CellFitScale(60, 6, $col2);
 							$col2=$direcTele[$i]." ";
 							$col=$col+1;
 						}else{
@@ -169,19 +200,19 @@
 						
 					};
 					$col=$col+1;
-					$pdf->SetXY($x + 71, $y+($col*2));
+					$pdf->SetXY($x + 71, $y+1+($col-1)*3);
 					$pdf->CellFitScale(60, 5, $col2);
 					//CONTACTO**************************************************
 					$pdf->SetXY($x + 131, $y+5);
 					$col2=$row2["contactoCooperativa"];
 					$nombreCo=explode(" ", $col2);
 					$col2=" ";
-					$pdf->MultiCell(40, 10, $col2,1, 'L', FALSE);
+					$pdf->MultiCell(40, 15, $col2,1, 'L', FALSE);
 					$col=1;
 					for ($i=0; $i<sizeof($nombreCo); $i++) {
 						if ($i==6*$col){
-							$pdf->SetXY($x + 131, $y+($col*2)+2);
-							$pdf->CellFitScale(40, 5, $col2);
+							$pdf->SetXY($x + 131, $y+4+($col-1)*3);
+							$pdf->CellFitScale(40, 6, $col2);
 							$col2=$nombreCo[$i]." ";
 							$col=$col+1;
 						}else{
@@ -190,26 +221,26 @@
 						
 					};
 					$col=$col+1;
-					$pdf->SetXY($x + 131, $y+($col*2));
+					$pdf->SetXY($x + 131, $y+1+($col-1)*3);
 					$pdf->CellFitScale(40, 5, $col2);
 					//TIEMPO******************************************************************
 					$pdf->SetXY($x + 171, $y+5);
 					$col2=" ";
-					$pdf->MultiCell(30, 10, $col2,1, 'L', FALSE);
+					$pdf->MultiCell(30, 15, $col2,1, 'L', FALSE);
 					$col2=$tiempoTotal." hr";
 					$pdf->SetXY($x + 171, $y+2+2);
-					$pdf->CellFitScale(50, 5, $col2);
+					$pdf->CellFitScale(30, 5, $col2);
 					//ACTIVIDAD***************************************************************
 					$pdf->SetXY($x + 201, $y+5);
 					$col2=$row["actividadProgramada"];
 					$nombreCo=explode(" ", $col2);
 					$col2=" ";
-					$pdf->MultiCell(100, 10, $col2,1,'L', FALSE);
+					$pdf->MultiCell(100, 15, $col2,1,'L', FALSE);
 					$col=1;
 					for ($i=0; $i<sizeof($nombreCo); $i++) {
-						if ($i==20*$col){
-							$pdf->SetXY($x + 201, $y+($col*2)+2);
-							$pdf->CellFitScale(100, 5, $col2);
+						if ($i==12*$col){
+							$pdf->SetXY($x + 201, $y+4+($col-1)*3);
+							$pdf->CellFitScale(100, 6, $col2);
 							$col2=$nombreCo[$i]." ";
 							$col=$col+1;
 						}else{
@@ -218,13 +249,16 @@
 						
 					};
 					$col=$col+1;
-					$pdf->SetXY($x + 201, $y+($col*2));
-					$pdf->CellFitScale(100, 5, $col2);
+					$pdf->SetXY($x + 201, $y+1+($col-1)*3);
+					$pdf->CellFitScale(100, 6, $col2);
 				//valores de y
-				$y=$y+10;
+				$y=$y+15;
 				$countTotF=$countTotF+1;
 			}
-					//Guardar en PDF
+			//Guardar en PDF
+			$pdf->SetXY($x + 280, 185);
+			$col2="Pagina ".$countPag;
+			$pdf->MultiCell(20, 5, $col2);
 		$pdf->Output();
 		//Para agregarlo
 		//<div class="form-group col-md-6">

@@ -50,10 +50,10 @@ $sql.=" FROM semanal s
 		u.idUnidad= '".$infoJefe->getIdUnidad()."' &&
 		u.idZona = '".$infoJefe->getIdZona()."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-	$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-	$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-	$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
+	$sql.=" AND ( s.codSemanal LIKE '%".$requestData['search']['value']."%' ";    
+	$sql.=" OR s.correoUsuario LIKE '%".$requestData['search']['value']."%' )";
+	//$sql.=" AND ( s.correoUsuario LIKE '%".$requestData['search']['value']."%' )";
+	//$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 }
 $query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 

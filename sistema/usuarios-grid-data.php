@@ -41,10 +41,10 @@ if($flag)
 else
 	$sql.=" FROM usuario WHERE 1=1 && idUnidad='".$unidad."' && idZona = '".$zona."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-	$sql.=" AND ( correoUsuario LIKE '".$requestData['search']['value']."%' ";    
-	$sql.=" OR nombreUsuario LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR idPuesto LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR fechaRegistroUsuario LIKE '".$requestData['search']['value']."%' )";
+	$sql.=" AND ( correoUsuario LIKE '%".$requestData['search']['value']."%' ";    
+	$sql.=" OR nombreUsuario LIKE '%".$requestData['search']['value']."%' )";
+	//$sql.=" OR idPuesto LIKE '".$requestData['search']['value']."%' ";
+	//$sql.=" OR fechaRegistroUsuario LIKE '".$requestData['search']['value']."%' )";
 }
 $query=mysqli_query($conn, $sql) or die("usuarios-grid-data.php: get employees");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 

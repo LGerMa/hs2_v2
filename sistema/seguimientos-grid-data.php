@@ -16,127 +16,50 @@ $conn = cnx();
 $requestData= $_REQUEST;
 
 $opc = $_REQUEST["opc"];
+$correoJefe = $_REQUEST["correoJefe"];
+$infoJefe = getInfoUser($correoJefe);
 //$opc = $_GET["opc"];
 
 $columns = array( 
 // datatable column index  => database column name
 	0 =>'codSemanal', 
-	1 => 'correoUsuario'
+	1 => 'correoUsuario',
+	2 => 'registroSemanal'
 );
-
-// getting total number records without any search
-switch ($opc) {
-	case '1':
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalData = mysqli_num_rows($query);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
-
-
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
-		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-			$sql.=" OR idEstadoSemanal LIKE '".$requestData['search']['value']."%' )";
-		}
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
-		$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-		/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
-		
-		break;
-	case '2':
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalData = mysqli_num_rows($query);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
+/*$sql = "SELECT * ";
+$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";*/
+$sql = "SELECT * ";
+$sql.=" FROM semanal s 
+		inner join usuario u
+		on s.correoUsuario = u.correoUsuario 
+		where s.idEstadoSemanal = '".$opc."' &&
+		u.idUnidad= '".$infoJefe->getIdUnidad()."' &&
+		u.idZona = '".$infoJefe->getIdZona()."'";
+$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
+$totalData = mysqli_num_rows($query);
+$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
-		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-			$sql.=" OR idEstadoSemanal LIKE '".$requestData['search']['value']."%' )";
-		}
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
-		$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-		/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
-		break;
-	case '3':
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalData = mysqli_num_rows($query);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
-
-
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
-		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-			$sql.=" OR idEstadoSemanal LIKE '".$requestData['search']['value']."%' )";
-		}
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
-		$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-		/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
-		
-		break;
-	case '4':
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalData = mysqli_num_rows($query);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
-
-
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
-		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-			$sql.=" OR idEstadoSemanal LIKE '".$requestData['search']['value']."%' )";
-		}
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
-		$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-		/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
-		break;
-	case '5':
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalData = mysqli_num_rows($query);
-		$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
-
-
-		$sql = "SELECT * ";
-		$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
-		if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-			$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
-			$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
-
-			$sql.=" OR idEstadoSemanal LIKE '".$requestData['search']['value']."%' )";
-		}
-		$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
-		$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
-		$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-		/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
-		break;
-	default:
-		# code...
-		break;
+/*$sql = "SELECT * ";
+$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";*/
+$sql = "SELECT * ";
+$sql.=" FROM semanal s 
+		inner join usuario u
+		on s.correoUsuario = u.correoUsuario 
+		where s.idEstadoSemanal = '".$opc."' &&
+		u.idUnidad= '".$infoJefe->getIdUnidad()."' &&
+		u.idZona = '".$infoJefe->getIdZona()."'";
+if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+	$sql.=" AND ( s.codSemanal LIKE '%".$requestData['search']['value']."%' ";    
+	$sql.=" OR s.correoUsuario LIKE '%".$requestData['search']['value']."%' )";
+	//$sql.=" AND ( s.correoUsuario LIKE '%".$requestData['search']['value']."%' )";
+	//$sql.=" OR registroSemanal LIKE '".$requestData['search']['value']."%' )";
 }
+$query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
+$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
+$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
+// getting total number records without any search
 
 $query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 
@@ -147,7 +70,9 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$fecha = strtotime($fecha);
 	$nuevoFomato = date("d/m/y g:i A",$fecha);
 	$codSemanal = $row["codSemanal"];
-	$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
+	//$nestedData[] = $codSemanal;
+	$nestedData[] = "<a href='semanal_jefe.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
+	//$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
 	$nestedData[] = $row["correoUsuario"];
 	$nestedData[] = $nuevoFomato;
 	$data[] = $nestedData;

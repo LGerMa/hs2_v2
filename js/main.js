@@ -125,6 +125,7 @@ $(document).ready(function(){
 		rmvAttr("#emailContactoCoop","disabled");
 		rmvAttr("#telefonoCoop","disabled");
 		rmvAttr("#direccionCoop","disabled");
+		rmvAttr("#abreviaturaCoop","disabled");
 		removeClassAtrb("#btnGuardarPerfilCooper","hidden");
         removeClassAtrb("#btnCancelarPerfilCooper","hidden");
         removeClassAtrb(".checkOculto","hidden");
@@ -135,6 +136,7 @@ $(document).ready(function(){
 		var newPass = $("#newPass").val();
 		var confirmarPass = $("#confirmarPass").val();
 		var nombreCoop = $("#nombreCoop").val();
+		var abreviaturaCoop = $("#abreviaturaCoop").val();
 		var contactoCoop = $("#contactoCoop").val();
 		var emailContactoCoop = $("#emailContactoCoop").val();
 		var telefonoCoop = $("#telefonoCoop").val();
@@ -160,6 +162,7 @@ $(document).ready(function(){
 					codigoCoop:codigoCoop,
 					pass:pass,
 					nombreCoop:nombreCoop,
+					abreviaturaCoop:abreviaturaCoop,
 					contactoCoop:contactoCoop,
 					emailContactoCoop:emailContactoCoop,
 					telefonoCoop:telefonoCoop,
@@ -367,6 +370,9 @@ $("#form_actualizarActividad").submit(function(event){
 		var diaSemana = $("#diaSemana").val();
 		var HoraIni = document.getElementById("HoraIni").value;
 		var HoraFin = document.getElementById("HoraFin").value;
+		//numero de semana Ini
+		var diaProyectado = document.getElementById("semanalN").value;
+		//fin
 		var flag = true;
 
 		if(HoraIni<HoraFin){
@@ -402,7 +408,7 @@ $("#form_actualizarActividad").submit(function(event){
 					case "2":
 						setTimeout(function(){
 							respAlert("success","Correcto...redireccionando");
-							redireccionar("proyectado.php");
+							redireccionar("semanal.php?semanalN="+diaProyectado);
 						},1000);
 					break;
 				}
@@ -458,6 +464,7 @@ $("#form_actualizarActividad").submit(function(event){
 	$("#form_agregarCooper").submit(function(event){
 		var codigoCoop = $("#codigoCoop").val();
 		var nombreCoop = $("#nombreCoop").val();
+		var abreviaturaCoop = $("#abreviaturaCoop").val();
 		var direccionCoop = $("#direccionCoop").val();
 		var contactoCoop = $("#contactoCoop").val();
 		var emailContactoCoop = $("#emailContactoCoop").val();
@@ -473,6 +480,7 @@ $("#form_actualizarActividad").submit(function(event){
 				opc:2,
 				codigoCoop:codigoCoop,
 				nombreCoop:nombreCoop,
+				abreviaturaCoop:abreviaturaCoop,
 				direccionCoop:direccionCoop,
 				contactoCoop:contactoCoop,
 				emailContactoCoop:emailContactoCoop,
@@ -515,9 +523,182 @@ function prueba() {
 	alert("Click");
 }
 
+$("#btnEnviarRealizado").click(function(){
+	var reply = confirm("Al aceptar este mensaje, no podrá modificar, esta semana y se dará por [REALIZADO]...¿Desea confirmar dicha acción?");
+	if(reply){
+		    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 5
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal.php?semanalN="+$("#semanaSelect").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+	}else{
+		alert("NO SE GUARDA!!");
+	}
+});
 
+$("#btnEnviarAprobacion").click(function(){
+	//alert("click en boton enviar a aprobacion");
+   // alert($("#CodigoSemanal").val()+" - "+$("#semanaSelect").val());
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 2
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal.php?semanalN="+$("#semanaSelect").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
 
+$("#btnAprobar").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 3
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
 
+$("#btnRechazar").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 4
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
+
+$("#btnModificarRealizado").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 3
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
 
 
 function insertarSemanal(codSemanal,semana,correo,registroSemanal){
@@ -548,7 +729,7 @@ function insertarSemanal(codSemanal,semana,correo,registroSemanal){
 					case "2":
 						setTimeout(function(){
 							respAlert("success","Correcto...redireccionando");
-							redireccionar("proyectado.php");
+							redireccionar("semanal.php");
 						},1000);
 					break;
 				}

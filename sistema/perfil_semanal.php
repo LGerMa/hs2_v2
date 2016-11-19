@@ -35,9 +35,6 @@
                  <h1 class="page-header"><?php echo "idActividad:".$actividad->getIdActividad()." - ".$actividad->getCodCooperativa()." - ".$actividad->getCodSemanal(); ?> 
                  </h1>
                 <div class="row">
-                    
-                       
-
                              <div class="col-sm-10 col-md-10">
 
                                 <form id="form_actualizarActividad">
@@ -101,7 +98,13 @@
                                             ?>
                                         <select class="form-control" id="diaSemana">
                                             <?php
-                                            $NWeek=(date("W"));
+                                            //Funcion  que retorna la semana del dia seleccionado
+                                            function weekOfMonth($date) {
+                                                $firstOfMonth = date("Y-m-01", $date);
+                                                return intval(date("W", strtotime($date))) - intval(date("W", strtotime($firstOfMonth)));
+                                            }
+                                            $datee = $actividad->getDiaSemana();
+                                            $NWeek= weekOfMonth($datee)+1;
                                             $NYear=date("Y");
                                             $week_array = getStartAndEndDate($NWeek,$NYear);
                                             foreach($week_array as $key => $value){
@@ -137,6 +140,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label>Abreviatura</label>
+                                        <input type="text" id="abreviaturaCooper" name = "abreviaturaCooper" class="form-control" placeholder="Abreviatura Cooperativa" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label>Direccion y telefono</label>
                                         <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Seleccione Cooperativa" disabled>
                                     </div>
@@ -156,14 +163,27 @@
                     <div class="col-sm-10 col-md-10">
                         <div class="form-group col-md-6">
                             <br>
-                            <a href="proyectado.php" class="btn btn-success">Atr&aacute;s</a>
+                                <?php 
+                                     $semana=explode("-",$actividad->getCodSemanal());
+                                     $semana=$semana[1];
+                                ?>
+
+
+                            <form id="form_Proyectado" method="get" name="perfil_semanal.php" action="semanal.php"> 
+                                <input type='text' id='semanalN' name='semanalN' class='hidden' value="<?php echo $semana; ?>">
+                                <button  type="submit" class="btn btn-success" id="btnIS">
+                                    Atr&aacute;s
+                                </button>         
+                            </form>
+
+                                
                         </div>
                         <div class="form-group col-md-6">
                             <br>
                             <form method="post">
                                 <?php 
-                                    /*echo '<td>
-                                        <input type="submit" href="proyectado.php" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
+                                    echo '<td>
+                                        <input type="submit" href="semanal.php?semanalN=$semana" class="btn btn-danger" name="deleteItem" value="Borrar" placeholder="Borrar"/>  
                                         </td>';
                                     if(isset($_POST['deleteItem'])){
                                         $cnx=cnx();
@@ -171,8 +191,8 @@
                                         $query=sprintf("DELETE FROM actividad WHERE idActividad ='%s'",mysqli_real_escape_string($cnx,$idActividad));
                                         $resul=mysqli_query($cnx,$query);
                                         mysqli_close($cnx);
-                                        echo"<script language='javascript'>window.location='proyectado.php'</script>;";
-                                    }*/
+                                        echo"<script language='javascript'>window.location='semanal.php?semanalN=".$semana."'</script>;";
+                                    }
                                 ?>
                             </form>
                         </div>
@@ -197,6 +217,7 @@
                     dataType: "json",
                     success: function(data){
                         console.log(data);
+                        $("#abreviaturaCooper").val(data.abreviatura);
                         $("#direccion").val(data.direccion+" - "+data.telefono);
                         $("#contacto").val(data.contacto);
                     },

@@ -34,7 +34,11 @@
                                 <label>C&oacute;digo Cooperativa</label>
                         		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>">	
                         	</div>
-							<div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
+                                <label>Abreviatura Cooperativa</label>
+                                <input type="text" id="abreviaturaCoop" name="abreviaturaCoop" class="form-control" placeholder="Abreviatura Cooperativa" required>
+                            </div>
+							<div class="form-group col-md-12">
                                 <label>Nombre Cooperativa</label>
                         		<input type="text" id="nombreCoop" name="nombreCoop" class="form-control" placeholder="Nombre Cooperativa" required>	
                         	</div>

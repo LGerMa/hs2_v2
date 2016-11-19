@@ -4,7 +4,7 @@
     $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
     $SemanalCod = explode("@",$userCod);
     $userCod=$SemanalCod[0];
-    $userCod.="-".(date("W")+1);
+    $userCod.="-".(date("W"));
     $userCod.="-".date("Y");
  ?>
  <!DOCTYPE html>
@@ -20,7 +20,22 @@
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    
+      <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!--Codigo para los Dias de la semana-->
+    <script language="javascript">
+    $(document).ready(function(){
+        $("#semana").change(function () {
+           $("#semana option:selected").each(function () {
+                elegido=$(this).val();
+                $.post("dias.php", { elegido: elegido }, function(data){
+                    $("#diaSemana").html(data);
+                });            
+            });
+        })
+    });
+</script>
 
  </head>
  <body>
@@ -33,24 +48,22 @@
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                         <h1 class="page-header">Proyectado: <?php echo $userCod; ?></h1><br>
                         <?php 
                             if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1")
                                 echo "Eres de tipo admin";
                             else
-
-                            $flag=rtnSemanal($userCod);
+                            ?>
+                            <?php
+                            $flag=($userCod);
 
                             if($flag){
                                 ?>
 
                                 <form id="form_agregarActividad">
                                     <div class="form-group col-md-6">
-                                        <input type="hidden" id="CodigoSemanal"/>
-                                        <script type="text/javascript">
-                                        document.getElementById("CodigoSemanal").value = "<?php Print($userCod); ?>";
-                                        </script>
+                                        <?php echo "<input type='text' id='CodigoSemanal' class='hidden' value='".$userCod."'>";?>
                                         <label>Hora de permanencia</label><br>
                                         <div class="form-group col-md-6">
                                             <label>Inicio:</label>
@@ -87,7 +100,7 @@
                                         <br>
                                         <label>Dia de la semana</label>
                                             <?php
-                                            function getStartAndEndDate($week, $year) {
+                                            function getSemana($week, $year) {
                                               $dto = new DateTime();
                                               $dto->setISODate($year, $week);
                                               $ret['Lunes'] = $dto->format('Y-m-d');
@@ -106,14 +119,22 @@
                                               return $ret;
                                             }
                                             ?>
-                                        <select class="form-control" id="diaSemana">
+                                         <!-- Numero Semana -->   
+                                        <select class="form-control" id="semana" name="semana">
+                                            <?php for ($i = 1; $i <= 52; $i++) { ?> 
+                                                <option value="<?php echo $i; ?>" <?php if ($i == date('W')) { echo 'selected="selected"';} ?>><?php echo $i; ?></option> 
+                                            <?php } ?>
+                                        </select>
+                                        <br>   
+                                        <!-- Dias Semana --> 
+                                        <select class="form-control" id="diaSemana" name="diaSemana">
                                             <?php
-                                            $NWeek=(date("W"));
-                                            $NYear=date("Y");
-                                            $week_array = getStartAndEndDate($NWeek,$NYear);
-                                            foreach($week_array as $key => $value){
-                                                echo '<option value='.$value.'>'.$key.' '.$value.'</option>'; //close your tags!!
-                                            }
+                                                $NWeek=(date("W"));
+                                                $NYear=date("Y");
+                                                $week_array = getSemana($NWeek,$NYear);
+                                                foreach($week_array as $key => $value){
+                                                    echo '<option value='.$value.'>'.$key.' '.$value.'</option>'; //dia de la semana
+                                                }
                                             ?>
                                         </select>
                                         <br>
@@ -143,16 +164,16 @@
                                     <div class="form-group col-md-6">
                                         <a href="#" class="btn btn-primary btn-lg" id="btnRegistrarActividad">Agregar</a>
                                     </div>
-                                  
+                                  <div id="respuestaAlert"></div>
                                 </form>
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm-11 col-lg-11">
+                                            <div class="col-sm-10">
                                                 <div class="table-responsive">
                                                     <table id="proyectado-grid" class="table table-striped table-bordered">
                                                         <thead>
                                                           <tr>
-                                                            <th>HORA</th>
+                                                            <th>FECHA</th>
                                                             <th>NOMBRE DE LA ASOCIACION COOPERATIVA</th>
                                                             <th>DIRECCION-TELEFONO</th>
                                                             <th>CONTACTO</th>
@@ -162,23 +183,79 @@
                                                         </thead>
                                                     </table>
                                                 </div>
-                                                <div id="respuestaAlert"></div>
                                                 <br>
                                             </div>
-                                            <!-- /.col-lg-12 -->
+                                            <!-- /.col-lg-12 -->    
                                         </div>
                                         <!-- /.row -->
                                     </div>
                                     <!-- /.container-fluid -->
-                                <?php
-                            }else{
-                                 ?>
-                                <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>',<?php echo (date("W")+1);?>,'<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>
+                                        <script type="text/javascript" language="javascript" >
+                                          $(document).ready(function() {
+                                            cargarCooper();
+                                            function cargarCooper(){
+                                                var selectValue = $("#selectCoop").val();
+                                                $.ajax({
+                                                    url: 'getInfoCooper.php',
+                                                    type: 'GET',
+                                                    data:{
+                                                        valor:selectValue
+                                                    },
+                                                    dataType: "json",
+                                                    success: function(data){
+                                                        console.log(data);
+                                                        $("#direccion").val(data.direccion+" - "+data.telefono);
+                                                        $("#contacto").val(data.contacto);
+                                                    }
+                                                });
+                                            }
+                                            $("#selectCoop").change(function(){
+                                               cargarCooper(); 
+                                            });
+                                            var dataTable = $('#proyectado-grid').DataTable( {
+                                              "processing": true,
+                                              "serverSide": true,
+                                              "ajax":{
+                                                url :"proyectado-grid-data.php", // json datasource
+                                                type: "post",  // method  , by default get
+                                                data: { userCod: "<?php Print($userCod); ?>" },
+                                                error: function(){  // error handling
+                                                  $(".employee-grid-error").html("");
+                                                  $("#proyectado-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                                                  $("#employee-grid_processing").css("display","none");
+                                                  
+                                                }
+                                              }
+                                            } );
+                                          } );
+                                        </script>
                                 <?php
                             }
-                         ?>
-                        <div id="respuestaAlert"></div>
+                                 ?>
+                            <!-- Si desea agregar una nueva -->
+                            <br>
+                            <br>
+                            <!--
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                    <label>Agregar un nuevo semanal</label>
+                                        <select class="form-control" id="semanalN" name="semanalN">
+                                            <?php for ($i = 1; $i <= 52; $i++) { ?> 
+                                                <option value="<?php echo $i; ?>" <?php if ($i == date('W')) { echo 'selected="selected"';} ?>><?php echo $i; ?></option> 
+                                            <?php } ?>
+                                        </select>
+                                </div>
+                                <br>
+                                <div class="col-md-4">
+                                    <a class="btn btn-info" onclick="insertarSemanal('<?php echo $userCod ?>','<?php echo 34?>','<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario() ?>','<?php echo date(("Y-m-d G:i:s"));?>')">Agregar</a>    
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                         <div id="respuestaAlert"></div>
                     </div>
+                    -->
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->

@@ -29,10 +29,12 @@
 			$cooperativa->_setCodCooperativa($_POST["codigoCoop"]);
 			$cooperativa->_setPassCooperativa($_POST["pass"]);
 			$cooperativa->_setNombreCooperativa($_POST["nombreCoop"]);
+			$cooperativa->_setAbreviaturaCooperativa($_POST["abreviaturaCoop"]);
 			$cooperativa->_setDireccionCooperativa($_POST["direccionCoop"]);
 			$cooperativa->_setContactoCooperativa($_POST["contactoCoop"]);
 			$cooperativa->_setCorreoContactoCooperativa($_POST["emailContactoCoop"]);
 			$cooperativa->_setTelefonoCooperativa($_POST["telefonoCoop"]);
+			//echo json_encode($cooperativa);
 			if(actualizarCooperativa($cooperativa)){
 				echo "1";
 			}else{
@@ -50,6 +52,13 @@
 			$actividad->_setHoraIni($_POST["HoraIni"]);
 			$actividad->_setHoraFin($_POST["HoraFin"]);
 			if(actualizarActividad($actividad)){
+				echo "1";
+			}else{
+				echo "0";
+			}
+			break;
+		case "4":
+			if(actualizarEstadoSemanal($_POST["codSemanal"],$_POST["nuevoEstado"])){
 				echo "1";
 			}else{
 				echo "0";

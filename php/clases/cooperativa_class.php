@@ -7,6 +7,7 @@ class cooperativa_class
 	private $codCooperativa;
 	private $passCooperativa;
 	private $nombreCooperativa;
+    private $abreviaturaCooperativa;
 	private $direccionCooperativa;
 	private $contactoCooperativa;
 	private $correoContactoCooperativa;
@@ -226,6 +227,30 @@ class cooperativa_class
     public function _setFechaModificadoCooperativa($fechaModificadoCooperativa)
     {
         $this->fechaModificadoCooperativa = $fechaModificadoCooperativa;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of abreviaturaCooperativa.
+     *
+     * @return mixed
+     */
+    public function getAbreviaturaCooperativa()
+    {
+        return $this->abreviaturaCooperativa;
+    }
+
+    /**
+     * Sets the value of abreviaturaCooperativa.
+     *
+     * @param mixed $abreviaturaCooperativa the abreviatura cooperativa
+     *
+     * @return self
+     */
+    public function _setAbreviaturaCooperativa($abreviaturaCooperativa)
+    {
+        $this->abreviaturaCooperativa = $abreviaturaCooperativa;
 
         return $this;
     }

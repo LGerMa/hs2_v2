@@ -186,39 +186,53 @@
                                                 echo "<a href='#' class='btn btn-info btn-lg' id='btnEnviarAprobacion'>Enviar a aprobación</a>";
                                             }
                                             if($estadoSemanal == 3){
+                                                echo "
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                    <a  href='pdf.php?semanalN=".$userCod."&estado=0' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</a>";
+                                                /*echo "<form id='form_PDF' method='get' action='pdf.php'>
+                                                    <input type = 'text' id='estado' name='estado' class='hidden' value='0'>
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                        <button  type='submit' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</button>
+                                                    </form>";*/
                                                 echo "<a href='#' class='btn btn-warning btn-lg' id='btnEnviarRealizado'>Enviar a realizado</a>"; 
+                                            }
+                                            if($estadoSemanal == 5){
+                                               /* echo "<form id='form_PDF' method='get' action='pdf.php'>
+                                                    <input type = 'text' id='estado' name='estado' class='hidden' value='1'>                                                    
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                        <button  type='submit' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</button>
+                                                    </form>";*/
+                                                echo "
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                    <a  href='pdf.php?semanalN=".$userCod."&estado=1' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</a>";
                                             }
                                         ?>
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>
-                                <form id='form_PDF' method='get' action='pdf.php'>
-                                        <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php echo $userCod ?>'>
-                                        <button  type='submit' class='btn btn-primary btn-md' id='btnHacerPDF'>PDF</button>
-                                </form>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <div class="table-responsive">
-                                                    <table id="proyectado-grid" class="table table-striped table-bordered">
-                                                        <thead>
-                                                          <tr>
-                                                            <th>FECHA</th>
-                                                            <th>COOPERATIVA</th>
-                                                            <th>DIRECCION-TELEFONO</th>
-                                                            <th>CONTACTO</th>
-                                                            <th>TIEMPO</th>
-                                                            <th>ACTIVIDAD</th>
-                                                          </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                                <br>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <div class="table-responsive">
+                                                <table id="proyectado-grid" class="table table-striped table-bordered">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>FECHA</th>
+                                                        <th>COOPERATIVA</th>
+                                                        <th>DIRECCION-TELEFONO</th>
+                                                        <th>CONTACTO</th>
+                                                        <th>TIEMPO</th>
+                                                        <th>ACTIVIDAD</th>
+                                                      </tr>
+                                                    </thead>
+                                                </table>
                                             </div>
-                                            <!-- /.col-lg-12 -->    
+                                            <br>
                                         </div>
-                                        <!-- /.row -->
+                                        <!-- /.col-lg-12 -->    
                                     </div>
+                                    <!-- /.row -->
+                                </div>
                                     <!-- /.container-fluid -->
                                         <script type="text/javascript" language="javascript" >
                                           $(document).ready(function() {

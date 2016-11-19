@@ -100,7 +100,15 @@
                                                 echo "<a href='#' class='btn btn-info btn-lg' id='btnAprobar'>Aprobar semanal</a>";
                                                 echo "<a href='#' class='btn btn-danger btn-lg' id='btnRechazar'>Rechazar semanal</a>";
                                             }
+                                            if($estadoSemanal==3){
+                                                echo "
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                    <a  href='pdf.php?semanalN=".$userCod."&estado=0' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</a>";
+                                            }
                                             if($estadoSemanal == 5){
+                                                echo "
+                                                    <input type='text' id='semanalN' name='semanalN' class='hidden' value='".$userCod."'>
+                                                    <a  href='pdf.php?semanalN=".$userCod."&estado=1' class='btn btn-primary btn-lg' id='btnHacerPDF'>PDF</a>";
                                                 echo "<a href='#' class='btn btn-warning btn-lg' id='btnModificarRealizado'>Modificar realizado</a>"; 
                                             }
                                         ?>

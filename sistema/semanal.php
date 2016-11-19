@@ -200,7 +200,7 @@
                                                         <thead>
                                                           <tr>
                                                             <th>FECHA</th>
-                                                            <th>NOMBRE DE LA ASOCIACION COOPERATIVA</th>
+                                                            <th>COOPERATIVA</th>
                                                             <th>DIRECCION-TELEFONO</th>
                                                             <th>CONTACTO</th>
                                                             <th>TIEMPO</th>
@@ -245,7 +245,10 @@
                                               "ajax":{
                                                 url :"proyectado-grid-data.php", // json datasource
                                                 type: "post",  // method  , by default get
-                                                data: { userCod: "<?php Print($userCod); ?>" },
+                                                data: { 
+                                                    userCod: "<?php Print($userCod); ?>",
+                                                    opc : "1" 
+                                                },
                                                 error: function(){  // error handling
                                                   $(".employee-grid-error").html("");
                                                   $("#proyectado-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');

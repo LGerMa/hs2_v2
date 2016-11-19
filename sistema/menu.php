@@ -80,7 +80,7 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proyectado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                             <?php 
-                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2"){
+                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2" && $_SESSION['usuario_sesion']->getIdPuesto() != "1"){
                                     echo "
                                        <li>
                                             <a href='./proyectado.php'>Ver</a>
@@ -92,7 +92,8 @@
                                 }
                             ?>
                             <?php 
-                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                //if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                if($_SESSION['usuario_sesion']->getIdPuesto()=="1"){
                                     echo "<li>
                                         <a href='./seguimientos.php'>Seguimiento</a>
                                     </li>";

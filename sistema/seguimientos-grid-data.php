@@ -16,6 +16,8 @@ $conn = cnx();
 $requestData= $_REQUEST;
 
 $opc = $_REQUEST["opc"];
+$correoJefe = $_REQUEST["correoJefe"];
+$infoJefe = getInfoUser($correoJefe);
 //$opc = $_GET["opc"];
 
 $columns = array( 
@@ -24,15 +26,29 @@ $columns = array(
 	1 => 'correoUsuario',
 	2 => 'registroSemanal'
 );
+/*$sql = "SELECT * ";
+$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";*/
 $sql = "SELECT * ";
-$sql.=" FROM semanal where idEstadoSemanal='".$opc."'";
+$sql.=" FROM semanal s 
+		inner join usuario u
+		on s.correoUsuario = u.correoUsuario 
+		where s.idEstadoSemanal = '".$opc."' &&
+		u.idUnidad= '".$infoJefe->getIdUnidad()."' &&
+		u.idZona = '".$infoJefe->getIdZona()."'";
 $query=mysqli_query($conn, $sql) or die("seguimientos-grid-data.php: get employees");
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
+/*$sql = "SELECT * ";
+$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";*/
 $sql = "SELECT * ";
-$sql.=" FROM semanal WHERE 1=1 && idEstadoSemanal='".$opc."'";
+$sql.=" FROM semanal s 
+		inner join usuario u
+		on s.correoUsuario = u.correoUsuario 
+		where s.idEstadoSemanal = '".$opc."' &&
+		u.idUnidad= '".$infoJefe->getIdUnidad()."' &&
+		u.idZona = '".$infoJefe->getIdZona()."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	$sql.=" AND ( codSemanal LIKE '".$requestData['search']['value']."%' ";    
 	$sql.=" OR correoUsuario LIKE '".$requestData['search']['value']."%' ";
@@ -54,7 +70,8 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$fecha = strtotime($fecha);
 	$nuevoFomato = date("d/m/y g:i A",$fecha);
 	$codSemanal = $row["codSemanal"];
-	$nestedData[] = $codSemanal;
+	//$nestedData[] = $codSemanal;
+	$nestedData[] = "<a href='semanal_jefe.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
 	//$nestedData[] = "<a href='perfil_semanal.php?codSemanal=".$codSemanal."'>".$codSemanal."</a>";
 	$nestedData[] = $row["correoUsuario"];
 	$nestedData[] = $nuevoFomato;

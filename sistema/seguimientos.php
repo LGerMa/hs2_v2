@@ -32,6 +32,7 @@
                             ?>
                           </select>
                         </div> 
+                        <input type="text" value="<?php echo $_SESSION['usuario_sesion']->getCorreoUsuario(); ?>" id="correoJefe" class="hidden">
                         <div class="form-group col-md-2">
                           <label>Filtrar</label>
                           <a href="#" id="btnBuscarSeguimiento" class="form-control btn btn-info">Buscar</a>
@@ -64,6 +65,7 @@
 	<?php include 'addJs.php'; ?>
 	<script type="text/javascript" language="javascript" >
       $(document).ready(function() {
+
         var selectEstadoProyectado = "";
         var dataTable = "";
         $("#btnBuscarSeguimiento").click(function(){
@@ -77,7 +79,8 @@
               url :"seguimientos-grid-data.php", // json datasource
               type: "post",  // method  , by default get
               data:{
-                opc: selectEstadoProyectado
+                opc: selectEstadoProyectado,
+                correoJefe: $("#correoJefe").val()
               },
               error: function(){  // error handling
                 $(".employee-grid-error").html("");

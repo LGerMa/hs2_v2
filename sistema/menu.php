@@ -22,8 +22,6 @@
                                 <a href='perfil_usuario.php?email=".$_SESSION['usuario_sesion']->getCorreoUsuario()."'><i class='fa fa-user fa-fw'></i>".$_SESSION['usuario_sesion']->getNombreUsuario()."</a>
                             </li>";
                         ?>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
                         <li class="divider"></li>
                         <li><a href="../php/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
@@ -75,12 +73,16 @@
                                 </li>
                             </ul>
                         </li> 
-                        <?php }?>
+                        <?php 
+                            }
+                            if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2"){
+                        ?>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proyectado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                             <?php 
-                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2"){
+                               // if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="2" && $_SESSION['usuario_sesion']->getIdPuesto() != "1"){
+                                if($_SESSION['usuario_sesion']->getIdPuesto() != "1"){
                                     echo "
                                        <li>
                                             <a href='./proyectado.php'>Ver</a>
@@ -92,11 +94,13 @@
                                 }
                             ?>
                             <?php 
-                                if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                //if($_SESSION['usuario_sesion']->getIdTipoUsuario()=="1" || $_SESSION['usuario_sesion']->getIdPuesto()=="1"){
+                                if($_SESSION['usuario_sesion']->getIdPuesto()=="1"){
                                     echo "<li>
                                         <a href='./seguimientos.php'>Seguimiento</a>
                                     </li>";
                                 }
+                            }
                             ?>
                             </ul>
                         </li>

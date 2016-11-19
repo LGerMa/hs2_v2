@@ -1,14 +1,16 @@
 <?php 
     include '../php/funciones.php';
     include '../php/verificar_sesion.php';
-    $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
+   // $userCod  = $_SESSION['usuario_sesion']->getCorreoUsuario();
     $semanalCod=$_GET["semanalN"];
+    $estado = $_GET["estado"];
     $codSeparado = explode("-",$semanalCod);
-    $email = $userCod;
-	$usuario = new usuario_class();
-	$usuario = getInfoUser($email);
-	$semanal = new usuario_class();
+    $semanal = new semanal_class();
 	$semanal = getInfoSemanal($semanalCod);
+
+    //$email = $userCod;
+	$usuario = new usuario_class();
+	$usuario = getInfoUser($semanal->getCorreoUsuario());
 		require('../pdf/cellfit.php');
 		$pdf = new FPDF_CellFit('L','mm',array(215,325));
 		$pdf->AddPage();
@@ -28,7 +30,10 @@
 		$pdf->MultiCell(63, 5, $col3);
 		//Formato de programas de labores proyectados.
 		$pdf->SetXY($x + 240, $y+3);
-		$col2="Formato de programas de labores proyectados.\n";
+		if($estado==0) //proyectado
+			$col2="Formato de programas de labores proyectados.\n";
+		else
+			$col2="Formato de programas de labores realizado.\n";
 		$pdf->MultiCell(68, 5, $col2);
 		//Imagen INSAFOCOOP
 		$pdf->Image('../imagenes/logo1.jpg',13,20,-250);
@@ -61,7 +66,7 @@
 		$col2='Semana del '.'Lunes '.$lunes.' Domingo '.$domingo.'.';
 		$pdf->MultiCell(120, 5, $col2);
 		//Tabla
-			$pdf->SetFont('Arial','B',6);
+			$pdf->SetFont('Arial','B',10);
 			//encabezado
 				//Fecha
 				$pdf->SetXY($x + 1, $y+48);
@@ -69,7 +74,7 @@
 				$pdf->MultiCell(20, 5, $col2,1);
 				//Nombre Asociacion
 				$pdf->SetXY($x + 21, $y+48);
-				$col2="NOMBRE DE LA ASOCIACION COOPERATIVA";
+				$col2="COOPERATIVA";
 				$pdf->MultiCell(50, 5, $col2,1);
 				//Direccion
 				$pdf->SetXY($x + 71, $y+48);
@@ -127,7 +132,7 @@
 					$pdf->CellFitScale(50, 5, $col2);
 					//Nombre Coop*****************************************************
 					$pdf->SetXY($x + 21, $y+5);
-					$col2=$row2["nombreCooperativa"];
+					$col2=$row2["abreviaturaCooperativa"];
 					$nombreCo=explode(" ", $col2);
 					$col2=" ";
 					$pdf->MultiCell(50, 10, $col2,1);

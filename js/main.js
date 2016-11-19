@@ -598,6 +598,108 @@ $("#btnEnviarAprobacion").click(function(){
     });
 });
 
+$("#btnAprobar").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 3
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
+
+$("#btnRechazar").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 4
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
+
+$("#btnModificarRealizado").click(function(){
+    $.ajax({
+        url: 'actualizar.php',
+        type: 'POST',
+        data:{
+            opc: 4,
+            codSemanal: $("#CodigoSemanal").val(),
+            nuevoEstado: 3
+        },
+        beforeSend:function(){
+            console.log("CodigoSemanal: "+$("#CodigoSemanal").val()+" - estado: 2");
+            respAlert("info","Actualizando estado...");
+        },
+        success: function(data){
+            console.log(data);
+            switch (data[0]) {
+                case '0':
+                    respAlert("warning","No se ha podido actualizar");
+                    break;
+                case '1':
+                   setTimeout(function(){
+                        respAlert("success","Semanal, actualizado...");
+                        redireccionar("semanal_jefe.php?codSemanal="+$("#CodigoSemanal").val());
+                    },1000);
+                    break;
+            }
+        },
+        error: function(data){
+            console.log(data);
+            respAlert("danger","Error...");
+        }
+    });
+});
+
 
 function insertarSemanal(codSemanal,semana,correo,registroSemanal){
 	//alert("codSemanal: "+codSemanal+" - semana: "+semana+" - correo: "+correo+" - registroSemanal: "+registroSemanal);

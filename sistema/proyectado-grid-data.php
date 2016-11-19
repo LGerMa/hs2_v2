@@ -14,7 +14,7 @@ $conn = cnx();
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
-
+$tipo = $_REQUEST["opc"];
 
 $userCod = $_POST['userCod'];
 $opc = $userCod;
@@ -44,7 +44,7 @@ $totalFiltered = $totalData;  // when there isset(var) no search parameter then 
 $sql = "SELECT * ";
 $sql.=" FROM actividad where codSemanal='".$opc."'";
 if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-	$sql.=" AND ( actividadProgramada LIKE '".$requestData['search']['value']."%' )"; 
+	$sql.=" AND ( actividadProgramada LIKE '%".$requestData['search']['value']."%' )"; 
 }
 $query=mysqli_query($conn, $sql) or die("proyectado-grid-data.php: get employees");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -68,8 +68,9 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$hora=$row["HoraIni"]." hasta ".$row["HoraFin"];
 	$secs=strtotime($row["HoraFin"])-strtotime($row["HoraIni"]);
 	$tiempoTotal= gmdate("H:i:s", $secs);
-	$nestedData[] = "<a href='perfil_semanal.php?actividad=".$idActividad."'>".$diaSemanaG."</a>";
-	$nestedData[] = $row2["nombreCooperativa"];
+	if($tipo=="1")
+		$nestedData[] = "<a href='perfil_semanal.php?actividad=".$idActividad."'>".$diaSemanaG."</a>";
+	$nestedData[] = $row2["abreviaturaCooperativa"];
 	$nestedData[] = $direcTele;
 	$nestedData[] = $row2["contactoCooperativa"];
 	$nestedData[] = $tiempoTotal;

@@ -81,6 +81,22 @@
 		return $usuario;
 	}
 
+	function getInfoSemanal($codSemanal){
+		$cnx=cnx();
+		$query=sprintf("SELECT * FROM semanal where codSemanal='%s'",mysqli_real_escape_string($cnx,$codSemanal));
+		$result=mysqli_query($cnx,$query);
+		while ($row=mysqli_fetch_array($result)) {
+			$semanal = new semanal_class();
+			$semanal->_setCodSemanal($row["codSemanal"]);
+			$semanal->_setSemana($row["semana"]);
+			$semanal->_setFechaRegistro($row["registroSemanal"]);
+			$semanal->_setCorreoUsuario($row["correoUsuario"]);
+			$semanal->_setIdEstadoSemanal($row["idEstadoSemanal"]);
+		}
+		mysqli_close($cnx);
+		return $semanal;
+	}
+
 	function getInfoCooper($cooper){
 		$cnx = cnx();
 		$query = sprintf("SELECT * FROM cooperativa WHERE codCooperativa='%s'",

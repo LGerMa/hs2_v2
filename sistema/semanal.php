@@ -192,6 +192,10 @@
                                     </div>
                                   <div id="respuestaAlert"></div>
                                 </form>
+                                <form id='form_PDF' method='get' action='pdf.php'>
+                                        <input type='text' id='semanalN' name='semanalN' class='hidden' value='<?php echo $userCod ?>'>
+                                        <button  type='submit' class='btn btn-primary btn-md' id='btnHacerPDF'>PDF</button>
+                                </form>
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-10">

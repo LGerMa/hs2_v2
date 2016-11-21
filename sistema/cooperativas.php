@@ -1,7 +1,8 @@
 <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
-  include '../php/verificar_admin.php';
+  include '../php/verificar_admin_cooper.php';
+  //include '../php/verificar_admin.php';
  ?>
  <!DOCTYPE html>
  <html lang="en">

@@ -7,6 +7,7 @@
 		case "1": 
 			//actualizar usuario
 			# code...
+			$flag = $_POST["npass"];
 			$usuario = new usuario_class();
 			$usuario->_setCorreoUsuario($_POST["email"]);
 			$usuario->_setPassUsuario($_POST["pass"]);
@@ -16,12 +17,22 @@
 			$usuario->_setIdUnidad($_POST["unidad"]);
 			$usuario->_setIdPuesto($_POST["puesto"]);
 			$usuario->_setIdZona($_POST["zona"]);
-			if(actualizarUsuario($usuario)){
-				echo "1";
+			if($flag){ //si flag es 1, habra nueva contraseña
+				if(actualizarUsuario($usuario)){
+					echo "1";
 				//si se actualizo correctamente
+				}else{
+					echo "0";
+					//si hubo algun error
+				}
 			}else{
-				echo "0";
-				//si hubo algun error
+				if(actualizarUsuario2($usuario)){
+					echo "1";
+				//si se actualizo correctamente
+				}else{
+					echo "0";
+					//si hubo algun error
+				}
 			}
 			break;
 		case "2":

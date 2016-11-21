@@ -187,6 +187,15 @@
 		mysqli_close($cnx);
 		return $unidad;
 	}
+	function getZona($idZona){
+		$cnx = cnx();
+		$query=sprintf("SELECT tipoZona FROM zona where idZona = '%s' ",mysqli_real_escape_string($cnx,$idZona));
+		$result = mysqli_query($cnx,$query);
+		$row = mysqli_fetch_array($result);
+		$zona = $row["tipoZona"];
+		mysqli_close($cnx);
+		return $zona;
+	}
 	function getCoop($codCooperativa){
 		$cnx = cnx();
 		$query=sprintf("SELECT cooperativa FROM nombreCooperativa where codCooperativa = '%s' ",mysqli_real_escape_string($cnx,$codCooperativa));
@@ -435,6 +444,21 @@
 		$cnx = cnx();
 		$query = sprintf("UPDATE usuario SET passUsuario = '%s', nombreUsuario ='%s', apellidoUsuario = '%s', idTipoUsuario = '%s', idUnidad = '%s', idPuesto = '%s', idZona = '%s', fechaModificadoUsuario = now() WHERE correoUsuario = '%s'",
 			mysqli_real_escape_string($cnx, md5($usuario->getPassUsuario())),
+			mysqli_real_escape_string($cnx, $usuario->getNombreUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getApellidoUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getIdTipoUsuario()),
+			mysqli_real_escape_string($cnx, $usuario->getIdUnidad()),
+			mysqli_real_escape_string($cnx, $usuario->getIdPuesto()),
+			mysqli_real_escape_string($cnx, $usuario->getIdZona()),
+			mysqli_real_escape_string($cnx, $usuario->getCorreoUsuario())
+			);
+		$estado = mysqli_query($cnx, $query);
+		mysqli_close($cnx);
+		return $estado;
+	}
+	function actualizarUsuario2($usuario){
+		$cnx = cnx();
+		$query = sprintf("UPDATE usuario SET passUsuario = passUsuario, nombreUsuario ='%s', apellidoUsuario = '%s', idTipoUsuario = '%s', idUnidad = '%s', idPuesto = '%s', idZona = '%s', fechaModificadoUsuario = now() WHERE correoUsuario = '%s'",
 			mysqli_real_escape_string($cnx, $usuario->getNombreUsuario()),
 			mysqli_real_escape_string($cnx, $usuario->getApellidoUsuario()),
 			mysqli_real_escape_string($cnx, $usuario->getIdTipoUsuario()),

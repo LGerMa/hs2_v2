@@ -208,16 +208,19 @@ $(document).ready(function(){
 		var zona = $("#selectZona").val();
 		var check1 = document.getElementById("chkCambiarPassPerfil").checked;
 		var flag = true;
+		var flag2 = 0;
 		if(check1){ //habra pass nuevo
 			flag = false;
 			if(newPass==confirmarPass){
 				//alert("son iguales");
 				pass = newPass;
 				flag = true;
+				flag2 = 1;
 			}else{
 				//alert("no son iguales");
 				respAlert("warning","No coinciden las contrase&ntilde;as");
 				flag = false;
+				flag2 = 0;
 			}
 		}
 
@@ -227,6 +230,7 @@ $(document).ready(function(){
 				type: 'POST',
 				data:{
 					opc: 1,
+					npass : flag2,
 					email: email,
 					pass: pass,
 					nombre: nombre,

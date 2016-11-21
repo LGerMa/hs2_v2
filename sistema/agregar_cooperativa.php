@@ -1,7 +1,7 @@
 <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
-    include '../php/verificar_admin.php';
+    include '../php/verificar_admin_cooper.php';
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -27,12 +27,12 @@
                         $palabra = "cp".date("y")."_".md5(time());
                         $palabra2 = substr($palabra,0,-25);
                         $palabra2 = strtoupper($palabra2);
-                        echo "<br> palabra2: ".$palabra2." size: ".strlen($palabra2);
+                        //echo "<br> palabra2: ".$palabra2." size: ".strlen($palabra2);
                         ?>
                         <form id="form_agregarCooper">
                         	<div class="form-group col-md-6">
                                 <label>C&oacute;digo Cooperativa</label>
-                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>">	
+                        		<input type="text" id="codigoCoop" name="codigoCoop" autofocus class="form-control" placeholder="C&oacute;digo Cooperativa" required value="<?php echo $palabra2; ?>" disabled>	
                         	</div>
                             <div class="form-group col-md-6">
                                 <label>Abreviatura Cooperativa</label>

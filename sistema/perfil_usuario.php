@@ -94,6 +94,10 @@
 		                                    ?>
 										</select>
 									</div>
+									<div class="form-group col-md-6">
+										<label>Unidad: </label>
+										<input type = "text" class="form-control" value="<?php echo getUnidad($_SESSION['usuario_sesion']->getIdUnidad());?>" disabled>
+									</div>
 									<div class="form-group col-md-6" hidden>
 										<label>Unidad: </label>
 										<select class="form-control" id="selectUnidad" disabled>
@@ -109,6 +113,10 @@
 		                                    ?>
 										</select>
 									</div>
+									<div class="form-group col-md-6">
+										<label>Puesto: </label>
+										<input type = "text" class="form-control" value="<?php echo strtoupper(getPuesto($_SESSION['usuario_sesion']->getIdPuesto()));?>" disabled>
+									</div>
 									<div class="form-group col-md-6" hidden>
 										<label>Puesto:</label>
 		                                <select class="form-control" id="selectPuesto" disabled>
@@ -123,6 +131,10 @@
 		                                    	}
 		                                    ?>
 		                                </select>
+									</div>
+									<div class="form-group col-md-6">
+										<label>Zona: </label>
+										<input type = "text" class="form-control" value="<?php echo strtoupper(getZona($_SESSION['usuario_sesion']->getIdZona()));?>" disabled>
 									</div>
 									<div class="form-group col-md-6" hidden>
 		                                <label>Zona: </label>

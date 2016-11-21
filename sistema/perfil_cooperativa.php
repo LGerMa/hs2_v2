@@ -1,7 +1,7 @@
 <?php 
 	include '../php/funciones.php';
 	include '../php/verificar_sesion.php';
-	include '../php/verificar_admin.php';
+	include '../php/verificar_admin_cooper.php';
 	$codCooper = $_GET["codCooper"];
 	$cooper = new cooperativa_class();
 	$cooper = getInfoCooper($codCooper);
@@ -29,7 +29,7 @@
 					<div class="col-sm-10 col-md-10">
 						<br>
 						<a href="cooperativas.php" class="btn btn-success">Atr&aacute;s</a>
-						<h1 class="page-header">Perfil: <?php echo "codCooper->".$cooper->getCodCooperativa(); ?>	
+						<h1 class="page-header">Perfil de cooperativa: <?php echo "'".$cooper->getAbreviaturaCooperativa()."'"; ?>	
 						</h1>
 						<form id="form_perfilCooperativa">
 							<div class="form-group col-md-6">
